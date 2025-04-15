@@ -5,16 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VenusHub - AR Catalog</title>
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <style>
+        body {
+            background-color: #000; /* Dark background */
+            color: white;
+            text-align: center;
+        }
+        #model-viewer-container {
+            display: none; /* Hide model viewer by default */
+            width: 100%;
+            max-width: 600px;
+            margin: auto;
+        }
+    </style>
 </head>
 <body>
     <h1>Welcome to VenusHub AR Catalog</h1>
     <p>Scan the QR code to explore our products in Augmented Reality!</p>
 
-    <h2>View Product in AR:</h2>
-    <!-- Interactive AR Model Viewer for Android (glTF) -->
-  <model-viewer src="models/Chat.glb" ar auto-rotate camera-controls style="background-color: #000; width: 100%; height: 500px;"></model-viewer>
+    <h2>Select a Model:</h2>
+    <button onclick="showModel()">View Chat Model</button>
+
+    <!-- Hidden Model Viewer Initially -->
+    <div id="model-viewer-container">
+        <model-viewer src="models/Chat.glb" ar auto-rotate camera-controls></model-viewer>
+    </div>
 
     <!-- iPhone (USDZ) Link -->
-    <a rel="ar" href="../models/sample.usdz">View in AR (iPhone)</a>
+    <a rel="ar" href="models/sample.usdz">View in AR (iPhone)</a>
+
+    <script>
+        function showModel() {
+            document.getElementById('model-viewer-container').style.display = 'block';
+        }
+    </script>
 </body>
 </html>

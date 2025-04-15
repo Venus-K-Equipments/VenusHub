@@ -1,4 +1,4 @@
-<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>VenusHub - AR Catalog</title> <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script> <style> body { background-color: #000; color: white; text-align: center; font-family: Arial, sans-serif; } .grid-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 20px; } .thumbnail { width: 200px; height: 200px; background-color: #222; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 10px; transition: transform 0.3s ease-in-out; } .thumbnail:hover { transform: scale(1.1); } .thumbnail img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; } #expanded-viewer { display: none; position: fixed; top: 10%; left: 50%; transform: translateX(-50%); width: 75%; height: 75vh; z-index: 1000; background-color: rgba(0, 0, 0, 0.9); padding: 10px; border-radius: 15px; animation: fadeIn 0.4s ease-in-out; } @keyframes fadeIn { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: scale(1); } } .close-btn { position: absolute; top: 10px; right: 15px; background: red; color: white; border: none; padding: 8px 12px; font-size: 16px; cursor: pointer; border-radius: 5px; } </style> </head> <body> <h1>Welcome to VenusHub AR Catalog</h1> <p>Scan the QR code to explore our products in Augmented Reality!</p> <h2>Select a Model:</h2> <!-- Model Thumbnails --> <div class="grid-container"> <div class="thumbnail" onclick="expandModel('models/Chat.glb')"> <img src="models/chat.jpg" alt="Chat Model"> </div> <div class="thumbnail" onclick="expandModel('models/Model2.glb')"> <img src="models/model2-thumbnail.jpg" alt="Model 2"> </div> </div> <!-- Expanded Model Viewer --> <div id="expanded-viewer"> <button class="close-btn" onclick="closeViewer()">X</button> <model-viewer id="large-viewer" src="" ar auto-rotate camera-controls style="height: 75vh;"></model-viewer> <script> function expandModel(modelPath) { const viewer = document.getElementById('large-viewer'); viewer.setAttribute('src', modelPath); document.getElementById('expanded-viewer').style.display = 'block'; } function closeViewer() { document.getElementById('expanded-viewer').style.display = 'none'; } </script> </body> </html><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -42,9 +42,9 @@
         #expanded-viewer {
             display: none;
             position: fixed;
-            top: 50%;
+            top: 10%;
             left: 50%;
-            transform: translate(-50%, -50%);
+            transform: translateX(-50%);
             width: 75%;
             height: 75vh;
             z-index: 1000;
@@ -52,14 +52,8 @@
             padding: 10px;
             border-radius: 15px;
             animation: fadeIn 0.4s ease-in-out;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.5); }
-            to { opacity: 1; transform: scale(1); }
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: scale(1); } }
         .close-btn {
             position: absolute;
             top: 10px;
@@ -77,13 +71,12 @@
 <body>
     <h1>Welcome to VenusHub AR Catalog</h1>
     <p>Scan the QR code to explore our products in Augmented Reality!</p>
-
     <h2>Select a Model:</h2>
 
     <!-- Model Thumbnails -->
     <div class="grid-container">
         <div class="thumbnail" onclick="expandModel('models/Chat.glb')">
-           <img src="models/chat.jpg" alt="Chat Model">
+           <img src="models/Chat.jpg" alt="Chat Counter">
         </div>
         <div class="thumbnail" onclick="expandModel('models/Model2.glb')">
             <img src="models/model2-thumbnail.jpg" alt="Model 2">
@@ -93,19 +86,18 @@
     <!-- Expanded Model Viewer -->
     <div id="expanded-viewer">
         <button class="close-btn" onclick="closeViewer()">X</button>
-        <model-viewer id="large-viewer" src="" ar auto-rotate camera-controls style="width: 100%; height: 100%;"></model-viewer>
+        <model-viewer id="large-viewer" src="" ar auto-rotate camera-controls style="width: 75%; height: 75%;"></model-viewer>
     </div>
 
     <script>
         function expandModel(modelPath) {
             const viewer = document.getElementById('large-viewer');
             viewer.setAttribute('src', modelPath);
-            document.getElementById('expanded-viewer').style.display = 'flex'; // Show only when clicked
+            document.getElementById('expanded-viewer').style.display = 'block';
         }
 
         function closeViewer() {
             document.getElementById('expanded-viewer').style.display = 'none';
-            document.getElementById('large-viewer').setAttribute('src', ''); // Clear model src
         }
     </script>
 </body>

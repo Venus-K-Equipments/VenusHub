@@ -32,11 +32,15 @@
             width: 180px;
             height: 180px;
         }
-        #model-viewer-container {
-            display: none; /* Hide large viewer by default */
-            width: 100%;
-            max-width: 600px;
-            margin: auto;
+        #expanded-viewer {
+            display: none; /* Hidden initially */
+            position: fixed;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70%; /* Expands to 70% of window */
+            height: auto;
+            z-index: 1000;
         }
     </style>
 </head>
@@ -48,23 +52,28 @@
 
     <!-- Grid of Model Tiles -->
     <div class="grid-container">
-        <div class="tile" onclick="showModel('models/Chat.glb')">
+        <div class="tile" onclick="expandModel('models/Chat.glb')">
             <model-viewer src="models/Chat.glb" auto-rotate camera-controls></model-viewer>
         </div>
-        <div class="tile" onclick="showModel('models/Model2.glb')">
+        <div class="tile" onclick="expandModel('models/Model2.glb')">
             <model-viewer src="models/Model2.glb" auto-rotate camera-controls></model-viewer>
         </div>
     </div>
 
-    <!-- Large Model Viewer -->
-    <div id="model-viewer-container">
-        <model-viewer id="large-viewer" src="" ar auto-rotate camera-controls></model-viewer>
-    </div>
+    <!-- Expanded Model Viewer -->
+    <model-viewer id="expanded-viewer" src="" ar auto-rotate camera-controls></model-viewer>
 
     <script>
-        function showModel(modelPath) {
-            document.getElementById('large-viewer').setAttribute('src', modelPath);
-            document.getElementById('model-viewer-container').style.display = 'block';
+        function expandModel(modelPath) {
+            const viewer = document.getElementById('expanded-viewer');
+            viewer.setAttribute('src', modelPath);
+            viewer.style.display = 'block';
+
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape') {
+                    viewer.style.display = 'none';
+                }
+            });
         }
     </script>
 </body>

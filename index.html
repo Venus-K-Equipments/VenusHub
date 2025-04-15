@@ -40,7 +40,7 @@
             border-radius: 10px;
         }
                 #expanded-viewer {
-    display: none;
+    display: none; /* Keep it hidden initially */
     position: fixed;
     top: 50%;
     left: 50%;
@@ -53,10 +53,9 @@
     border-radius: 15px;
     animation: fadeIn 0.4s ease-in-out;
     display: flex;
-    align-items: center;  /* Center vertically */
-    justify-content: center; /* Center horizontally */
+    align-items: center;
+    justify-content: center;
 }
-
         @keyframes fadeIn { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: scale(1); } }
         
         .close-btn {
@@ -97,11 +96,12 @@
 
 
     <script>
-        function expandModel(modelPath) {
-            const viewer = document.getElementById('large-viewer');
-            viewer.setAttribute('src', modelPath);
-            document.getElementById('expanded-viewer').style.display = 'block';
-        }
+       function expandModel(modelPath) {
+    const viewer = document.getElementById('large-viewer');
+    viewer.setAttribute('src', modelPath);
+    document.getElementById('expanded-viewer').style.display = 'flex'; // Display ONLY on click
+}
+
 
         function closeViewer() {
             document.getElementById('expanded-viewer').style.display = 'none';

@@ -4,13 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VenusHub - AR Catalog</title>
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 </head>
 <body>
     <h1>Welcome to VenusHub AR Catalog</h1>
     <p>Scan the QR code to explore our products in Augmented Reality!</p>
 
     <h2>View Product in AR:</h2>
-    <a href="models/sample.glb">View in AR (Android)</a>
-    <a rel="ar" href="models/sample.usdz">View in AR (iPhone)</a>
+    <!-- Interactive AR Model Viewer for Android (glTF) -->
+    <model-viewer src="../models/sample.glb" ar auto-rotate camera-controls></model-viewer>
+
+    <!-- iPhone (USDZ) Link -->
+    <a rel="ar" href="../models/sample.usdz">View in AR (iPhone)</a>
 </body>
 </html>

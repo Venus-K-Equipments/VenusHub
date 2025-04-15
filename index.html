@@ -42,9 +42,9 @@
         #expanded-viewer {
             display: none;
             position: fixed;
-            top: 10%;
+            top: 50%;
             left: 50%;
-            transform: translateX(-50%);
+            transform: translate(-50%, -50%);
             width: 75%;
             height: 75vh;
             z-index: 1000;
@@ -91,10 +91,10 @@
 
     <script>
         function expandModel(modelPath) {
-            const viewer = document.getElementById('large-viewer');
-            viewer.setAttribute('src', modelPath);
-            document.getElementById('expanded-viewer').style.display = 'block';
-        }
+    const viewer = document.getElementById('large-viewer');
+    viewer.setAttribute('src', modelPath);
+    document.getElementById('expanded-viewer').style.display = 'flex';
+}
 
         function closeViewer() {
             document.getElementById('expanded-viewer').style.display = 'none';

@@ -130,6 +130,10 @@
       width: 90%;
       height: 60vh;
     }
+    /* Add this */
+  .menu:active {
+    cursor: grabbing;
+  }
   }
   @media only screen and (max-width: 480px) {
     .menu {
@@ -203,6 +207,29 @@
       document.getElementById('expanded-viewer').style.display = 'none';
       document.getElementById('large-viewer').setAttribute('src', ''); // Clears the model
     }
+    // Add the draggable menu code here
+  let menu = document.querySelector('.menu');
+  let isDown = false;
+  let offset = [0, 0];
+
+  menu.addEventListener('touchstart', (e) => {
+    isDown = true;
+    offset = [
+      menu.offsetLeft - e.touches[0].clientX,
+      menu.offsetTop - e.touches[0].clientY
+    ];
+  });
+
+  document.addEventListener('touchmove', (e) => {
+    if (isDown) {
+      menu.style.left = `${e.touches[0].clientX + offset[0]}px`;
+      menu.style.top = `${e.touches[0].clientY + offset[1]}px`;
+    }
+  });
+
+  document.addEventListener('touchend', () => {
+    isDown = false;
+  });
   </script>
 </body>
 </html>

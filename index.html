@@ -7,26 +7,35 @@
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
   <style>
     .menu {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      background-color: #333;
-      color: white;
-      padding: 10px;
-      border-radius: 10px;
-    }
-    .menu ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    .menu li {
-      cursor: pointer;
-      padding: 10px;
-    }
-    .menu li:hover {
-      background-color: #444;
-    }
+    position: absolute;
+    top: 120px; /* Adjusts position above thumbnails */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(47, 79, 79, 0.9); /* Dark Slate Gray */
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    display: flex;
+    gap: 20px;
+}
+        .menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 30px;
+        }
+        .menu li {
+            cursor: pointer;
+            padding: 10px 15px;
+            font-size: 18px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            transition: background 0.3s ease-in-out;
+        }
+        .menu li:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
     body {
       background: linear-gradient(135deg, #F8B195, #F67280, #C06C84, #6C5B7B);
       color: white;

@@ -93,11 +93,10 @@
 
     <script>
         function expandModel(modelPath) {
-            const viewer = document.getElementById('large-viewer');
-            viewer.setAttribute('src', modelPath);
-            document.getElementById('expanded-viewer').style.display = 'flex';
-        }
-
+  const viewer = document.getElementById('large-viewer');
+  viewer.setAttribute('src', modelPath);
+  document.getElementById('expanded-viewer').style.display = 'flex';
+}
         function closeViewer() {
             document.getElementById('expanded-viewer').style.display = 'none';
         }

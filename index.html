@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VenusHub - AR Catalog</title>
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         body {
-            background-color: #000;
+            background: linear-gradient(135deg, #1a1a1a, #333);
             color: white;
             text-align: center;
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
         .grid-container {
             display: flex;
@@ -20,24 +21,26 @@
             margin-top: 20px;
         }
         .thumbnail {
-            width: 200px;
-            height: 200px;
-            background-color: #222;
+            width: 220px;
+            height: 220px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            border-radius: 10px;
-            transition: transform 0.3s ease-in-out;
+            border-radius: 15px;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
         }
         .thumbnail:hover {
             transform: scale(1.1);
+            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.3);
         }
         .thumbnail img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 10px;
+            border-radius: 15px;
         }
         #expanded-viewer {
             display: none;
@@ -45,38 +48,50 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 75%;
-            height: 75vh;
+            width: 80%;
+            height: 80vh;
             z-index: 1000;
-            background-color: rgba(0, 0, 0, 0.9);
-            padding: 10px;
-            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            padding: 15px;
+            border-radius: 20px;
             animation: fadeIn 0.4s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        @keyframes fadeIn { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: scale(1); } }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.5); }
+            to { opacity: 1; transform: scale(1); }
+        }
         .close-btn {
             position: absolute;
-            top: 10px;
-            right: 15px;
+            top: 15px;
+            right: 20px;
             background: red;
             color: white;
             border: none;
-            padding: 8px 12px;
-            font-size: 16px;
+            padding: 10px 15px;
+            font-size: 18px;
             cursor: pointer;
-            border-radius: 5px;
+            border-radius: 8px;
+            transition: background 0.3s ease-in-out;
+        }
+        .close-btn:hover {
+            background: darkred;
         }
     </style>
 </head>
 <body>
     <h1>Welcome to VenusHub AR Catalog</h1>
     <p>Scan the QR code to explore our products in Augmented Reality!</p>
+
     <h2>Select a Model:</h2>
 
     <!-- Model Thumbnails -->
     <div class="grid-container">
         <div class="thumbnail" onclick="expandModel('models/Chat.glb')">
-           <img src="models/chat.jpg" alt="Chat Counter">
+           <img src="models/chat.jpg" alt="Chat Model">
         </div>
         <div class="thumbnail" onclick="expandModel('models/Model2.glb')">
             <img src="models/model2-thumbnail.jpg" alt="Model 2">
@@ -86,18 +101,19 @@
     <!-- Expanded Model Viewer -->
     <div id="expanded-viewer">
         <button class="close-btn" onclick="closeViewer()">X</button>
-        <model-viewer id="large-viewer" src="" ar auto-rotate camera-controls style="width: 75%; height: 75%;"></model-viewer>
+        <model-viewer id="large-viewer" src="" ar auto-rotate camera-controls style="width: 100%; height: 100%;"></model-viewer>
     </div>
 
     <script>
         function expandModel(modelPath) {
-    const viewer = document.getElementById('large-viewer');
-    viewer.setAttribute('src', modelPath);
-    document.getElementById('expanded-viewer').style.display = 'flex';
-}
+            const viewer = document.getElementById('large-viewer');
+            viewer.setAttribute('src', modelPath);
+            document.getElementById('expanded-viewer').style.display = 'flex';
+        }
 
         function closeViewer() {
             document.getElementById('expanded-viewer').style.display = 'none';
+            document.getElementById('large-viewer').setAttribute('src', '');
         }
     </script>
 </body>

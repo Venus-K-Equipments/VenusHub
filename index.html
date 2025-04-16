@@ -255,14 +255,18 @@
   let thumbnail = document.querySelectorAll('.thumbnail');
 let doubleClick = false;
 let timeout;
-
 thumbnail.forEach((thumb) => {
   thumb.addEventListener('click', () => {
+    let modelPath = thumb.querySelector('img').getAttribute('src').replace('.jpg', '.glb');
     if (doubleClick) {
       doubleClick = false;
       clearTimeout(timeout);
-      let modelPath = thumb.querySelector('img').getAttribute('src').replace('.jpg', '.glb');
-      expandModel(modelPath);
+      if (modelPath.includes('models/')) {
+        expandModel(modelPath);
+      } else {
+        // Handle invalid model path
+        console.log('Invalid model path');
+      }
     } else {
       doubleClick = true;
       timeout = setTimeout(() => {

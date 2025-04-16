@@ -41,24 +41,24 @@
             height: 100%;
             object-fit: cover;
             border-radius: 15px;
-        }
-        #expanded-viewer {
-    display: none; /* Keeps it hidden initially */
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 75%;
-    height: 75vh;
-    z-index: 1000;
-    background: rgba(0, 0, 0, 0.9);
-    padding: 10px;
-    border-radius: 15px;
-    animation: fadeIn 0.4s ease-in-out;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+         }
+                    #expanded-viewer {
+                display: none; /* Ensures it's hidden initially */
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 75%;
+                height: 75vh;
+                z-index: 1000;
+                background: rgba(0, 0, 0, 0.9);
+                padding: 10px;
+                border-radius: 15px;
+                animation: fadeIn 0.4s ease-in-out;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: scale(0.5); }
@@ -105,14 +105,15 @@
     </div>
 
     <script>
-                function expandModel(modelPath) {
-            const viewer = document.getElementById('large-viewer');
-            viewer.setAttribute('src', modelPath);
-            document.getElementById('expanded-viewer').style.display = 'flex';
-        }
-        function closeViewer() {
+               function expandModel(modelPath) {
+    const viewer = document.getElementById('large-viewer');
+    viewer.setAttribute('src', modelPath);
+    document.getElementById('expanded-viewer').style.display = 'flex';
+}
+
+function closeViewer() {
     document.getElementById('expanded-viewer').style.display = 'none';
-    document.getElementById('large-viewer').setAttribute('src', ''); // Clears the model
+    document.getElementById('large-viewer').setAttribute('src', ''); // Clears model src
 }
     </script>
 </body>

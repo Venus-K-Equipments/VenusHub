@@ -252,25 +252,25 @@
     isDown = false;
   });
     // Add the double tap code here
-  let tapTimeout;
   let thumbnail = document.querySelectorAll('.thumbnail');
+let doubleClick = false;
+let timeout;
 
-  thumbnail.forEach((thumb) => {
-    thumb.addEventListener('touchstart', (e) => {
-      if (tapTimeout) {
-        clearTimeout(tapTimeout);
-        tapTimeout = null;
-        // Double tap detected, expand model
-        let modelPath = thumb.querySelector('img').getAttribute('src').replace('.jpg', '.glb');
-        expandModel(modelPath);
-      } else {
-        tapTimeout = setTimeout(() => {
-          tapTimeout = null;
-          // Single tap, do nothing or show hint
-        }, 300);
-      }
-    });
+thumbnail.forEach((thumb) => {
+  thumb.addEventListener('click', () => {
+    if (doubleClick) {
+      doubleClick = false;
+      clearTimeout(timeout);
+      let modelPath = thumb.querySelector('img').getAttribute('src').replace('.jpg', '.glb');
+      expandModel(modelPath);
+    } else {
+      doubleClick = true;
+      timeout = setTimeout(() => {
+        doubleClick = false;
+      }, 300);
+    }
   });
+});
   </script>
 </body>
 </html>

@@ -106,15 +106,15 @@
 
     <script>
         function expandModel(modelPath) {
-            const viewer = document.getElementById('large-viewer');
-            viewer.setAttribute('src', modelPath);
-            document.getElementById('expanded-viewer').style.display = 'flex';
-        }
+    const viewer = document.getElementById('large-viewer');
+    viewer.setAttribute('src', modelPath);
+    document.getElementById('expanded-viewer').style.display = 'flex';
+}
 
         function closeViewer() {
-            document.getElementById('expanded-viewer').style.display = 'none';
-            document.getElementById('large-viewer').setAttribute('src', '');
-        }
+    document.getElementById('expanded-viewer').style.display = 'none';
+    document.getElementById('large-viewer').setAttribute('src', ''); // Clears the model src
+}
     </script>
 </body>
 </html>

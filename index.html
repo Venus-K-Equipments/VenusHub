@@ -179,16 +179,14 @@
   <p>Scan the QR code to explore our products in Augmented Reality!</p>
 
   <!-- Thumbnails for Chat Counters (Initially Hidden) -->
-  <div id="chat" class="grid-container">
-    <div class="thumbnail" onclick="expandModel('models/Chat.glb')">
-      <p>Chat Counter 1</p>
-      <img src="models/chat.jpg" alt="Chat Counter 1">
-    </div>
-    <div class="thumbnail" onclick="expandModel('models/Chat2.glb')">
-      <p>Chat Counter 2</p>
-      <img src="models/chat2.jpg" alt="Chat Counter 2">
-    </div>
-  </div>
+  <div class="thumbnail" data-model="models/Chat.glb">
+  <p>Chat Counter 1</p>
+  <img src="models/chat.jpg" alt="Chat Counter 1">
+</div>
+    <div class="thumbnail" data-model="models/Chat2.glb">
+  <p>Chat Counter 2</p>
+  <img src="models/chat.jpg" alt="Chat Counter2">
+</div>
 
   <!-- Thumbnails for Work Tables (Initially Hidden) -->
   <div id="worktable" class="grid-container">
@@ -207,7 +205,6 @@
     <button class="close-btn" onclick="closeViewer()">X</button>
     <model-viewer id="large-viewer" src="" ar auto-rotate camera-controls style="width: 100%; height: 100%;"></model-viewer>
   </div>
-
   <script>
     function showThumbnails(category) {
       // Hide all category thumbnails first
@@ -252,16 +249,16 @@
     isDown = false;
   });
     // Add the double tap code here
-  let thumbnail = document.querySelectorAll('.thumbnail');
+ let thumbnail = document.querySelectorAll('.thumbnail');
 let doubleClick = false;
 let timeout;
 thumbnail.forEach((thumb) => {
   thumb.addEventListener('click', () => {
-    let modelPath = thumb.querySelector('img').getAttribute('src').replace('.jpg', '.glb');
+    let modelPath = thumb.getAttribute('data-model');
     if (doubleClick) {
       doubleClick = false;
       clearTimeout(timeout);
-      if (modelPath.includes('models/')) {
+      if (modelPath) {
         expandModel(modelPath);
       } else {
         // Handle invalid model path

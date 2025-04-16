@@ -252,26 +252,22 @@
     isDown = false;
   });
     // Add the double tap code here
-  let lastTap = 0;
+  let tapTimeout;
   let thumbnail = document.querySelectorAll('.thumbnail');
 
   thumbnail.forEach((thumb) => {
-    let hint = document.createElement('span');
-    hint.textContent = 'Double click to AR view';
-    hint.style.fontSize = '12px';
-    hint.style.color = 'white';
-    thumb.appendChild(hint);
-
     thumb.addEventListener('touchstart', (e) => {
-      let currentTime = new Date().getTime();
-      let tapLength = currentTime - lastTap;
-      lastTap = currentTime;
-
-      if (tapLength < 300 && tapLength > 0) {
+      if (tapTimeout) {
+        clearTimeout(tapTimeout);
+        tapTimeout = null;
         // Double tap detected, expand model
         let modelPath = thumb.querySelector('img').getAttribute('src').replace('.jpg', '.glb');
-        modelPath = modelPath.replace('models/', 'models/');
         expandModel(modelPath);
+      } else {
+        tapTimeout = setTimeout(() => {
+          tapTimeout = null;
+          // Single tap, do nothing or show hint
+        }, 300);
       }
     });
   });

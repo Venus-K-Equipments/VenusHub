@@ -112,6 +112,35 @@
       border-radius: 5px;
       z-index: 1;
     }
+    /* Add the media queries here */
+  @media only screen and (max-width: 768px) {
+    .menu {
+      flex-direction: column;
+      gap: 10px;
+    }
+    .menu ul {
+      flex-direction: column;
+      gap: 10px;
+    }
+    .thumbnail {
+      width: 40vw;
+      height: 40vw;
+    }
+    #expanded-viewer {
+      width: 90%;
+      height: 60vh;
+    }
+  }
+  @media only screen and (max-width: 480px) {
+    .menu {
+      top: 100px;
+    }
+    .thumbnail {
+      width: 60vw;
+      height: 60vw;
+    }
+  }
+</style>
   </style>
 </head>
 <body>
@@ -120,8 +149,8 @@
     <ul>
       <li onclick="showThumbnails('chat')">Chat Counter</li>
       <li onclick="showThumbnails('worktable')">Work Table</li>
-      <li onclick="showThumbnails('worktable')">Counters </li>
-      <li onclick="showThumbnails('worktable')">Sink</li>
+      <li onclick="showThumbnails('Counter')">Counters </li>
+      <li onclick="showThumbnails('Sink')">Sink</li>
       
     </ul>
   </div>
@@ -134,7 +163,7 @@
     <div class="thumbnail" onclick="expandModel('models/Chat.glb')">
       <img src="models/chat.jpg" alt="Chat Counter 1">
     </div>
-    <div class="thumbnail" onclick="expandModel('models/Chat.glb')">
+    <div class="thumbnail" onclick="expandModel('models/Chat2.glb')">
       <img src="models/chat2.jpg" alt="Chat Counter 2">
     </div>
   </div>

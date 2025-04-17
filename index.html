@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>VenusHub - AR Catalog</title>
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <img id="logo" src="path_to_your_logo.png" alt="Logo">
   <style>
     /* Menu Styling */
     .menu {
@@ -162,6 +163,26 @@
   bottom: 10px;
   left: 50%;
   transform: translateX(-50%);
+}
+
+    #logo {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 100px; /* Adjust the width to fit your logo */
+  height: auto;
+  z-index: 1;
+}
+    @media only screen and (max-width: 768px) {
+  #logo {
+    width: 70px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  #logo {
+    width: 50px;
+  }
 }
   </style>
 </head>

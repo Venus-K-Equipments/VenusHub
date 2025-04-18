@@ -38,7 +38,7 @@
       background: rgba(255, 255, 255, 0.4);
     }
 
-   body {
+    body {
       background: linear-gradient(135deg, #F8B195, #F67280, #C06C84, #6C5B7B) no-repeat fixed;
       background-size: 100% 100%;
       color: white;
@@ -50,7 +50,7 @@
 
     /* Thumbnails - Hidden on Load */
     .grid-container {
-      display: none; /* Hidden until a menu item is clicked */
+      display: none;
       flex-wrap: wrap;
       justify-content: center;
       gap: 20px;
@@ -67,7 +67,6 @@
       cursor: pointer;
       border-radius: 10px;
       transition: transform 0.3s ease-in-out;
-      position: relative;
     }
     .thumbnail:hover {
       transform: scale(1.1);
@@ -77,19 +76,6 @@
       height: 100%;
       object-fit: cover;
       border-radius: 10px;
-    }
-
-    /* Thumbnail Labels */
-    .thumbnail p {
-      position: absolute;
-      bottom: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: rgba(0, 0, 0, 0.5);
-      color: white;
-      padding: 5px;
-      border-radius: 5px;
-      font-size: 14px;
     }
 
     /* Expanded Model Viewer */
@@ -106,7 +92,6 @@
       padding: 10px;
       border-radius: 15px;
       animation: fadeIn 0.4s ease-in-out;
-      display: flex;
       align-items: center;
       justify-content: center;
     }
@@ -130,22 +115,21 @@
       z-index: 1;
     }
 
-    /* Responsive Adjustments */
-    @media only screen and (max-width: 768px) {
-      .menu { flex-direction: column; gap: 10px; }
-      .menu ul { flex-direction: column; gap: 10px; }
-      .thumbnail { width: 40vw; height: 40vw; }
-      #expanded-viewer { width: 90%; height: 60vh; }
-      .menu:active { cursor: grabbing; }
-    }
-    @media only screen and (max-width: 480px) {
-      .menu { top: 100px; }
-      .thumbnail { width: 60vw; height: 60vw; }
+    .thumbnail p {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      padding: 5px;
+      border-radius: 5px;
+      font-size: 14px;
     }
   </style>
 </head>
 <body>
-  <!--logo-->
+  <!-- Logo -->
   <img id="logo" src="models/Venus Logo.png" alt="Logo">
 
   <!-- Menu -->

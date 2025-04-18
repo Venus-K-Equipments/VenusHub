@@ -251,10 +251,8 @@
   <script>
 
    let thumbnail = document.querySelectorAll('.thumbnail');
-    thumbnail.forEach((thumb) => {
-  thumb.title = '';
 let menu = document.querySelector('.menu');
-let isDown = false;  
+let isDown = false;
 let offset = [0, 0];
 let doubleClick = false;
 let timeout;
@@ -273,19 +271,19 @@ function expandModel(modelPath) {
   viewer.setAttribute('src', modelPath);
   document.getElementById('expanded-viewer').style.display = 'flex';
 }
-    
+
 function clearSelectedName() {
   document.getElementById('selected-thumbnail-name').textContent = '';
 }
-    
+
 function closeViewer() {
   document.getElementById('expanded-viewer').style.display = 'none';
   document.getElementById('large-viewer').setAttribute('src', ''); // Clears the model
   clearSelectedName(); // Call the function here
 }
-    
+
 thumbnail.forEach((thumb) => {
-   thumb.title = '';
+  thumb.title = '';
   thumb.addEventListener('click', () => {
     if (doubleClick) {
       doubleClick = false;
@@ -306,7 +304,7 @@ thumbnail.forEach((thumb) => {
     }
   });
 });
-    
+
 menu.addEventListener('touchstart', (e) => {
   isDown = true;
   offset = [menu.offsetLeft - e.touches[0].clientX, menu.offsetTop - e.touches[0].clientY];

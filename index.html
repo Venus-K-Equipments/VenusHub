@@ -38,19 +38,19 @@
       background: rgba(255, 255, 255, 0.4);
     }
 
-    body {
-      background: linear-gradient(135deg, #F8B195, #F67280, #C06C84, #6C5B7B) no-repeat fixed;
-      background-size: 100% 100%;
-      color: white;
-      text-align: center;
-      font-family: Arial, sans-serif;
-      height: 100vh;
-      margin: 0;
-    }
+   body {
+  background: linear-gradient(135deg, #F8B195, #F67280, #C06C84, #6C5B7B) no-repeat fixed;
+  background-size: 100% 100%;
+  color: white;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  height: 100vh; /* Add this to make the gradient cover the full viewport height */
+  margin: 0; /* Add this to remove any default margins */
+}
 
     /* Thumbnails - Hidden on Load */
     .grid-container {
-      display: none;
+      display: none; /* Hidden until a menu item is clicked */
       flex-wrap: wrap;
       justify-content: center;
       gap: 20px;
@@ -114,24 +114,93 @@
       border-radius: 5px;
       z-index: 1;
     }
-
     .thumbnail p {
-      position: absolute;
-      top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: rgba(0, 0, 0, 0.5);
-      color: white;
-      padding: 5px;
-      border-radius: 5px;
-      font-size: 14px;
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+    /* Add the media queries here */
+  @media only screen and (max-width: 768px) {
+    .menu {
+      flex-direction: column;
+      gap: 10px;
     }
+    .menu ul {
+      flex-direction: column;
+      gap: 10px;
+    }
+    .thumbnail {
+      width: 40vw;
+      height: 40vw;
+    }
+    #expanded-viewer {
+      width: 90%;
+      height: 60vh;
+    }
+    /* Add this */
+  .menu:active {
+    cursor: grabbing;
+  }
+  }
+  @media only screen and (max-width: 480px) {
+    .menu {
+      top: 100px;
+    }
+    .thumbnail {
+      width: 60vw;
+      height: 60vw;
+    }
+  }
+    .thumbnail span {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+    #logo {
+  position: absolute;
+  top: 10px;
+  left: -10px;
+  width: 300px; /* Adjust the width to fit your logo */
+  height: auto;
+  z-index: 1;
+  background: transparent;
+}
+    @media only screen and (max-width: 768px) {
+  #logo {
+    width: 70px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  #logo {
+    width: 50px;
+  }
+}
+    #welcome-header {
+  margin-top: 100px;
+}
+    #selected-thumbnail-name {
+  position: absolute;
+  top: 20px; /* Adjust the position */
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 18px;
+  font-weight: bold;
+  pointer-events: none;
+}
   </style>
 </head>
 <body>
-  <!-- Logo -->
+  <!--logo-->
   <img id="logo" src="models/Venus Logo.png" alt="Logo">
-
   <!-- Menu -->
   <div class="menu">
     <ul>
@@ -139,58 +208,118 @@
       <li onclick="showThumbnails('chat')">Chat Counter</li>
       <li onclick="showThumbnails('Counter')">Counters</li>
       <li onclick="showThumbnails('Sink')">Sink</li>
+      
     </ul>
   </div>
 
   <h1 id="welcome-header">Welcome to Venus K Equipments - AR Catalog</h1>
   <p>Scan the QR code to explore our products in Augmented Reality!</p>
 
-  <!-- Thumbnails for Work Tables -->
-  <div id="worktable" class="grid-container">
-    <div class="thumbnail" data-model="models/WT.glb">
-      <p>Common Working table</p>
-      <img src="models/WT.jpg">
-    </div>
-    <div class="thumbnail" data-model="models/WT idly.glb">
-      <p>Work table for Idly</p>
-      <img src="models/Idly table.jpg">
-    </div>
-  </div>
+  <!-------------------------------------------------------------------------------------------->
+<div id="selected-thumbnail-name"></div>
 
-  <!-- Thumbnails for Chat Counters -->
-  <div id="chat" class="grid-container">
-    <div class="thumbnail" data-model="models/Chat.glb">
-      <p>Chat Counter</p>
-      <img src="models/chat.jpg">
-    </div>
-    <div class="thumbnail" data-model="models/Chat2.glb">
-      <p>Chat Counter 2</p>
-      <img src="models/chat2.jpg">
-    </div>
+  
+ <!-- Thumbnails for Work Tables (Initially Hidden) -->
+<div id="worktable" class="grid-container">
+  <div class="thumbnail" data-model="models/WT.glb">
+    <p>Common Working table</p>
+    <img src="models/WT.jpg">
   </div>
+  <div class="thumbnail" data-model="models/WT idly.glb">
+    <p>Work table for Idly</p>
+    <img src="models/Idly table.jpg">
+  </div>
+</div>
 
+  <!-- Thumbnails for Chat Counters (Initially Hidden) -->
+<div id="chat" class="grid-container">
+  <div class="thumbnail" data-model="models/Chat.glb">
+     <p>Chat Counter</p>
+    <img src="models/chat.jpg">
+  </div>
+  <div class="thumbnail" data-model="models/Chat2.glb">
+    <p>Chat Counter 2</p>
+    <img src="models/chat2.jpg">
+  </div>
+</div>
+<!-------------------------------------------------------------------------------------------->
   <!-- Expanded Model Viewer -->
   <div id="expanded-viewer">
     <button class="close-btn" onclick="closeViewer()">X</button>
     <model-viewer id="large-viewer" src="" ar auto-rotate camera-controls style="width: 100%; height: 100%;"></model-viewer>
   </div>
-
   <script>
-    function showThumbnails(category) {
-      document.getElementById('chat').style.display = 'none';
-      document.getElementById('worktable').style.display = 'none';
-      document.getElementById(category).style.display = 'flex';
-    }
 
-    function expandModel(modelPath) {
-      document.getElementById('large-viewer').setAttribute('src', modelPath);
-      document.getElementById('expanded-viewer').style.display = 'flex';
-    }
+   let thumbnail = document.querySelectorAll('.thumbnail');
+let menu = document.querySelector('.menu');
+let isDown = false;
+let offset = [0, 0];
+let doubleClick = false;
+let timeout;
 
-    function closeViewer() {
-      document.getElementById('expanded-viewer').style.display = 'none';
-      document.getElementById('large-viewer').setAttribute('src', '');
+function showThumbnails(category) {
+  console.log('Showing thumbnails for category:', category);
+  // Hide all category thumbnails first
+  document.getElementById('chat').style.display = 'none';
+  document.getElementById('worktable').style.display = 'none';
+  // Show only the selected category thumbnails
+  document.getElementById(category).style.display = 'flex';
+}
+
+function expandModel(modelPath) {
+  const viewer = document.getElementById('large-viewer');
+  viewer.setAttribute('src', modelPath);
+  document.getElementById('expanded-viewer').style.display = 'flex';
+}
+
+function clearSelectedName() {
+  document.getElementById('selected-thumbnail-name').textContent = '';
+}
+
+function closeViewer() {
+  document.getElementById('expanded-viewer').style.display = 'none';
+  document.getElementById('large-viewer').setAttribute('src', ''); // Clears the model
+  clearSelectedName(); // Call the function here
+}
+
+thumbnail.forEach((thumb) => {
+  thumb.title = '';
+  thumb.addEventListener('click', () => {
+    if (doubleClick) {
+      doubleClick = false;
+      clearTimeout(timeout);
+      let modelPath = thumb.getAttribute('data-model');
+      let thumbnailName = thumb.querySelector('p').textContent;
+      document.getElementById('selected-thumbnail-name').textContent = thumbnailName;
+      if (modelPath) {
+        expandModel(modelPath);
+      } else {
+        console.log('Invalid model path');
+      }
+    } else {
+      doubleClick = true;
+      timeout = setTimeout(() => {
+        doubleClick = false;
+      }, 300);
     }
+  });
+});
+
+menu.addEventListener('touchstart', (e) => {
+  isDown = true;
+  offset = [menu.offsetLeft - e.touches[0].clientX, menu.offsetTop - e.touches[0].clientY];
+});
+
+document.addEventListener('touchmove', (e) => {
+  if (isDown) {
+    menu.style.left = ${e.touches[0].clientX + offset[0]}px;
+    menu.style.top = ${e.touches[0].clientY + offset[1]}px;
+  }
+});
+
+document.addEventListener('touchend', () => {
+  isDown = false;
+});
   </script>
 </body>
 </html>

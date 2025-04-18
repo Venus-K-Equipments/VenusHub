@@ -216,7 +216,6 @@
   <p>Scan the QR code to explore our products in Augmented Reality!</p>
 
   <!-------------------------------------------------------------------------------------------->
-<div id="selected-thumbnail-name"></div>
 
   
  <!-- Thumbnails for Work Tables (Initially Hidden) -->
@@ -279,7 +278,6 @@ function clearSelectedName() {
 function closeViewer() {
   document.getElementById('expanded-viewer').style.display = 'none';
   document.getElementById('large-viewer').setAttribute('src', ''); // Clears the model
-  clearSelectedName(); // Call the function here
 }
 
 thumbnail.forEach((thumb) => {
@@ -289,8 +287,6 @@ thumbnail.forEach((thumb) => {
       doubleClick = false;
       clearTimeout(timeout);
       let modelPath = thumb.getAttribute('data-model');
-      let thumbnailName = thumb.querySelector('p').textContent;
-      document.getElementById('selected-thumbnail-name').textContent = thumbnailName;
       if (modelPath) {
         expandModel(modelPath);
       } else {

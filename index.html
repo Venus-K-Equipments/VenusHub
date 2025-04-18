@@ -283,17 +283,15 @@ function closeViewer() {
     
 thumbnail.forEach((thumb) => {
   thumb.addEventListener('click', () => {
-    let modelPath = thumb.getAttribute('data-model');
-    let thumbnailName = thumb.querySelector('p').textContent;
-    document.getElementById('selected-thumbnail-name').textContent = thumbnailName;
-    
     if (doubleClick) {
       doubleClick = false;
       clearTimeout(timeout);
+      let modelPath = thumb.getAttribute('data-model');
+      let thumbnailName = thumb.querySelector('p').textContent;
+      document.getElementById('selected-thumbnail-name').textContent = thumbnailName;
       if (modelPath) {
         expandModel(modelPath);
       } else {
-        // Handle invalid model path
         console.log('Invalid model path');
       }
     } else {
@@ -304,7 +302,7 @@ thumbnail.forEach((thumb) => {
     }
   });
 });
-
+    
 menu.addEventListener('touchstart', (e) => {
   isDown = true;
   offset = [menu.offsetLeft - e.touches[0].clientX, menu.offsetTop - e.touches[0].clientY];

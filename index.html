@@ -211,8 +211,12 @@
     });
 
     function showThumbnails(category) {
-      document.getElementById(category).style.display = 'flex';
-    }
+  let grids = document.querySelectorAll('.grid-container');
+  grids.forEach((grid) => {
+    grid.style.display = 'none';
+  });
+  document.getElementById(category).style.display = 'flex';
+} 
 
     function expandModel(modelPath) {
       document.getElementById('large-viewer').setAttribute('src', modelPath);
@@ -226,12 +230,22 @@
 
     let thumbnails = document.querySelectorAll('.thumbnail');
 
-    thumbnails.forEach((thumb) => {
-      thumb.addEventListener('click', () => {
-        let modelPath = thumb.getAttribute('data-model');
-        expandModel(modelPath);
-      });
-    });
+    let thumbnails = document.querySelectorAll('.thumbnail');
+let lastTap = 0;
+
+thumbnails.forEach((thumb) => {
+  thumb.addEventListener('click', (e) => {
+    let currentTime = new Date().getTime();
+    let tapLength = currentTime - lastTap;
+    lastTap = currentTime;
+
+    if (tapLength < 300 && tapLength > 0) {
+      // double tap
+      let modelPath = thumb.getAttribute('data-model');
+      expandModel(modelPath);
+    }
+  });
+});
   </script>
 </body>
 </html>

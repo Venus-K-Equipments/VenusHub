@@ -266,9 +266,15 @@ function showThumbnails(category) {
 }
 
 function expandModel(modelPath) {
-  const viewer = document.getElementById('large-viewer');
-  viewer.setAttribute('src', modelPath);
-  document.getElementById('expanded-viewer').style.display = 'flex';
+    const viewer = document.getElementById('large-viewer');
+    viewer.setAttribute('src', modelPath);
+    document.getElementById('expanded-viewer').style.display = 'flex';
+
+    // Remove any auto-updated name at the top of the screen
+    const selectedName = document.getElementById('selected-thumbnail-name');
+    if (selectedName) {
+        selectedName.textContent = ''; // Clears the text
+    }
 }
 
 function clearSelectedName() {

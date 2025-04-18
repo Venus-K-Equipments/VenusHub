@@ -251,6 +251,8 @@
   <script>
 
    let thumbnail = document.querySelectorAll('.thumbnail');
+    thumbnail.forEach((thumb) => {
+  thumb.title = '';
 let menu = document.querySelector('.menu');
 let isDown = false;
 let offset = [0, 0];
@@ -282,6 +284,7 @@ function closeViewer() {
 }
     
 thumbnail.forEach((thumb) => {
+   thumb.title = '';
   thumb.addEventListener('click', () => {
     if (doubleClick) {
       doubleClick = false;

@@ -19,6 +19,7 @@
       display: flex;
       gap: 20px;
     }
+
     .menu ul {
       list-style: none;
       padding: 0;
@@ -26,6 +27,7 @@
       display: flex;
       gap: 30px;
     }
+
     .menu li {
       cursor: pointer;
       padding: 10px 15px;
@@ -34,6 +36,7 @@
       border-radius: 8px;
       transition: background 0.3s ease-in-out;
     }
+
     .menu li:hover {
       background: rgba(255, 255, 255, 0.4);
     }
@@ -68,9 +71,11 @@
       border-radius: 10px;
       transition: transform 0.3s ease-in-out;
     }
+
     .thumbnail:hover {
       transform: scale(1.1);
     }
+
     .thumbnail img {
       width: 100%;
       height: 100%;
@@ -92,14 +97,20 @@
       padding: 10px;
       border-radius: 15px;
       animation: fadeIn 0.4s ease-in-out;
-      display: flex;
       align-items: center;
       justify-content: center;
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.5); }
-      to { opacity: 1; transform: scale(1); }
+      from {
+        opacity: 0;
+        transform: scale(0.5);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
 
     .close-btn {
@@ -127,12 +138,19 @@
       border-radius: 5px;
       font-size: 14px;
     }
+
+    #logo {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: 100px;
+      height: auto;
+    }
   </style>
 </head>
 <body>
   <!-- Logo -->
   <img id="logo" src="models/Venus Logo.png" alt="Logo">
-
   <!-- Menu -->
   <div class="menu">
     <ul>
@@ -142,10 +160,8 @@
       <li onclick="showThumbnails('Sink')">Sink</li>
     </ul>
   </div>
-
   <h1 id="welcome-header">Welcome to Venus K Equipments - AR Catalog</h1>
   <p>Scan the QR code to explore our products in Augmented Reality!</p>
-
   <!-- Thumbnails for Work Tables -->
   <div id="worktable" class="grid-container">
     <div class="thumbnail" data-model="models/WT.glb">
@@ -157,7 +173,6 @@
       <img src="models/Idly table.jpg">
     </div>
   </div>
-
   <!-- Thumbnails for Chat Counters -->
   <div id="chat" class="grid-container">
     <div class="thumbnail" data-model="models/Chat.glb">
@@ -169,14 +184,32 @@
       <img src="models/chat2.jpg">
     </div>
   </div>
-
   <!-- Expanded Model Viewer -->
   <div id="expanded-viewer">
     <button class="close-btn" onclick="closeViewer()">X</button>
     <model-viewer id="large-viewer" src="" ar auto-rotate camera-controls style="width: 100%; height: 100%;"></model-viewer>
   </div>
-
   <script>
+    let menu = document.querySelector('.menu');
+    let isDown = false;
+    let offset = [0, 0];
+
+    menu.addEventListener('touchstart', (e) => {
+      isDown = true;
+      offset = [menu.offsetLeft - e.touches[0].clientX, menu.offsetTop - e.touches[0].clientY];
+    });
+
+    document.addEventListener('touchmove', (e) => {
+      if (isDown) {
+        menu.style.left = (e.touches[0].clientX + offset[0]) + 'px';
+        menu.style.top = (e.touches[0].clientY + offset[1]) + 'px';
+      }
+    });
+
+    document.addEventListener('touchend', () => {
+      isDown = false;
+    });
+
     function showThumbnails(category) {
       document.getElementById('chat').style.display = 'none';
       document.getElementById('worktable').style.display = 'none';
@@ -193,11 +226,13 @@
       document.getElementById('large-viewer').setAttribute('src', '');
     }
 
-    document.addEventListener('touchmove', (e) => {
-      if (isDown) {
-        menu.style.left = (e.touches[0].clientX + offset[0]) + 'px';
-        menu.style.top = (e.touches[0].clientY + offset[1]) + 'px';
-      }
+    let thumbnails = document.querySelectorAll('.thumbnail');
+
+    thumbnails.forEach((thumb) => {
+      thumb.addEventListener('click', () => {
+        let modelPath = thumb.getAttribute('data-model');
+        expandModel(modelPath);
+      });
     });
   </script>
 </body>

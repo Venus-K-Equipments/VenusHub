@@ -187,6 +187,14 @@
     #welcome-header {
   margin-top: 100px;
 }
+    #selected-thumbnail-name {
+  position: absolute;
+  top: 20px; /* Adjust the position */
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 18px;
+  font-weight: bold;
+}
   </style>
 </head>
 <body>
@@ -207,6 +215,9 @@
   <p>Scan the QR code to explore our products in Augmented Reality!</p>
 
   <!-------------------------------------------------------------------------------------------->
+<div id="selected-thumbnail-name"></div>
+
+  
  <!-- Thumbnails for Work Tables (Initially Hidden) -->
 <div id="worktable" class="grid-container">
   <div class="thumbnail" data-model="models/WT.glb">
@@ -237,55 +248,39 @@
     <model-viewer id="large-viewer" src="" ar auto-rotate camera-controls style="width: 100%; height: 100%;"></model-viewer>
   </div>
   <script>
-    function showThumbnails(category) {
-      // Hide all category thumbnails first
-      document.getElementById('chat').style.display = 'none';
-      document.getElementById('worktable').style.display = 'none';
 
-      // Show only the selected category thumbnails
-      document.getElementById(category).style.display = 'flex';
-    }
-
-    function expandModel(modelPath) {
-      const viewer = document.getElementById('large-viewer');
-      viewer.setAttribute('src', modelPath);
-      document.getElementById('expanded-viewer').style.display = 'flex';
-    }
-
-    function closeViewer() {
-      document.getElementById('expanded-viewer').style.display = 'none';
-      document.getElementById('large-viewer').setAttribute('src', ''); // Clears the model
-    }
-    // Add the draggable menu code here
-  let menu = document.querySelector('.menu');
-  let isDown = false;
-  let offset = [0, 0];
-
-  menu.addEventListener('touchstart', (e) => {
-    isDown = true;
-    offset = [
-      menu.offsetLeft - e.touches[0].clientX,
-      menu.offsetTop - e.touches[0].clientY
-    ];
-  });
-
-  document.addEventListener('touchmove', (e) => {
-    if (isDown) {
-      menu.style.left = `${e.touches[0].clientX + offset[0]}px`;
-      menu.style.top = `${e.touches[0].clientY + offset[1]}px`;
-    }
-  });
-
-  document.addEventListener('touchend', () => {
-    isDown = false;
-  });
-    // Add the double tap code here
- let thumbnail = document.querySelectorAll('.thumbnail');
+   let thumbnail = document.querySelectorAll('.thumbnail');
+let menu = document.querySelector('.menu');
+let isDown = false;
+let offset = [0, 0];
 let doubleClick = false;
 let timeout;
+
+function showThumbnails(category) {
+  // Hide all category thumbnails first
+  document.getElementById('chat').style.display = 'none';
+  document.getElementById('worktable').style.display = 'none';
+  // Show only the selected category thumbnails
+  document.getElementById(category).style.display = 'flex';
+}
+
+function expandModel(modelPath) {
+  const viewer = document.getElementById('large-viewer');
+  viewer.setAttribute('src', modelPath);
+  document.getElementById('expanded-viewer').style.display = 'flex';
+}
+
+function closeViewer() {
+  document.getElementById('expanded-viewer').style.display = 'none';
+  document.getElementById('large-viewer').setAttribute('src', ''); // Clears the model
+}
+
 thumbnail.forEach((thumb) => {
   thumb.addEventListener('click', () => {
     let modelPath = thumb.getAttribute('data-model');
+    let thumbnailName = thumb.querySelector('p').textContent;
+    document.getElementById('selected-thumbnail-name').textContent = thumbnailName;
+
     if (doubleClick) {
       doubleClick = false;
       clearTimeout(timeout);
@@ -302,6 +297,22 @@ thumbnail.forEach((thumb) => {
       }, 300);
     }
   });
+});
+
+menu.addEventListener('touchstart', (e) => {
+  isDown = true;
+  offset = [menu.offsetLeft - e.touches[0].clientX, menu.offsetTop - e.touches[0].clientY];
+});
+
+document.addEventListener('touchmove', (e) => {
+  if (isDown) {
+    menu.style.left = `${e.touches[0].clientX + offset[0]}px`;
+    menu.style.top = `${e.touches[0].clientY + offset[1]}px`;
+  }
+});
+
+document.addEventListener('touchend', () => {
+  isDown = false;
 });
   </script>
 </body>

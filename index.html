@@ -6,18 +6,40 @@
   <title>VenusHub - AR Catalog</title>
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
   <style>
-    /* Menu Styling */
-    .menu {
+    /* Global Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Logo Styles */
+    #logo {
       position: absolute;
-      top: 20vh;
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: rgba(47, 79, 79, 0.9);
-      color: white;
-      padding: 15px;
-      border-radius: 10px;
+      top: 10px;
+      left: 10px;
+      width: 10vw;
+      height: auto;
+    }
+
+    /* Welcome Text Styles */
+    #welcome-header {
+      text-align: center;
+      margin-top: 100px;
+      font-size: 5vw;
+    }
+
+    /* Menu Styles */
+    .menu {
       display: flex;
-      gap: 20px;
+      justify-content: center;
+      margin-top: 20px;
     }
 
     .menu ul {
@@ -25,13 +47,13 @@
       padding: 0;
       margin: 0;
       display: flex;
-      gap: 30px;
+      gap: 20px;
     }
 
     .menu li {
       cursor: pointer;
-      padding: 10px 15px;
-      font-size: 18px;
+      padding: 10px 20px;
+      font-size: 2vw;
       background: rgba(255, 255, 255, 0.2);
       border-radius: 8px;
       transition: background 0.3s ease-in-out;
@@ -41,40 +63,17 @@
       background: rgba(255, 255, 255, 0.4);
     }
 
-    body {
-      background: linear-gradient(135deg, #F8B195, #F67280, #C06C84, #6C5B7B) no-repeat fixed;
-      background-size: 100% 100%;
-      color: white;
-      text-align: center;
-      font-family: Arial, sans-serif;
-      height: 100vh;
-      margin: 0;
-    }
-
-    /* Thumbnails - Hidden on Load */
+    /* Thumbnail Styles */
     .grid-container {
-  display: none;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-  position: relative;
-  top: 150px; /* Move down by 100px */
-}
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 50px;
+    }
 
     .thumbnail {
-      width: 200px;
-      height: 200px;
-      background-color: #222;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      border-radius: 10px;
-      transition: transform 0.3s ease-in-out;
-    }
-
-    .thumbnail:hover {
-      transform: scale(1.1);
+      flex-basis: 20%;
+      margin: 10px;
     }
 
     .thumbnail img {
@@ -83,76 +82,11 @@
       object-fit: cover;
       border-radius: 10px;
     }
-
-    /* Expanded Model Viewer */
-    #expanded-viewer {
-      display: none;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 75%;
-      height: 75vh;
-      z-index: 1000;
-      background-color: rgba(47, 79, 79, 0.9);
-      padding: 10px;
-      border-radius: 15px;
-      animation: fadeIn 0.4s ease-in-out;
-      align-items: center;
-      justify-content: center;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: scale(0.5);
-      }
-
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-
-    .close-btn {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      background: red;
-      color: white;
-      border: none;
-      padding: 8px 12px;
-      font-size: 16px;
-      cursor: pointer;
-      border-radius: 5px;
-      z-index: 1;
-    }
-
-    .thumbnail p {
-      position: absolute;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: rgba(0, 0, 0, 0.5);
-      color: white;
-      padding: 5px;
-      border-radius: 5px;
-      font-size: 14px;
-    }
-
-    #logo {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      width: 200px;
-      height: auto;
-    }
   </style>
 </head>
 <body>
-  <!-- Logo -->
   <img id="logo" src="models/Venus Logo.png" alt="Logo">
-  <!-- Menu -->
+  <h1 id="welcome-header">Welcome to Venus K Equipments - AR Catalog</h1>
   <div class="menu">
     <ul>
       <li onclick="showThumbnails('worktable')">Work Table</li>
@@ -161,90 +95,84 @@
       <li onclick="showThumbnails('Sink')">Sink</li>
     </ul>
   </div>
-  <h1 id="welcome-header">Welcome to Venus K Equipments - AR Catalog</h1>
-  <p>Scan the QR code to explore our products in Augmented Reality!</p>
   <!-- Thumbnails for Work Tables -->
   <div id="worktable" class="grid-container">
     <div class="thumbnail" data-model="models/WT.glb">
-      <p>Common Working table</p>
       <img src="models/WT.jpg">
     </div>
     <div class="thumbnail" data-model="models/WT idly.glb">
-      <p>Work table for Idly</p>
       <img src="models/Idly table.jpg">
     </div>
   </div>
   <!-- Thumbnails for Chat Counters -->
-  <div id="chat" class="grid-container">
+  <div id="chat" class="grid-container" style="display: none;">
     <div class="thumbnail" data-model="models/Chat.glb">
-      <p>Chat Counter</p>
       <img src="models/chat.jpg">
     </div>
     <div class="thumbnail" data-model="models/Chatc2.glb">
-      <p>Chat Counter 2</p>
       <img src="models/chat2.jpg">
     </div>
   </div>
-  <!-- Expanded Model Viewer -->
-  <div id="expanded-viewer">
-    <button class="close-btn" onclick="closeViewer()">X</button>
-    <model-viewer id="large-viewer" src="" ar auto-rotate camera-controls style="width: 100%; height: 100%;"></model-viewer>
-  </div>
-  <script>
-    let menu = document.querySelector('.menu');
-    let isDown = false;
-    let offset = [0, 0];
 
-    menu.addEventListener('touchstart', (e) => {
-      isDown = true;
-      offset = [menu.offsetLeft - e.touches[0].clientX, menu.offsetTop - e.touches[0].clientY];
-    });
-
-    document.addEventListener('touchmove', (e) => {
-      if (isDown) {
-        menu.style.left = (e.touches[0].clientX + offset[0]) + 'px';
-        menu.style.top = (e.touches[0].clientY + offset[1]) + 'px';
+  <style>
+    /* Responsive Design using Media Queries */
+    @media only screen and (max-width: 320px) {
+      .thumbnail {
+        flex-basis: 100%;
       }
-    });
+      #welcome-header {
+        font-size: 8vw;
+      }
+      .menu li {
+        font-size: 4vw;
+      }
+    }
 
-    document.addEventListener('touchend', () => {
-      isDown = false;
-    });
+    @media only screen and (max-width: 480px) {
+      .thumbnail {
+        flex-basis: 100%;
+      }
+      #welcome-header {
+        font-size: 7vw;
+      }
+      .menu li {
+        font-size: 3.5vw;
+      }
+    }
 
+    @media only screen and (max-width: 768px) {
+      .thumbnail {
+        flex-basis: 40%;
+      }
+      #welcome-header {
+        font-size: 6vw;
+      }
+      .menu li {
+        font-size: 3vw;
+      }
+    }
+
+    @media only screen and (max-width: 1024px) {
+      .thumbnail {
+        flex-basis: 30%;
+      }
+      #welcome-header {
+        font-size: 5vw;
+      }
+      .menu li {
+        font-size: 2.5vw;
+      }
+    }
+  </style>
+
+  <script>
     function showThumbnails(category) {
-  let grids = document.querySelectorAll('.grid-container');
-  grids.forEach((grid) => {
-    grid.style.display = 'none';
-  });
-  document.getElementById(category).style.display = 'flex';
-} 
-
-    function expandModel(modelPath) {
-      document.getElementById('large-viewer').setAttribute('src', modelPath);
-      document.getElementById('expanded-viewer').style.display = 'flex';
+      let grids = document.querySelectorAll('.grid-container');
+      grids.forEach((grid) => {
+        grid.style.display = 'none';
+      });
+      document.getElementById(category).style.display = 'flex';
     }
-
-    function closeViewer() {
-      document.getElementById('expanded-viewer').style.display = 'none';
-      document.getElementById('large-viewer').setAttribute('src', '');
-    }
-    
-    let thumbnails = document.querySelectorAll('.thumbnail');
-let lastTap = 0;
-
-thumbnails.forEach((thumb) => {
-  thumb.addEventListener('click', (e) => {
-    let currentTime = new Date().getTime();
-    let tapLength = currentTime - lastTap;
-    lastTap = currentTime;
-
-    if (tapLength < 300 && tapLength > 0) {
-      // double tap
-      let modelPath = thumb.getAttribute('data-model');
-      expandModel(modelPath);
-    }
-  });
-});
   </script>
 </body>
 </html>

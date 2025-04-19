@@ -166,13 +166,64 @@
   </style>
 
   <script>
-    function showThumbnails(category) {
-      let grids = document.querySelectorAll('.grid-container');
-      grids.forEach((grid) => {
-        grid.style.display = 'none';
+   function showThumbnails(category) {
+    let grids = document.querySelectorAll('.grid-container');
+    grids.forEach((grid) => {
+      grid.style.display = 'none';
+    });
+    document.getElementById(category).style.display = 'flex';
+  }
+
+  // Add event listener to thumbnails
+  document.addEventListener('DOMContentLoaded', function() {
+    let thumbnails = document.querySelectorAll('.thumbnail');
+    thumbnails.forEach((thumb) => {
+      thumb.addEventListener('dblclick', (e) => {
+        let modelPath = thumb.getAttribute('data-model');
+        expandModel(modelPath);
       });
-      document.getElementById(category).style.display = 'flex';
-    }
+    });
+  });
+
+  // Function to expand model
+  function expandModel(modelPath) {
+    // Create a modal or expanded view container
+    let expandedView = document.createElement('div');
+    expandedView.style.position = 'fixed';
+    expandedView.style.top = '0';
+    expandedView.style.left = '0';
+    expandedView.style.width = '100%';
+    expandedView.style.height = '100vh';
+    expandedView.style.background = 'rgba(0, 0, 0, 0.8)';
+    expandedView.style.display = 'flex';
+    expandedView.style.justifyContent = 'center';
+    expandedView.style.alignItems = 'center';
+
+    // Create model-viewer element
+    let modelViewer = document.createElement('model-viewer');
+    modelViewer.setAttribute('src', modelPath);
+    modelViewer.setAttribute('auto-rotate', '');
+    modelViewer.setAttribute('camera-controls', '');
+    modelViewer.style.width = '80%';
+    modelViewer.style.height = '80vh';
+
+    // Add model-viewer to expanded view
+    expandedView.appendChild(modelViewer);
+
+    // Add close button
+    let closeButton = document.createElement('button');
+    closeButton.textContent = 'Close';
+    closeButton.style.position = 'absolute';
+    closeButton.style.top = '10px';
+    closeButton.style.right = '10px';
+    closeButton.onclick = function() {
+      expandedView.remove();
+    };
+    expandedView.appendChild(closeButton);
+
+    // Add expanded view to body
+    document.body.appendChild(expandedView);
+  }
   </script>
 </body>
 </html>

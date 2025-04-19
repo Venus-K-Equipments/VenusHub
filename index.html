@@ -184,8 +184,10 @@
 
   document.addEventListener('DOMContentLoaded', function() {
   let thumbnails = document.querySelectorAll('.thumbnail');
+  let lastClickTime = 0;
   thumbnails.forEach((thumb) => {
     thumb.addEventListener('click', (e) => {
+      let currentTime = new Date().getTime();
       let existingTooltip = document.querySelector('.tooltip');
       if (existingTooltip) {
         existingTooltip.remove();
@@ -215,9 +217,13 @@
         }
       });
 
-      // Expand model viewer
-      let modelPath = thumb.getAttribute('data-model');
-      expandModel(modelPath);
+      if (currentTime - lastClickTime < 300) {
+        let modelPath = thumb.getAttribute('data-model');
+        expandModel(modelPath);
+        lastClickTime = 0;
+      } else {
+        lastClickTime = currentTime;
+      }
     });
   });
 });

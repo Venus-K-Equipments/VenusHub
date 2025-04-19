@@ -182,16 +182,12 @@
     document.getElementById(category).style.display = 'flex';
   }
 
-  document.addEventListener('DOMContentLoaded', function() {
+ document.addEventListener('DOMContentLoaded', function() {
   let thumbnails = document.querySelectorAll('.thumbnail');
   let lastClickTime = 0;
   thumbnails.forEach((thumb) => {
     thumb.addEventListener('click', (e) => {
       let currentTime = new Date().getTime();
-      let existingTooltip = document.querySelector('.tooltip');
-      if (existingTooltip) {
-        existingTooltip.remove();
-      }
 
       let modelName = thumb.getAttribute('data-name');
       let tooltip = document.createElement('div');
@@ -211,8 +207,6 @@
       document.addEventListener('click', function handler(event) {
         if (event.target !== thumb && tooltip.parentNode) {
           tooltip.remove();
-        }
-        if (event.target !== thumb) {
           document.removeEventListener('click', handler);
         }
       });
@@ -221,6 +215,7 @@
         let modelPath = thumb.getAttribute('data-model');
         expandModel(modelPath);
         lastClickTime = 0;
+        tooltip.remove();
       } else {
         lastClickTime = currentTime;
       }

@@ -74,6 +74,12 @@
     .thumbnail {
       flex-basis: 20%;
       margin: 10px;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .thumbnail:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     }
 
     .thumbnail img {
@@ -113,7 +119,6 @@
       <img src="models/chat2.jpg">
     </div>
   </div>
-
   <style>
     /* Responsive Design using Media Queries */
     @media only screen and (max-width: 320px) {
@@ -127,46 +132,46 @@
         font-size: 4vw;
       }
     }
-
-    @media only screen and (max-width: 480px) {
-      .thumbnail {
-        flex-basis: 100%;
-      }
-      #welcome-header {
-        font-size: 7vw;
-      }
-      .menu li {
-        font-size: 3.5vw;
-      }
-    }
-
     @media only screen and (max-width: 768px) {
-      .thumbnail {
-        flex-basis: 40%;
-      }
-      #welcome-header {
-        font-size: 6vw;
-      }
-      .menu li {
-        font-size: 3vw;
-      }
-    }
+  .thumbnail {
+    flex-basis: 40%;
+  }
+  #welcome-header {
+    font-size: 6vw;
+  }
+  .menu li {
+    font-size: 3vw;
+  }
+}
 
-    @media only screen and (max-width: 1024px) {
-      .thumbnail {
-        flex-basis: 30%;
-      }
-      #welcome-header {
-        font-size: 5vw;
-      }
-      .menu li {
-        font-size: 2.5vw;
-      }
-    }
-  </style>
+@media only screen and (max-width: 1024px) {
+  .thumbnail {
+    flex-basis: 30%;
+  }
+  #welcome-header {
+    font-size: 5vw;
+  }
+  .menu li {
+    font-size: 2.5vw;
+  }
+}
 
-  <script>
-   function showThumbnails(category) {
+.expanded-view {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+</style>
+
+<script>
+  function showThumbnails(category) {
     let grids = document.querySelectorAll('.grid-container');
     grids.forEach((grid) => {
       grid.style.display = 'none';
@@ -174,7 +179,6 @@
     document.getElementById(category).style.display = 'flex';
   }
 
-  // Add event listener to thumbnails
   document.addEventListener('DOMContentLoaded', function() {
     let thumbnails = document.querySelectorAll('.thumbnail');
     thumbnails.forEach((thumb) => {
@@ -185,9 +189,7 @@
     });
   });
 
-  // Function to expand model
   function expandModel(modelPath) {
-    // Create a modal or expanded view container
     let expandedView = document.createElement('div');
     expandedView.style.position = 'fixed';
     expandedView.style.top = '0';
@@ -199,7 +201,6 @@
     expandedView.style.justifyContent = 'center';
     expandedView.style.alignItems = 'center';
 
-    // Create model-viewer element
     let modelViewer = document.createElement('model-viewer');
     modelViewer.setAttribute('src', modelPath);
     modelViewer.setAttribute('auto-rotate', '');
@@ -207,10 +208,8 @@
     modelViewer.style.width = '80%';
     modelViewer.style.height = '80vh';
 
-    // Add model-viewer to expanded view
     expandedView.appendChild(modelViewer);
 
-    // Add close button
     let closeButton = document.createElement('button');
     closeButton.textContent = 'Close';
     closeButton.style.position = 'absolute';
@@ -221,9 +220,20 @@
     };
     expandedView.appendChild(closeButton);
 
-    // Add expanded view to body
+    let arButton = document.createElement('button');
+    arButton.textContent = 'View in AR';
+    arButton.style.position = 'absolute';
+    arButton.style.bottom = '10px';
+    arButton.style.left = '50%';
+    arButton.style.transform = 'translateX(-50%)';
+    arButton.onclick = function() {
+      modelViewer.activateAR();
+    };
+    expandedView.appendChild(arButton);
+
     document.body.appendChild(expandedView);
   }
-  </script>
+</script>
 </body>
 </html>
+  

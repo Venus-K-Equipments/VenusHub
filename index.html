@@ -102,23 +102,24 @@
     </ul>
   </div>
   <!-- Thumbnails for Work Tables -->
-  <div id="worktable" class="grid-container">
-    <div class="thumbnail" data-model="models/WT.glb">
-      <img src="models/WT.jpg">
-    </div>
-    <div class="thumbnail" data-model="models/WT idly.glb">
-      <img src="models/Idly table.jpg">
-    </div>
+<div id="worktable" class="grid-container">
+  <div class="thumbnail" data-model="models/WT.glb" data-name="Work Table">
+    <img src="models/WT.jpg">
   </div>
-  <!-- Thumbnails for Chat Counters -->
-  <div id="chat" class="grid-container" style="display: none;">
-    <div class="thumbnail" data-model="models/Chat.glb">
-      <img src="models/chat.jpg">
-    </div>
-    <div class="thumbnail" data-model="models/Chatc2.glb">
-      <img src="models/chat2.jpg">
-    </div>
+  <div class="thumbnail" data-model="models/WT idly.glb" data-name="Idly Table">
+    <img src="models/Idly table.jpg">
   </div>
+</div>
+
+<!-- Thumbnails for Chat Counters -->
+<div id="chat" class="grid-container" style="display: none;">
+  <div class="thumbnail" data-model="models/Chat.glb" data-name="Chat Counter">
+    <img src="models/chat.jpg">
+  </div>
+  <div class="thumbnail" data-model="models/Chatc2.glb" data-name="Chat Counter 2">
+    <img src="models/chat2.jpg">
+  </div>
+</div>
   <style>
     /* Responsive Design using Media Queries */
     @media only screen and (max-width: 320px) {
@@ -182,15 +183,41 @@
   }
 
   document.addEventListener('DOMContentLoaded', function() {
-    let thumbnails = document.querySelectorAll('.thumbnail');
-    thumbnails.forEach((thumb) => {
-      thumb.addEventListener('dblclick', (e) => {
-        let modelPath = thumb.getAttribute('data-model');
-        expandModel(modelPath);
+  let thumbnails = document.querySelectorAll('.thumbnail');
+  thumbnails.forEach((thumb) => {
+    thumb.addEventListener('click', (e) => {
+      let existingTooltip = document.querySelector('.tooltip');
+      if (existingTooltip) {
+        existingTooltip.remove();
+      }
+
+      let modelName = thumb.getAttribute('data-name');
+
+      let tooltip = document.createElement('div');
+      tooltip.className = 'tooltip';
+      tooltip.style.position = 'absolute';
+      tooltip.style.top = (e.clientY + 10) + 'px';
+      tooltip.style.left = (e.clientX + 10) + 'px';
+      tooltip.style.background = 'black';
+      tooltip.style.color = 'white';
+      tooltip.style.padding = '5px';
+      tooltip.style.borderRadius = '5px';
+      tooltip.style.fontSize = '12px';
+      tooltip.textContent = modelName;
+
+      document.body.appendChild(tooltip);
+
+      document.addEventListener('click', function handler(event) {
+        if (event.target !== thumb && tooltip.parentNode) {
+          tooltip.remove();
+        }
+        if (event.target !== thumb) {
+          document.removeEventListener('click', handler);
+        }
       });
     });
   });
-
+});
   function expandModel(modelPath) {
   let expandedView = document.createElement('div');
 expandedView.style.position = 'fixed';

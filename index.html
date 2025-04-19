@@ -193,53 +193,61 @@
 
   function expandModel(modelPath) {
   let expandedView = document.createElement('div');
-  expandedView.style.position = 'fixed';
-  expandedView.style.top = '0';
-  expandedView.style.left = '0';
-  expandedView.style.width = '100%';
-  expandedView.style.height = '100vh';
-  expandedView.style.background = '#00667D'; // Light blue-grey background
-  expandedView.style.border = '1px solid #ccc'; // Border
-  expandedView.style.display = 'flex';
-  expandedView.style.justifyContent = 'center';
-  expandedView.style.alignItems = 'center';
-  expandedView.style.animation = 'fadeIn 0.5s ease-in-out'; // Animation
+expandedView.style.position = 'fixed';
+expandedView.style.top = '0';
+expandedView.style.left = '0';
+expandedView.style.width = '100%';
+expandedView.style.height = '100vh';
+expandedView.style.display = 'flex';
+expandedView.style.justifyContent = 'center';
+expandedView.style.alignItems = 'center';
 
-  let modelViewer = document.createElement('model-viewer');
-  modelViewer.setAttribute('src', modelPath);
-  modelViewer.setAttribute('auto-rotate', '');
-  modelViewer.setAttribute('camera-controls', '');
-  modelViewer.setAttribute('ar', '');
-  modelViewer.setAttribute('ar-modes', 'webxr scene-viewer quick-look');
-  modelViewer.style.width = '80%';
-  modelViewer.style.height = '80vh';
-  modelViewer.style.borderRadius = '10px'; // Rounded corners
-  modelViewer.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.5)'; // Shadow
+let panel = document.createElement('div');
+panel.style.background = '#00667D';
+panel.style.padding = '20px';
+panel.style.borderRadius = '10px';
+panel.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.5)';
+panel.style.width = '80%';
+panel.style.height = '80vh';
+panel.style.display = 'flex';
+panel.style.justifyContent = 'center';
+panel.style.alignItems = 'center';
+panel.style.flexDirection = 'column';
 
-  expandedView.appendChild(modelViewer);
+let modelViewer = document.createElement('model-viewer');
+modelViewer.setAttribute('src', modelPath);
+modelViewer.setAttribute('auto-rotate', '');
+modelViewer.setAttribute('camera-controls', '');
+modelViewer.setAttribute('ar', '');
+modelViewer.setAttribute('ar-modes', 'webxr scene-viewer quick-look');
+modelViewer.style.width = '100%';
+modelViewer.style.height = '90%';
 
-  let closeButton = document.createElement('button');
-  closeButton.textContent = 'Close';
-  closeButton.style.position = 'absolute';
-  closeButton.style.top = '10px';
-  closeButton.style.right = '10px';
-  closeButton.onclick = function() {
-    expandedView.remove();
-  };
-  expandedView.appendChild(closeButton);
+panel.appendChild(modelViewer);
 
-  let arButton = document.createElement('button');
-  arButton.textContent = 'View in AR';
-  arButton.style.position = 'absolute';
-  arButton.style.bottom = '10px';
-  arButton.style.left = '50%';
-  arButton.style.transform = 'translateX(-50%)';
-  arButton.onclick = function() {
-    modelViewer.activateAR();
-  };
-  expandedView.appendChild(arButton);
+let closeButton = document.createElement('button');
+closeButton.textContent = 'Close';
+closeButton.style.position = 'absolute';
+closeButton.style.top = '10px';
+closeButton.style.right = '10px';
+closeButton.onclick = function() {
+  expandedView.remove();
+};
 
-  document.body.appendChild(expandedView);
+let arButton = document.createElement('button');
+arButton.textContent = 'View in AR';
+arButton.style.position = 'absolute';
+arButton.style.bottom = '10px';
+arButton.style.left = '50%';
+arButton.style.transform = 'translateX(-50%)';
+arButton.onclick = function() {
+  modelViewer.activateAR();
+};
+
+panel.appendChild(closeButton);
+panel.appendChild(arButton);
+expandedView.appendChild(panel);
+document.body.appendChild(expandedView);
 }
 </script>
 </body>

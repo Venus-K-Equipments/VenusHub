@@ -192,7 +192,6 @@
       }
 
       let modelName = thumb.getAttribute('data-name');
-
       let tooltip = document.createElement('div');
       tooltip.className = 'tooltip';
       tooltip.style.position = 'absolute';
@@ -215,6 +214,10 @@
           document.removeEventListener('click', handler);
         }
       });
+
+      // Expand model viewer
+      let modelPath = thumb.getAttribute('data-model');
+      expandModel(modelPath);
     });
   });
 });

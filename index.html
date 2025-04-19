@@ -226,10 +226,26 @@ modelViewer.style.height = '90%';
 panel.appendChild(modelViewer);
 
 let closeButton = document.createElement('button');
-closeButton.textContent = 'Close';
+closeButton.textContent = 'X';
 closeButton.style.position = 'absolute';
 closeButton.style.top = '10px';
 closeButton.style.right = '10px';
+closeButton.style.background = 'red';
+closeButton.style.color = 'white';
+closeButton.style.border = 'none';
+closeButton.style.width = '30px';
+closeButton.style.height = '30px';
+closeButton.style.fontSize = '18px';
+closeButton.style.fontWeight = 'bold';
+closeButton.style.cursor = 'pointer';
+closeButton.style.borderRadius = '5px';
+closeButton.style.transition = 'background 0.3s ease-in-out';
+closeButton.onmouseover = function() {
+  closeButton.style.background = 'darkred';
+};
+closeButton.onmouseout = function() {
+  closeButton.style.background = 'red';
+};
 closeButton.onclick = function() {
   expandedView.remove();
 };

@@ -270,7 +270,9 @@ expandedView.style.justifyContent = 'center';
 expandedView.style.alignItems = 'center';
 
 let panel = document.createElement('div');
-panel.style.background = '#b87d00';
+panel.style.background = 'rgba(255, 255, 255, 0.7)'; // Fallback: Semi-transparent background
+panel.style.backdropFilter = 'blur(10px)'; // Apply the blur effect if supported
+panel.style.webkitBackdropFilter = 'blur(10px)'; // Safari-specific prefix for older versions
 panel.style.padding = '20px';
 panel.style.borderRadius = '10px';
 panel.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.5)';

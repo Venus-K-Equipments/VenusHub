@@ -99,19 +99,28 @@
       display: block;
     }
 
-    #thumbnails-container {
-      margin-top: 20px;
-      display: flex;
-      gap: 15px;
-      flex-wrap: wrap;
+    .menu ul {
+      list-style: none;
+      padding: 0;
+      margin: 50px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
     }
 
-    #thumbnails-container img {
-      width: 100px;
-      height: 100px;
-      object-fit: cover;
-      border: 1px solid #ddd;
-      border-radius: 5px;
+    .menu li {
+      cursor: pointer;
+      padding: 10px 20px;
+      font-size: 2vw;
+      background-color: #a4ca00;
+      border-radius: 8px;
+      transition: background 0.3s ease-in-out;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .menu li:hover {
+      background: rgba(255, 255, 255, 0.4);
     }
   </style>
 </head>
@@ -129,14 +138,17 @@
 
   <nav>
     <ul>
+      <!-- Products Dropdown Menu -->
       <li class="dropdown">
         <a href="#">Products</a>
         <ul class="dropdown-menu">
-          <li><a href="#" onclick="showThumbnails('product1')">Product 1</a></li>
-          <li><a href="#" onclick="showThumbnails('product2')">Product 2</a></li>
-          <li><a href="#" onclick="showThumbnails('product3')">Product 3</a></li>
+          <li><a href="#" onclick="showThumbnails('worktable')">Work Table</a></li>
+          <li><a href="#" onclick="showThumbnails('chat')">Chat Counter</a></li>
+          <li><a href="#" onclick="showThumbnails('Counter')">Counters</a></li>
+          <li><a href="#" onclick="showThumbnails('Sink')">Sink</a></li>
         </ul>
       </li>
+      <!-- Other Menu Items -->
       <li><a href="#about-us">About Us</a></li>
       <li><a href="#gallery">Gallery</a></li>
       <li><a href="#customers">Customers</a></li>
@@ -144,44 +156,65 @@
     </ul>
   </nav>
 
-  <div id="thumbnails-container"></div>
+  <div class="menu">
+    <ul>
+      <li onclick="showThumbnails('worktable')">Work Table</li>
+      <li onclick="showThumbnails('chat')">Chat Counter</li>
+      <li onclick="showThumbnails('Counter')">Counters</li>
+      <li onclick="showThumbnails('Sink')">Sink</li>
+    </ul>
+  </div>
+
+  <div id="worktable" class="grid-container">
+    <div class="thumbnail" data-model="models/WT.glb" data-name="Work Table">
+      <img src="models/WT.jpg">
+    </div>
+    <div class="thumbnail" data-model="models/WT idly.glb" data-name="Idly Table">
+      <img src="models/Idly table.jpg">
+    </div>
+  </div>
+
+  <div id="chat" class="grid-container" style="display: none;">
+    <div class="thumbnail" data-model="models/Chat.glb" data-name="Chat Counter">
+      <img src="models/chat.jpg">
+    </div>
+    <div class="thumbnail" data-model="models/Chatc2.glb" data-name="Chat Counter 2">
+      <img src="models/chat2.jpg">
+    </div>
+  </div>
 
   <script>
-    function showThumbnails(product) {
-      const thumbnailsContainer = document.getElementById('thumbnails-container');
-      thumbnailsContainer.innerHTML = ''; // Clear existing thumbnails
-
-      const thumbnails = {
-        product1: [
-          'https://via.placeholder.com/100?text=Product1-1',
-          'https://via.placeholder.com/100?text=Product1-2',
-        ],
-        product2: [
-          'https://via.placeholder.com/100?text=Product2-1',
-          'https://via.placeholder.com/100?text=Product2-2',
-        ],
-        product3: [
-          'https://via.placeholder.com/100?text=Product3-1',
-          'https://via.placeholder.com/100?text=Product3-2',
-        ],
-      };
-
-      if (thumbnails[product]) {
-        thumbnails[product].forEach((src) => {
-          const img = document.createElement('img');
-          img.src = src;
-          thumbnailsContainer.appendChild(img);
-        });
-      }
+    function showThumbnails(category) {
+      let grids = document.querySelectorAll('.grid-container');
+      grids.forEach((grid) => {
+        grid.style.display = 'none';
+      });
+      document.getElementById(category).style.display = 'flex';
     }
   </script>
 
-  <footer>
+  <footer style="background-color: rgba(51, 51, 51, 0.3); color: white; text-align: center; padding: 20px 0; margin-top: 20px; font-family: Arial, sans-serif;">
     <div>
-      <p>Contact Us: +919840940137, +919840940126, +919840617999</p>
-      <p>Email: <a href="mailto:sales@vceindia.com">sales@vceindia.com</a></p>
-      <p>&copy; 2025 Venus. All rights reserved.</p>
+      <p style="margin: 5px;">
+        <span style="font-size: 18px;">🎧</span> Contact Us: +919840940137, +919840940126, +919840617999
+      </p>
+      <p style="margin: 5px;">
+        <span style="font-size: 18px;">📧</span> Email: 
+        <a href="mailto:contact@venusdwg.com" style="color: #00bcd4; text-decoration: none;">sales@vceindia.com</a>
+      </p>
     </div>
+    <div style="display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: nowrap; width: 100%;">
+      <a href="https://www.youtube.com/@KnowYourKitchen" target="_blank" style="text-decoration: none;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/42/YouTube_icon_%282013-2017%29.png" alt="YouTube" style="width: 40px; height: 40px;">
+      </a>
+      <a href="https://www.facebook.com/venuskequipments" target="_blank" style="text-decoration: none;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" style="width: 40px; height: 40px;">
+      </a>
+      <a href="https://www.instagram.com/venuskitchenequipments" target="_blank" style="text-decoration: none;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" style="width: 40px; height: 40px;">
+      </a>
+    </div>
+    <p style="margin: 5px;">&copy; 2025 Venus. All rights reserved.</p>
   </footer>
 
 </body>

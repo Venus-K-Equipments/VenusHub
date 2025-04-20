@@ -15,8 +15,9 @@
 
     body {
   background-image: url('models/BG img.jpg');
-  background-size: cover;
+  background-size: 100% 100%; /* Changed from 'cover' to '100% 100%' */
   background-position: center;
+  background-repeat: no-repeat; /* Add this to prevent repetition */
 }
 
 #header-wrapper {
@@ -64,7 +65,7 @@
 }
     /* Thumbnail Styles */
     .grid-container {
-      display: flex;
+      display: none;
       flex-wrap: wrap;
       justify-content: center;
       margin-top: 50px;

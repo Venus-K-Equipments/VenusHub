@@ -119,107 +119,43 @@ footer {
 }
 
 #header-text h1 {
-  position: relative;
-      color: white;
-      font-size: 6vw;
-      font-weight: bold;
-      text-transform: uppercase;
-      text-align: center;
-      animation: flicker 1.5s infinite;
-    }
-/* Fire Effect */
-    .flame {
-      position: absolute;
-      bottom: -20px;
-      width: 100%;
-      height: 50px;
-      background: radial-gradient(circle, rgba(255, 165, 0, 0.7), rgba(255, 69, 0, 0.1));
-      animation: fire 1s infinite alternate;
-      mix-blend-mode: lighten;
-      filter: blur(5px);
-    }
+  font-size: 6vw;
+  font-family: 'Arial', sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: transparent;
+  background-image: linear-gradient(90deg, #ff9a00, #ff3d00, #ff0000);
+  background-clip: text;
+  -webkit-background-clip: text; /* For Safari */
+  animation: flicker 1.5s infinite, fireColors 2s linear infinite alternate;
+  text-shadow: 0 0 10px rgba(255, 69, 0, 0.8), 0 0 20px rgba(255, 69, 0, 0.8),
+    0 0 30px rgba(255, 140, 0, 0.8), 0 0 40px rgba(255, 69, 0, 0.8);
+}
 
-    .flame:nth-child(1) {
-      left: 10%;
-      width: 80%;
-      animation-delay: 0s;
-    }
-    .flame:nth-child(2) {
-      left: 0%;
-      width: 100%;
-      animation-delay: 0.2s;
-    }
-    .flame:nth-child(3) {
-      left: 20%;
-      width: 60%;
-      animation-delay: 0.4s;
-    }
+/* Flickering Effect */
+@keyframes flicker {
+  0%, 100% {
+    text-shadow: 0 0 10px rgba(255, 69, 0, 0.8), 0 0 20px rgba(255, 69, 0, 0.8),
+      0 0 30px rgba(255, 140, 0, 0.8), 0 0 40px rgba(255, 69, 0, 0.8);
+  }
+  50% {
+    text-shadow: 0 0 5px rgba(255, 69, 0, 0.6), 0 0 10px rgba(255, 140, 0, 0.6),
+      0 0 20px rgba(255, 69, 0, 0.6);
+  }
+}
 
-    /* Smoke Effect */
-    .smoke {
-      position: absolute;
-      top: -50px;
-      left: 50%;
-      width: 30px;
-      height: 30px;
-      background: radial-gradient(circle, rgba(200, 200, 200, 0.5), rgba(0, 0, 0, 0));
-      border-radius: 50%;
-      animation: smoke-rise 3s infinite;
-      filter: blur(10px);
-    }
-
-    .smoke:nth-child(1) {
-      animation-delay: 0s;
-      left: 45%;
-    }
-    .smoke:nth-child(2) {
-      animation-delay: 1s;
-      left: 55%;
-    }
-    .smoke:nth-child(3) {
-      animation-delay: 2s;
-      left: 50%;
-    }
-
-    /* Fire Flicker Animation */
-    @keyframes flicker {
-      0%, 100% {
-        text-shadow: 
-          0 0 10px rgba(255, 69, 0, 0.8), 
-          0 0 20px rgba(255, 140, 0, 0.8),
-          0 0 30px rgba(255, 69, 0, 0.8);
-      }
-      50% {
-        text-shadow: 
-          0 0 15px rgba(255, 69, 0, 0.5), 
-          0 0 25px rgba(255, 140, 0, 0.5),
-          0 0 35px rgba(255, 69, 0, 0.5);
-      }
-    }
-
-    /* Fire Movement Animation */
-    @keyframes fire {
-      0% {
-        transform: translateY(0) scale(1);
-        opacity: 0.8;
-      }
-      100% {
-        transform: translateY(-20px) scale(1.2);
-        opacity: 0.2;
-      }
-    }
-
-    /* Smoke Rising Animation */
-    @keyframes smoke-rise {
-      0% {
-        transform: translateY(0) scale(1);
-        opacity: 0.5;
-      }
-      100% {
-        transform: translateY(-200px) scale(1.5);
-        opacity: 0;
-      }
-    }
+/* Gradient Color Animation */
+@keyframes fireColors {
+  0% {
+    background-image: linear-gradient(90deg, #ff9a00, #ff3d00, #ff0000);
+  }
+  50% {
+    background-image: linear-gradient(90deg, #ff3d00, #ff0000, #ff9a00);
+  }
+  100% {
+    background-image: linear-gradient(90deg, #ff0000, #ff9a00, #ff3d00);
+  }
+}
     #header-text p {
   font-size: 3vw;
   color: white;
@@ -235,14 +171,6 @@ footer {
   <img id="logo" src="models/Venus Logo.png" alt="Logo">
   <div id="header-text">
     <h1>VENUS K EQUIPMENTS</h1>
-    <!-- Fire Effect -->
-    <div class="flame"></div>
-    <div class="flame"></div>
-    <div class="flame"></div>
-    <!-- Smoke Effect -->
-    <div class="smoke"></div>
-    <div class="smoke"></div>
-    <div class="smoke"></div>
     <p>Kitchen Consultant and Manufacturer Since 1990</p>
   </div>
 </div>
@@ -482,4 +410,4 @@ document.body.appendChild(expandedView);
  </div> 
 </footer>
 </body>
-</html>  
+</html>

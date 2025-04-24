@@ -137,16 +137,29 @@
 
     /* Thumbnail Grid Layout */
     .thumbnail-grid {
-      width: 90%;
-      margin: 20px auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 15px;
-      padding: 10px;
-      justify-content: center;
-      align-items: center;
-    }
+  width: 60%; /* Adjust the width to your liking */
+  margin: 20px auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr)); /* Adjust the minmax values to control the size of the thumbnails */
+  gap: 10px; /* Adjust the gap between thumbnails */
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+}
 
+    @media (max-width: 768px) {
+  .thumbnail-grid {
+    width: 80%;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .thumbnail-grid {
+    width: 90%;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  }
+}
     .thumbnail-grid img {
       width: 100%;
       height: auto;

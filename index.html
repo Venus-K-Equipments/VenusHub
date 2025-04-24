@@ -202,7 +202,7 @@ footer {
   <h1 id="welcome-header">Welcome to our AR Catalog</h1>
   <div class="menu">
     <ul>
-      <li class="dropdown" onclick="toggleDropdown()">Products
+      <li class="dropdown" onclick="toggleDropdown(event)">Products
         <ul class="dropdown-menu" id="product-dropdown">
           <li onclick="showThumbnails('worktable')">Work Table</li>
           <li onclick="showThumbnails('Counter')">Counter</li>
@@ -238,7 +238,8 @@ footer {
   });
 });
 
-function toggleDropdown() {
+function toggleDropdown(event) {
+  event.stopPropagation();
   const dropdownMenu = document.getElementById("product-dropdown");
   dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
 }

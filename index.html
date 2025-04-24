@@ -128,23 +128,20 @@ footer {
     }
 
     .dropdown-menu {
-      display: none; /* Hidden by default */
-      position: absolute;
-      top: 100%;
-      left: 0;
-      max-height: 300px; /* Set max height for scrollable area */
-      overflow-y: auto; /* Enable vertical scrolling if content exceeds max height */
-      background-color: rgba(0, 0, 0, 0.7);
-      color: white;
-      list-style: none;
-      padding: 10px 0;
-      margin: 0;
-      border-radius: 10px;
-      z-index: 1000;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-      min-width: 200px;
-    }
-
+  display: none; /* Initially hidden */
+  position: absolute;
+  top: 100%; /* Aligns below the "Products" menu item */
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  list-style: none;
+  padding: 10px 0;
+  margin: 0;
+  border-radius: 10px;
+  z-index: 1000;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  min-width: 200px;
+}
     .dropdown-menu::-webkit-scrollbar {
       width: 8px;
     }
@@ -201,20 +198,20 @@ footer {
   </div>
   <h1 id="welcome-header">Welcome to our AR Catalog</h1>
   <div class="menu">
-    <ul>
-      <li class="dropdown" onclick="toggleDropdown(event)">Products
-        <ul class="dropdown-menu" id="product-dropdown">
-          <li onclick="showThumbnails('worktable')">Work Table</li>
-          <li onclick="showThumbnails('Counter')">Counter</li>
-          <li onclick="showThumbnails('Sink')">Sink</li>
-          <li onclick="showThumbnails('Rack')">Rack</li>
-        </ul>
-      </li>
-      <li onclick="alert('About Us Section Coming Soon!')">About Us</li>
-      <li onclick="alert('Our Customers Section Coming Soon!')">Our Customers</li>
-      <li onclick="alert('Contact Us Section Coming Soon!')">Contact Us</li>
-    </ul>
-  </div>
+  <ul>
+    <li class="dropdown" onclick="toggleDropdown(event)">Products
+      <ul class="dropdown-menu" id="product-dropdown">
+        <li onclick="showThumbnails('worktable', event)">Work Table</li>
+        <li onclick="showThumbnails('Counter', event)">Counter</li>
+        <li onclick="showThumbnails('Sink', event)">Sink</li>
+        <li onclick="showThumbnails('Rack', event)">Rack</li>
+      </ul>
+    </li>
+    <li onclick="alert('About Us Section Coming Soon!')">About Us</li>
+    <li onclick="alert('Our Customers Section Coming Soon!')">Our Customers</li>
+    <li onclick="alert('Contact Us Section Coming Soon!')">Contact Us</li>
+  </ul>
+</div>
 
   <!-- Thumbnails Container -->
   <div id="thumbnail-container" class="thumbnail-grid" style="display: none;">
@@ -222,14 +219,19 @@ footer {
   </div>
 
   <script>
-    document.addEventListener("DOMContentLoaded", function() {
-  document.addEventListener("click", function(event) {
-    const dropdownMenu = document.getElementById("product-dropdown");
-    if (!event.target.closest(".dropdown") && dropdownMenu.style.display === "block") {
-      dropdownMenu.style.display = "none";
-    }
+   // Hide dropdown when clicking outside
+document.addEventListener("click", function (event) {
+  const dropdownMenu = document.getElementById("product-dropdown");
+  if (dropdownMenu.style.display === "block" && !event.target.closest(".dropdown")) {
+    dropdownMenu.style.display = "none";
+  }
+});
+// Prevent event propagation for dropdown menu items
+document.querySelectorAll("#product-dropdown li").forEach(item => {
+  item.addEventListener("click", function (event) {
+    event.stopPropagation();
   });
-
+});
   const dropdownMenuItems = document.querySelectorAll("#product-dropdown li");
   dropdownMenuItems.forEach(item => {
     item.addEventListener("click", function(event) {
@@ -239,8 +241,7 @@ footer {
 });
 
 function toggleDropdown(event) {
-  event.stopPropagation();
-  event.preventDefault();
+  event.stopPropagation(); // Prevent click from propagating to document
   const dropdownMenu = document.getElementById("product-dropdown");
   dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
 }

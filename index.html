@@ -289,6 +289,129 @@ footer {
         });
       }
     }
+
+    function showThumbnails(category) {
+    let grids = document.querySelectorAll('.grid-container');
+    grids.forEach((grid) => {
+      grid.style.display = 'none';
+    });
+    document.getElementById(category).style.display = 'flex';
+  }
+
+ document.addEventListener('DOMContentLoaded', function() {
+  let thumbnails = document.querySelectorAll('.thumbnail');
+  let lastClickTime = 0;
+  thumbnails.forEach((thumb) => {
+    let modelName = thumb.getAttribute('data-name');
+    let textElement = document.createElement('div');
+    textElement.style.position = 'absolute';
+    textElement.style.top = '0';
+    textElement.style.left = '0';
+    textElement.style.width = '100%';
+    textElement.style.textAlign = 'center';
+    textElement.style.background = 'rgba(0, 0, 0, 0.5)';
+    textElement.style.color = 'white';
+    textElement.style.fontSize = '12px';
+    textElement.style.padding = '5px';
+    textElement.style.display = 'none';
+    textElement.textContent = modelName;
+    thumb.style.position = 'relative';
+    thumb.appendChild(textElement);
+
+    thumb.addEventListener('click', (e) => {
+      let currentTime = new Date().getTime();
+      textElement.style.display = 'block';
+      setTimeout(() => {
+        textElement.style.display = 'none';
+      }, 1000);
+
+      if (currentTime - lastClickTime < 300) {
+        let modelPath = thumb.getAttribute('data-model');
+        expandModel(modelPath);
+        lastClickTime = 0;
+      } else {
+        lastClickTime = currentTime;
+      }
+    });
+  });
+});
+  function expandModel(modelPath) {
+  let expandedView = document.createElement('div');
+expandedView.style.position = 'fixed';
+expandedView.style.top = '0';
+expandedView.style.left = '0';
+expandedView.style.width = '100%';
+expandedView.style.height = '100vh';
+expandedView.style.display = 'flex';
+expandedView.style.justifyContent = 'center';
+expandedView.style.alignItems = 'center';
+
+let panel = document.createElement('div');
+panel.style.background = 'rgba(255, 255, 255, 0.4)'; // Fallback: Semi-transparent background
+panel.style.backdropFilter = 'blur(10px)'; // Apply the blur effect if supported
+panel.style.webkitBackdropFilter = 'blur(10px)'; // Safari-specific prefix for older versions
+panel.style.padding = '20px';
+panel.style.borderRadius = '10px';
+panel.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.5)';
+panel.style.width = '60vh';
+panel.style.height = '80vh';
+panel.style.display = 'flex';
+panel.style.justifyContent = 'center';
+panel.style.alignItems = 'center';
+panel.style.flexDirection = 'column';
+
+let modelViewer = document.createElement('model-viewer');
+modelViewer.setAttribute('src', modelPath);
+modelViewer.setAttribute('auto-rotate', '');
+modelViewer.setAttribute('camera-controls', '');
+modelViewer.setAttribute('ar', '');
+modelViewer.setAttribute('ar-modes', 'webxr scene-viewer quick-look');
+modelViewer.style.width = '100%';
+modelViewer.style.height = '90%';
+
+panel.appendChild(modelViewer);
+
+let closeButton = document.createElement('button');
+closeButton.textContent = 'X';
+closeButton.style.position = 'absolute';
+closeButton.style.top = '40px';
+closeButton.style.right = '10px';
+closeButton.style.background = 'red';
+closeButton.style.color = 'white';
+closeButton.style.border = 'none';
+closeButton.style.width = '30px';
+closeButton.style.height = '30px';
+closeButton.style.fontSize = '18px';
+closeButton.style.fontWeight = 'bold';
+closeButton.style.cursor = 'pointer';
+closeButton.style.borderRadius = '5px';
+closeButton.style.transition = 'background 0.3s ease-in-out';
+closeButton.onmouseover = function() {
+  closeButton.style.background = 'darkred';
+};
+closeButton.onmouseout = function() {
+  closeButton.style.background = 'red';
+};
+closeButton.onclick = function() {
+  expandedView.remove();
+};
+
+let arButton = document.createElement('button');
+arButton.textContent = 'View in AR';
+arButton.style.position = 'absolute';
+arButton.style.bottom = '10px';
+arButton.style.left = '50%';
+arButton.style.transform = 'translateX(-50%)';
+arButton.onclick = function() {
+  modelViewer.activateAR();
+};
+
+panel.appendChild(closeButton);
+panel.appendChild(arButton);
+expandedView.appendChild(panel);
+document.body.appendChild(expandedView);
+}
+
   </script>
   <!-- Footer Section -->
 <footer style="background-color: rgba(51, 51, 51, 0.3); color: white; text-align: center; padding: 20px 0; margin-top: 20px; font-family: Arial, sans-serif;">

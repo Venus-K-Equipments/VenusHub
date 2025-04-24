@@ -191,7 +191,7 @@
   <h1 id="welcome-header">Welcome to our AR Catalog</h1>
   <div class="menu">
     <ul>
-      <li class="dropdown" onclick="toggleDropdown()">Products
+      <li class="dropdown" onclick="toggleDropdown(event)">Products
         <ul class="dropdown-menu" id="product-dropdown">
           <li onclick="showThumbnails('worktable')">Work Table</li>
           <li onclick="showThumbnails('Counter')">Counter</li>
@@ -212,15 +212,15 @@
 
   <script>
     // Toggle the dropdown menu visibility
-    function toggleDropdown() {
-      const dropdownMenu = document.getElementById("product-dropdown");
-      if (dropdownMenu.style.display === "block") {
-        dropdownMenu.style.display = "none";
-      } else {
-        dropdownMenu.style.display = "block";
-      }
-    }
-
+    function toggleDropdown(event) {
+  event.stopPropagation();
+  const dropdownMenu = document.getElementById("product-dropdown");
+  if (dropdownMenu.style.display === "block") {
+    dropdownMenu.style.display = "none";
+  } else {
+    dropdownMenu.style.display = "block";
+  }
+}
     // Thumbnail data for each product category
     const thumbnails = {
       worktable: [
@@ -240,6 +240,13 @@
         { src: "models/rack2.jpg", name: "Rack 2" },
       ],
     };
+    // Add this event handler
+  document.addEventListener("click", function (event) {
+    const dropdownMenu = document.getElementById("product-dropdown");
+    if (dropdownMenu.style.display === "block" && !event.target.closest(".dropdown")) {
+      dropdownMenu.style.display = "none";
+    }
+  });
 
     // Show thumbnails for the selected category
     function showThumbnails(category) {

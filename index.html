@@ -160,7 +160,7 @@
     }
     #header-text {
   margin-left: 120px;
-  margin-Top: -20px;
+  margin-Top: 30px;
 }
 
 #header-text h1 {
@@ -388,20 +388,28 @@ function showThumbnails(category) {
   document.body.appendChild(expandedView);
 }
     function showSection(sectionId) {
-  document.getElementById(sectionId).style.display = "block";
-  document.getElementById(sectionId).style.animation = "fadeIn 1s";
-  document.getElementById("thumbnail-container").style.display = "none";
-  document.getElementById("welcome-header").style.display = "none";
+  const sections = ["about-us", "our-customers", "contact-us", "thumbnail-container"];
+  sections.forEach((section) => {
+    document.getElementById(section).style.display = section === sectionId ? "block" : "none";
+  });
 }
 
-function hideSection(sectionId) {
-  document.getElementById(sectionId).style.animation = "fadeOut 1s";
-  setTimeout(() => {
-    document.getElementById(sectionId).style.display = "none";
-    document.getElementById("thumbnail-container").style.display = "grid";
-    document.getElementById("welcome-header").style.display = "block";
-  }, 1000);
-}
+// Menu item click handlers
+document.querySelectorAll(".menu li").forEach((li) => {
+  li.addEventListener("click", (e) => {
+    if (e.target.textContent === "About Us") {
+      showSection("about-us");
+    } else if (e.target.textContent === "Our Customers") {
+      showSection("our-customers");
+    } else if (e.target.textContent === "Contact Us") {
+      showSection("contact-us");
+    } else if (e.target.closest(".dropdown")) {
+      // Handle products dropdown
+    } else {
+      showSection("thumbnail-container");
+    }
+  });
+});
 
 // Update menu item click handlers
 document.querySelectorAll(".menu li").forEach((li) => {

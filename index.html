@@ -198,20 +198,20 @@ footer {
   </div>
   <h1 id="welcome-header">Welcome to our AR Catalog</h1>
   <div class="menu">
-  <ul>
-    <li class="dropdown" onclick="toggleDropdown()">Products
-      <ul class="dropdown-menu" id="product-dropdown">
-        <li onclick="showThumbnails('worktable', event)">Work Table</li>
-        <li onclick="showThumbnails('Counter', event)">Counter</li>
-        <li onclick="showThumbnails('Sink', event)">Sink</li>
-        <li onclick="showThumbnails('Rack', event)">Rack</li>
-      </ul>
-    </li>
-    <li onclick="alert('About Us Section Coming Soon!')">About Us</li>
-    <li onclick="alert('Our Customers Section Coming Soon!')">Our Customers</li>
-    <li onclick="alert('Contact Us Section Coming Soon!')">Contact Us</li>
-  </ul>
-</div>
+    <ul>
+      <li class="dropdown" onclick="toggleDropdown()">Products
+        <ul class="dropdown-menu" id="product-dropdown">
+          <li onclick="showThumbnails('worktable')">Work Table</li>
+          <li onclick="showThumbnails('Counter')">Counter</li>
+          <li onclick="showThumbnails('Sink')">Sink</li>
+          <li onclick="showThumbnails('Rack')">Rack</li>
+        </ul>
+      </li>
+      <li onclick="alert('About Us Section Coming Soon!')">About Us</li>
+      <li onclick="alert('Our Customers Section Coming Soon!')">Our Customers</li>
+      <li onclick="alert('Contact Us Section Coming Soon!')">Contact Us</li>
+    </ul>
+  </div>
 
   <!-- Thumbnails Container -->
   <div id="thumbnail-container" class="thumbnail-grid" style="display: none;">
@@ -219,80 +219,69 @@ footer {
   </div>
 
   <script>
-  // Hide dropdown when clicking outside
-document.addEventListener("click", function (event) {
-  const dropdownMenu = document.getElementById("product-dropdown");
-  if (dropdownMenu.style.display === "block" && !event.target.closest(".dropdown")) {
-    dropdownMenu.style.display = "none";
-  }
-});
+    // Toggle the dropdown menu visibility
+    function toggleDropdown() {
+      const dropdownMenu = document.getElementById("product-dropdown");
+      if (dropdownMenu.style.display === "block") {
+        dropdownMenu.style.display = "none";
+      } else {
+        dropdownMenu.style.display = "block";
+      }
+    }
 
-// Toggle dropdown function
-function toggleDropdown() {
-  const dropdownMenu = document.getElementById("product-dropdown");
-  dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
-}
+    // Thumbnail data for each product category
+    const thumbnails = {
+      worktable: [
+        { src: "models/WT.jpg", name: "Work Table" },
+        { src: "models/Idly table.jpg", name: "Idly Table" },
+      ],
+      Counter: [
+        { src: "models/chat.jpg", name: "Chat Counter" },
+        { src: "models/chat2.jpg", name: "Chat Counter 2" },
+      ],
+      Sink: [
+        { src: "models/sink1.jpg", name: "Sink 1" },
+        { src: "models/sink2.jpg", name: "Sink 2" },
+      ],
+      Rack: [
+        { src: "models/rack1.jpg", name: "Rack 1" },
+        { src: "models/rack2.jpg", name: "Rack 2" },
+      ],
+    };
 
-// Prevent event propagation for dropdown menu items
-document.querySelectorAll("#product-dropdown li").forEach(item => {
-  item.addEventListener("click", function (event) {
-    event.stopPropagation();
-  });
-});
-
-let lastClickTime = 0;
-
-// Thumbnail data for each product category
-const thumbnails = {
-  worktable: [
-    { src: "models/WT.jpg", name: "Work Table" },
-    { src: "models/Idly table.jpg", name: "Idly Table" },
-  ],
-  Counter: [
-    { src: "models/chat.jpg", name: "Chat Counter" },
-    { src: "models/chat2.jpg", name: "Chat Counter 2" },
-  ],
-  Sink: [
-    { src: "models/sink1.jpg", name: "Sink 1" },
-    { src: "models/sink2.jpg", name: "Sink 2" },
-  ],
-  Rack: [
-    { src: "models/rack1.jpg", name: "Rack 1" },
-    { src: "models/rack2.jpg", name: "Rack 2" },
-  ],
-};
     // Show thumbnails for the selected category
-   function showThumbnails(category) {
-  const container = document.getElementById("thumbnail-container");
-  container.innerHTML = "";
-  container.style.display = "grid";
+    function showThumbnails(category) {
+      const container = document.getElementById("thumbnail-container");
+      container.innerHTML = ""; // Clear previous thumbnails
+      container.style.display = "grid"; // Ensure the grid becomes visible
 
-  if (thumbnails[category]) {
-    thumbnails[category].forEach((thumb) => {
-      const div = document.createElement("div");
-      div.style.position = "relative";
-      const img = document.createElement("img");
-      img.src = thumb.src;
-      img.alt = thumb.name;
-      const label = document.createElement("div");
-      label.textContent = thumb.name;
-      label.style.position = "absolute";
-      label.style.bottom = "0";
-      label.style.left = "0";
-      label.style.width = "100%";
-      label.style.textAlign = "center";
-      label.style.background = "rgba(0, 0, 0, 0.5)";
-      label.style.color = "white";
-      label.style.fontSize = "12px";
-      label.style.padding = "5px";
+      if (thumbnails[category]) {
+        thumbnails[category].forEach((thumb) => {
+          const div = document.createElement("div");
+          div.style.position = "relative";
 
-      // Set data-model attribute
-      div.setAttribute("data-model", `models/${thumb.name}.glb`);
-      div.setAttribute("data-name", thumb.name);
+          const img = document.createElement("img");
+          img.src = thumb.src;
+          img.alt = thumb.name;
 
-      div.appendChild(img);
-      div.appendChild(label);
-      container.appendChild(div);
+          const label = document.createElement("div");
+          label.textContent = thumb.name;
+          label.style.position = "absolute";
+          label.style.bottom = "0";
+          label.style.left = "0";
+          label.style.width = "100%";
+          label.style.textAlign = "center";
+          label.style.background = "rgba(0, 0, 0, 0.5)";
+          label.style.color = "white";
+          label.style.fontSize = "12px";
+          label.style.padding = "5px";
+
+          div.appendChild(img);
+          div.appendChild(label);
+          container.appendChild(div);
+        });
+      }
+    }
 
       // Add event listener for double-click
       div.addEventListener("click", (e) => {

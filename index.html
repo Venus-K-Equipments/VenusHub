@@ -191,6 +191,10 @@
   </div>
 
   <script>
+    document.addEventListener("DOMContentLoaded", function () {
+  const dropdownMenu = document.getElementById("product-dropdown");
+  dropdownMenu.style.display = "none";
+});
     // Toggle the dropdown menu visibility
     function toggleDropdown() {
       const dropdownMenu = document.getElementById("product-dropdown");

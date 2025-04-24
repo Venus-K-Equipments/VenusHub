@@ -257,38 +257,56 @@ footer {
     };
 
     // Show thumbnails for the selected category
-    function showThumbnails(category) {
-      const container = document.getElementById("thumbnail-container");
-      container.innerHTML = ""; // Clear previous thumbnails
-      container.style.display = "grid"; // Ensure the grid becomes visible
+   function showThumbnails(category) {
+  const container = document.getElementById("thumbnail-container");
+  container.innerHTML = "";
+  container.style.display = "grid";
 
-      if (thumbnails[category]) {
-        thumbnails[category].forEach((thumb) => {
-          const div = document.createElement("div");
-          div.style.position = "relative";
+  if (thumbnails[category]) {
+    thumbnails[category].forEach((thumb) => {
+      const div = document.createElement("div");
+      div.style.position = "relative";
+      const img = document.createElement("img");
+      img.src = thumb.src;
+      img.alt = thumb.name;
+      const label = document.createElement("div");
+      label.textContent = thumb.name;
+      label.style.position = "absolute";
+      label.style.bottom = "0";
+      label.style.left = "0";
+      label.style.width = "100%";
+      label.style.textAlign = "center";
+      label.style.background = "rgba(0, 0, 0, 0.5)";
+      label.style.color = "white";
+      label.style.fontSize = "12px";
+      label.style.padding = "5px";
 
-          const img = document.createElement("img");
-          img.src = thumb.src;
-          img.alt = thumb.name;
+      // Set data-model attribute
+      div.setAttribute("data-model", `models/${thumb.name}.glb`);
+      div.setAttribute("data-name", thumb.name);
 
-          const label = document.createElement("div");
-          label.textContent = thumb.name;
-          label.style.position = "absolute";
-          label.style.bottom = "0";
-          label.style.left = "0";
-          label.style.width = "100%";
-          label.style.textAlign = "center";
-          label.style.background = "rgba(0, 0, 0, 0.5)";
-          label.style.color = "white";
-          label.style.fontSize = "12px";
-          label.style.padding = "5px";
+      div.appendChild(img);
+      div.appendChild(label);
+      container.appendChild(div);
 
-          div.appendChild(img);
-          div.appendChild(label);
-          container.appendChild(div);
-        });
-      }
-    }
+      // Add event listener for double-click
+      div.addEventListener("click", (e) => {
+        let currentTime = new Date().getTime();
+        label.style.display = "block";
+        setTimeout(() => {
+          label.style.display = "none";
+        }, 1000);
+        if (currentTime - lastClickTime < 300) {
+          let modelPath = div.getAttribute("data-model");
+          expandModel(modelPath);
+          lastClickTime = 0;
+        } else {
+          lastClickTime = currentTime;
+        }
+      });
+    });
+  }
+}
 
     function showThumbnails(category) {
     let grids = document.querySelectorAll('.grid-container');

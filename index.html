@@ -280,11 +280,11 @@ model-viewer {
     }
   });
 
-    // Show thumbnails for the selected category
+   // Show thumbnails for the selected category
 function showThumbnails(category) {
+  showSection('thumbnail-container');
   const container = document.getElementById("thumbnail-container");
   container.innerHTML = "";
-  container.style.display = "grid";
   if (thumbnails[category]) {
     thumbnails[category].forEach((thumb) => {
       const div = document.createElement("div");

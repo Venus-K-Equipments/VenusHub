@@ -184,6 +184,19 @@ model-viewer {
   max-height: 600px;
   margin: 0 auto;
 }
+    closeButton {
+  position: absolute;
+  top: 5%;
+  right: 5%;
+}
+
+arButton {
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+    
   </style>
 </head>
 <body>
@@ -248,20 +261,17 @@ model-viewer {
   });
 
     // Show thumbnails for the selected category
-    function showThumbnails(category) {
+function showThumbnails(category) {
   const container = document.getElementById("thumbnail-container");
-  container.innerHTML = ""; 
-  container.style.display = "grid"; 
-
+  container.innerHTML = "";
+  container.style.display = "grid";
   if (thumbnails[category]) {
     thumbnails[category].forEach((thumb) => {
       const div = document.createElement("div");
       div.style.position = "relative";
-
       const img = document.createElement("img");
       img.src = thumb.src;
       img.alt = thumb.name;
-
       const label = document.createElement("div");
       label.textContent = thumb.name;
       label.style.position = "absolute";
@@ -273,14 +283,21 @@ model-viewer {
       label.style.color = "white";
       label.style.fontSize = "12px";
       label.style.padding = "5px";
-
       div.appendChild(img);
       div.appendChild(label);
       container.appendChild(div);
-
-      div.onclick = function() {
-        expandModel(thumb.model);
-      };
+      let dblClickTimeout = null;
+      div.addEventListener('click', function(event) {
+        if (dblClickTimeout) {
+          clearTimeout(dblClickTimeout);
+          dblClickTimeout = null;
+          expandModel(thumb.model);
+        } else {
+          dblClickTimeout = setTimeout(function() {
+            dblClickTimeout = null;
+          }, 300);
+        }
+      });
     });
   }
 }

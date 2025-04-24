@@ -139,7 +139,7 @@
     .thumbnail-grid {
       width: 90%;
       margin: 20px auto;
-      display: none; /* Initially hidden */
+      display: grid;
       grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       gap: 15px;
       padding: 10px;
@@ -173,10 +173,10 @@
     <ul>
       <li class="dropdown" onclick="toggleDropdown()">Products
         <ul class="dropdown-menu" id="product-dropdown">
-          <li onclick="showThumbnails('worktable', event)">Work Table</li>
-          <li onclick="showThumbnails('Counter', event)">Counter</li>
-          <li onclick="showThumbnails('Sink', event)">Sink</li>
-          <li onclick="showThumbnails('Rack', event)">Rack</li>
+          <li onclick="showThumbnails('worktable')">Work Table</li>
+          <li onclick="showThumbnails('Counter')">Counter</li>
+          <li onclick="showThumbnails('Sink')">Sink</li>
+          <li onclick="showThumbnails('Rack')">Rack</li>
         </ul>
       </li>
       <li onclick="alert('About Us Section Coming Soon!')">About Us</li>
@@ -186,7 +186,7 @@
   </div>
 
   <!-- Thumbnails Container -->
-  <div id="thumbnail-container" class="thumbnail-grid">
+  <div id="thumbnail-container" class="thumbnail-grid" style="display: none;">
     <!-- Thumbnails will dynamically show here -->
   </div>
 
@@ -222,8 +222,7 @@
     };
 
     // Show thumbnails for the selected category
-    function showThumbnails(category, event) {
-      event.stopPropagation(); // Prevent dropdown from closing
+    function showThumbnails(category) {
       const container = document.getElementById("thumbnail-container");
       container.innerHTML = ""; // Clear previous thumbnails
       container.style.display = "grid"; // Ensure the grid becomes visible
@@ -255,12 +254,6 @@
         });
       }
     }
-
-    // Hide dropdown menu when clicking outside
-    document.addEventListener("click", () => {
-      const dropdownMenu = document.getElementById("product-dropdown");
-      dropdownMenu.style.display = "none";
-    });
   </script>
 </body>
 </html>

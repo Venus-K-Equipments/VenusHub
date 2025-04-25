@@ -157,17 +157,18 @@
 }
 
 .thumbnail-grid img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 4px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Adds styling */
-  transition: transform 0.3s ease; /* Smooth scaling effect */
+  width: 30px; /* Set width to 30px */
+  height: 30px; /* Set height to 30px */
+  border-radius: 4px; /* Optional: Add rounded corners */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Styling */
+  transition: transform 0.3s ease; /* Optional: Hover effect */
 }
 
 .thumbnail-grid img:hover {
-  transform: scale(1.1); /* Hover effect */
-  z-index: 10; /* Brings item to the front */
+  transform: scale(1.1); /* Optional: Slight zoom-in effect on hover */
+  z-index: 10; /* Optional: Bring thumbnail to the front during hover */
 }
+
 
 .thumbnail-grid div > div {
   margin-top: 8px;

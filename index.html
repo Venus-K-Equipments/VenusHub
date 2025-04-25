@@ -140,7 +140,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* 3 columns */
   gap: 16px; /* Spacing between items */
-  padding: 20px; /* Padding around the grid */
+  padding: 10px; /* Padding around the grid */
   max-width: 100%; /* Ensures container takes full width */
   box-sizing: border-box; /* Include padding in width calculations */
 }
@@ -179,13 +179,13 @@
 /* Responsive design for smaller screens */
 @media (max-width: 768px) {
   .thumbnail-grid {
-    grid-template-columns: repeat(2, 1fr); /* Adjust to 2 columns */
+    grid-template-columns: repeat(3, 1fr); /* Adjust to 2 columns */
   }
 }
 
 @media (max-width: 480px) {
   .thumbnail-grid {
-    grid-template-columns: repeat(1, 1fr); /* Adjust to 1 column */
+    grid-template-columns: repeat(3, 1fr); /* Adjust to 1 column */
   }
 }
 

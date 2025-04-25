@@ -137,18 +137,17 @@
 }
 
 .thumbnail-grid img {
-  width: 100px; /* Set width to 30px */
-  height: 100px; /* Set height to 30px */
-  border-radius: 4px; /* Optional: Add rounded corners */
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Styling */
-  transition: transform 0.3s ease; /* Optional: Hover effect */
+  width: 100px;
+  height: 100px;
+  border-radius: 4px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
 }
 
 .thumbnail-grid img:hover {
-  transform: scale(1.1); /* Optional: Slight zoom-in effect on hover */
-  z-index: 10; /* Optional: Bring thumbnail to the front during hover */
+  transform: scale(1.1);
+  z-index: 10;
 }
-
 
 .thumbnail-grid div > div {
   margin-top: 8px;
@@ -156,19 +155,19 @@
   color: #333;
   text-align: center;
   width: 100px;
-  margin: 0 auto; /* add this to center the container */
+  margin: 0 auto;
 }
 
 /* Responsive design for smaller screens */
 @media (max-width: 768px) {
   .thumbnail-grid {
-    grid-template-columns: repeat(3, 1fr); /* Adjust to 2 columns */
+    grid-template-columns: repeat(2, 1fr); /* Adjust to 2 columns */
   }
 }
 
 @media (max-width: 480px) {
   .thumbnail-grid {
-    grid-template-columns: repeat(3, 1fr); /* Adjust to 1 column */
+    grid-template-columns: repeat(1, 1fr); /* Adjust to 1 column */
   }
 }
 

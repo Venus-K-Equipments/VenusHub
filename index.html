@@ -416,14 +416,15 @@ document.querySelectorAll(".menu li").forEach((li) => {
   li.addEventListener("click", (e) => {
     if (e.target.textContent === "About Us") {
       showSection("about-us");
-    } else if (e.target.textContent === "Our Customers") {
+    }
+    if (e.target.textContent === "Our Customers") {
       showSection("our-customers");
-    } else if (e.target.textContent === "Contact Us") {
+    }
+    if (e.target.textContent === "Contact Us") {
       showSection("contact-us");
     }
   });
 });
-
 // Show welcome header by default
 showSection("welcome-header");
 

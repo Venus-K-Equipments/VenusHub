@@ -139,12 +139,26 @@
    .thumbnail-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
+  gap: 20px;
   padding: 10px;
   justify-content: start;
   align-items: start;
-  width: 30%; /* Take up 90% of the parent width */
-  margin: 20px auto; /* Center the grid horizontally */
+  margin: 20px 20px; /* 20px margin from top and left */
+}
+
+/* Make the grid responsive */
+@media (max-width: 768px) {
+  .thumbnail-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .thumbnail-grid {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 10px;
+  }
 }
     
     .thumbnail-grid img {

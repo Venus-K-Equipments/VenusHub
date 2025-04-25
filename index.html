@@ -405,8 +405,10 @@ function showThumbnails(category) {
     function showSection(sectionId) {
   const sections = ["about-us", "our-customers", "contact-us", "thumbnail-container", "welcome-header"];
   sections.forEach((section) => {
-    if (document.getElementById(section)) {
-      document.getElementById(section).style.display = section === sectionId ? "block" : "none";
+    const sectionElement = document.getElementById(section);
+    if (sectionElement) {
+      sectionElement.style.display = section === sectionId ? "block" : "none";
+      sectionElement.style.zIndex = section === sectionId ? "1000" : "0";
     }
   });
 }

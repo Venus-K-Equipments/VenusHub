@@ -273,6 +273,17 @@ model-viewer {
     dropdownMenu.style.display = "block";
   }
 }
+
+    window.onload = function() {
+  const productsMenu = document.querySelector('.menu li.dropdown'); // Select the "Products" menu item
+  if (productsMenu) {
+    productsMenu.click(); // First click to show the dropdown
+    setTimeout(() => {
+      productsMenu.click(); // Second click to hide the dropdown
+    }, 100); // Adjust the delay as needed
+  }
+};
+
     // Thumbnail data for each product category
    const thumbnails = {
   worktable: [

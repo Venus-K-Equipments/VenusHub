@@ -295,9 +295,9 @@ model-viewer {
 
    // Show thumbnails for the selected category
 function showThumbnails(category) {
-  showSection('thumbnail-container');
   const container = document.getElementById("thumbnail-container");
-  container.innerHTML = "";
+container.style.display = "block"; // Ensure the container is visible
+container.innerHTML = ""; // Clear existing thumbnails
   if (thumbnails[category]) {
     thumbnails[category].forEach((thumb) => {
       const div = document.createElement("div");

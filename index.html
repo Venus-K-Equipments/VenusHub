@@ -401,7 +401,7 @@ container.innerHTML = ""; // Clear existing thumbnails
   expandedView.appendChild(panel);
   document.body.appendChild(expandedView);
 }
-   function showSection(sectionId) {
+  function showSection(sectionId) {
   const sections = ["about-us", "our-customers", "contact-us", "welcome-header"]; // Exclude 'thumbnail-container'
   sections.forEach((section) => {
     const sectionElement = document.getElementById(section);
@@ -409,13 +409,11 @@ container.innerHTML = ""; // Clear existing thumbnails
       sectionElement.style.display = section === sectionId ? "block" : "none";
     }
   });
-
-  // Manage thumbnail-container separately
-  if (sectionId === "thumbnail-container") {
-    const container = document.getElementById("thumbnail-container");
-    container.style.display = "block"; // Show only when explicitly required
-  }
+  // Handle 'thumbnail-container' separately
+  const container = document.getElementById("thumbnail-container");
+  container.style.display = sectionId === "thumbnail-container" ? "block" : "none";
 }
+
 // Set up event listeners for menu items
 document.querySelectorAll(".menu li").forEach((li) => {
   li.addEventListener("click", (e) => {

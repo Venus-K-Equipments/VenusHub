@@ -136,16 +136,15 @@
   color: #ffcc00;
 }
 
-    /* Thumbnail Grid Layout */
-    .thumbnail-grid {
-  width: 20%; /* Adjust the width to your liking */
-  margin: 20px auto;
+   .thumbnail-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  gap: 5px; /* Minimal gap */
   padding: 10px;
-  justify-content: center;
-  align-items: center;
+  justify-content: start; /* Start from left */
+  align-items: start; /* Start from top */
+  width: 100%; /* Take up full width */
+  margin: 0; /* Remove margin */
 }
 
     @media (max-width: 768px) {

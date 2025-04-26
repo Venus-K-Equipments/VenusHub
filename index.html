@@ -23,6 +23,7 @@ x<!DOCTYPE html>
       flex-direction: column;
       min-height: 100vh;
       margin: 0;
+  font-family: "Montserrat", sans-serif; 
     }
 
     footer {
@@ -136,25 +137,40 @@ x<!DOCTYPE html>
   color: #ffcc00;
 }
 
-body { 
-  font-family: "Montserrat", sans-serif; 
-  background: #202030; 
+.thumbnail-grid {
+  max-width: 900px;
+  margin: 100px auto;
+  position: relative;
+  box-shadow: 0 5px 10px 0 rgba(0,0,0,.3);
+  overflow:hidden;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-.thumbnail-grid { 
-  max-width: 900px; 
-  margin: 100px auto; 
-  position: relative; 
-  box-shadow: 0 5px 10px 0 rgba(0,0,0,.3); 
-  overflow:hidden; 
+.thumbnail {
+  position: relative;
+  width: calc(33.33% - 20px);
+  margin: 10px;
+  background-color: #128EF3;
+  overflow: hidden;
 }
 
-.thumbnail { 
-  position: relative; 
-  float: left; 
-  width: 33.33333333333%; 
-  background-color: #128EF3; 
-  overflow: hidden; 
+/* Mobile-specific styles */
+@media only screen and (max-width: 768px) {
+  .thumbnail {
+    width: calc(50% - 20px);
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .thumbnail {
+    width: 100%;
+    margin: 10px 0;
+  }
+  .thumbnail-grid {
+    margin: 50px auto;
+  }
 }
 
 .thumbnail:after { 

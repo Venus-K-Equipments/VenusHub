@@ -137,33 +137,16 @@ x<!DOCTYPE html>
 }
 
 .thumbnail-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Creates 3 equal-width columns */
-  gap: 10px; /* Space between thumbnails */
-  width: 100px; /* Ensures the grid spans the full container width */
-  max-width: 680px; /* Optional: Limit the container width */
-  margin: 20px auto; /* Centers the grid and adds spacing */
-  justify-content: center; /* Centers the content inside the grid */
+  display: grid; /* Use CSS Grid layout */
+  grid-template-columns: repeat(3, 1fr); /* Always display 3 columns */
+  gap: 10px; /* Adjust gap between grid items (optional) */
 }
 
 .thumbnail-grid img {
   width: 100%; /* Fit the grid cell perfectly */
   height: auto; /* Maintain the aspect ratio */
-  max-width: 100%; /* Prevent overflow within the cell */
   object-fit: cover; /* Keeps thumbnails uniform */
 }
-    @media (max-width: 600px) {
-  .thumbnail-grid {
-    grid-template-columns: repeat(2, 1fr); /* Adjust to 2 columns on smaller screens */
-  }
-}
-
-@media (max-width: 400px) {
-  .thumbnail-grid {
-    grid-template-columns: repeat(1, 1fr); /* Adjust to 1 column on very small screens */
-  }
-}
-
 
     .thumbnail-grid img:hover {
       transform: scale(1.1);

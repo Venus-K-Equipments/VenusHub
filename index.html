@@ -138,15 +138,14 @@
 
  .thumbnail-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Ensures 3 columns */
-  gap: 10px; /* Space between the thumbnails */
-  width: 100%; /* Full width for the container */
-  margin: 0 auto; /* Centers the grid horizontally */
-  justify-items: center; /* Ensures thumbnails are aligned in columns */
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Adjusts to device size */
+  gap: 10px; /* Space between thumbnails */
+  width: 100%; /* Container takes full width */
+  justify-content: center; /* Centers the grid layout */
 }
 
 .thumbnail-grid img {
-  width: 100%; /* Makes images responsive */
+  width: 100%; /* Ensures images fit inside grid */
   height: auto; /* Maintains aspect ratio */
   object-fit: cover; /* Keeps thumbnails uniform */
 }

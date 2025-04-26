@@ -409,10 +409,7 @@ function showThumbnails(category) {
   const container = document.getElementById("thumbnail-container");
   container.style.display = "block";
   container.innerHTML = "";
-
-  // Normalize category name to match object keys
-  category = category.toLowerCase().replace(/\s+/g, '');
-
+  
   if (thumbnails[category]) {
     thumbnails[category].forEach((thumb) => {
       const thumbnail = document.createElement("div");

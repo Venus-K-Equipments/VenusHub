@@ -409,28 +409,42 @@ function showThumbnails(category) {
   const container = document.getElementById("thumbnail-container");
   container.style.display = "block";
   container.innerHTML = "";
+
+  // Normalize category name to match object keys
+  category = category.toLowerCase().replace(/\s+/g, '');
+
   if (thumbnails[category]) {
     thumbnails[category].forEach((thumb) => {
       const thumbnail = document.createElement("div");
       thumbnail.className = "thumbnail";
+
       const thumbnailImage = document.createElement("div");
       thumbnailImage.className = "thumbnail-image";
+
       const img = document.createElement("img");
       img.src = thumb.src;
       img.alt = thumb.name;
+      img.onerror = function() {
+        console.error(`Error loading image: ${thumb.src}`);
+      };
       thumbnailImage.appendChild(img);
+
       const thumbnailText = document.createElement("div");
       thumbnailText.className = "thumbnail-text";
+
       const thumbnailTextWrapper = document.createElement("div");
       thumbnailTextWrapper.className = "thumbnail-text-wrapper";
+
       const thumbnailTextTitle = document.createElement("h2");
       thumbnailTextTitle.className = "thumbnail-text-title";
       thumbnailTextTitle.textContent = thumb.name;
       thumbnailTextWrapper.appendChild(thumbnailTextTitle);
+
       thumbnailText.appendChild(thumbnailTextWrapper);
       thumbnail.appendChild(thumbnailImage);
       thumbnail.appendChild(thumbnailText);
       container.appendChild(thumbnail);
+
       // Double-click handling logic
       let dblClickTimeout = null;
       thumbnail.addEventListener('click', function(event) {
@@ -445,6 +459,11 @@ function showThumbnails(category) {
         }
       });
     });
+  } else {
+    console.error(`No thumbnails found for category: ${category}`);
+    const noThumbnailsMessage = document.createElement("p");
+    noThumbnailsMessage.textContent = `No thumbnails found for ${category}.`;
+    container.appendChild(noThumbnailsMessage);
   }
 }
 

@@ -1,4 +1,4 @@
-x<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -23,7 +23,6 @@ x<!DOCTYPE html>
       flex-direction: column;
       min-height: 100vh;
       margin: 0;
-  font-family: "Montserrat", sans-serif; 
     }
 
     footer {
@@ -137,28 +136,48 @@ x<!DOCTYPE html>
   color: #ffcc00;
 }
 
-/* Container for thumbnails */
-.thumbnail-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px; /* Space between thumbnails */
-    justify-content: center; /* Center thumbnails horizontally */
+  .thumbnail-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
 }
 
-/* Individual thumbnail */
 .thumbnail {
-    width: 150px; /* Width of each thumbnail */
-    height: 150px; /* Height of each thumbnail */
-    object-fit: cover; /* Ensures the image covers the thumbnail area */
-    border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-    transition: transform 0.3s ease; /* Smooth scaling effect */
+  position: relative;
+  float: left;
+  width: 130px;
+  height: 130px;
+  margin: 5px;
+  padding: 5px;
+  z-index: 0;
+  border: 1px solid #dddddd;
+  background: #f0f0f0;
+  transition: all 0.1s ease-in-out;
+}
+
+.thumbnail img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 130px;
+  height: 130px;
+  object-fit: cover;
 }
 
 .thumbnail:hover {
-    transform: scale(1.05); /* Slightly enlarge thumbnail on hover */
+  z-index: 5;
 }
-/*--------------------------------------------*/
+
+.thumbnail:hover img {
+  width: 200px;
+  height: 200px;
+  margin-top: -65px;
+  margin-left: -65px;
+  top: 50%;
+  left: 50%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
     #header-text {
   margin-left: 100px;
   margin-Top: 30px;
@@ -249,7 +268,7 @@ model-viewer {
   <div id="thumbnail-container" class="thumbnail-grid" style="display: none;">
     <!-- Thumbnails will dynamically show here -->
   </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
   <script>
     // Toggle the dropdown menu visibility
     function toggleDropdown(event) {
@@ -295,44 +314,36 @@ model-viewer {
   // Show thumbnails for the selected category
 function showThumbnails(category) {
   const container = document.getElementById("thumbnail-container");
-  container.style.display = "block";
-  container.innerHTML = "";
-  
+  container.style.display = "flex"; // Changed to flex to match thumbnail-grid class
+  container.style.flexWrap = "wrap"; // Added flex-wrap to handle multiple thumbnails
+  container.style.justifyContent = "center"; // Center the thumbnails
+  container.innerHTML = ""; // Clear existing thumbnails
+
   if (thumbnails[category]) {
     thumbnails[category].forEach((thumb) => {
-      const thumbnail = document.createElement("div");
-      thumbnail.className = "thumbnail";
-
-      const thumbnailImage = document.createElement("div");
-      thumbnailImage.className = "thumbnail-image";
-
+      const div = document.createElement("div");
+      div.className = "thumbnail"; // Added thumbnail class
       const img = document.createElement("img");
       img.src = thumb.src;
       img.alt = thumb.name;
-      img.onerror = function() {
-        console.error(`Error loading image: ${thumb.src}`);
-      };
-      thumbnailImage.appendChild(img);
-
-      const thumbnailText = document.createElement("div");
-      thumbnailText.className = "thumbnail-text";
-
-      const thumbnailTextWrapper = document.createElement("div");
-      thumbnailTextWrapper.className = "thumbnail-text-wrapper";
-
-      const thumbnailTextTitle = document.createElement("h2");
-      thumbnailTextTitle.className = "thumbnail-text-title";
-      thumbnailTextTitle.textContent = thumb.name;
-      thumbnailTextWrapper.appendChild(thumbnailTextTitle);
-
-      thumbnailText.appendChild(thumbnailTextWrapper);
-      thumbnail.appendChild(thumbnailImage);
-      thumbnail.appendChild(thumbnailText);
-      container.appendChild(thumbnail);
+      const label = document.createElement("div");
+      label.textContent = thumb.name;
+      label.style.position = "absolute";
+      label.style.bottom = "0";
+      label.style.left = "0";
+      label.style.width = "100%";
+      label.style.textAlign = "center";
+      label.style.background = "rgba(0, 0, 0, 0.5)";
+      label.style.color = "white";
+      label.style.fontSize = "12px";
+      label.style.padding = "5px";
+      div.appendChild(img);
+      div.appendChild(label);
+      container.appendChild(div);
 
       // Double-click handling logic
       let dblClickTimeout = null;
-      thumbnail.addEventListener('click', function(event) {
+      div.addEventListener('click', function(event) {
         if (dblClickTimeout) {
           clearTimeout(dblClickTimeout);
           dblClickTimeout = null;
@@ -344,14 +355,8 @@ function showThumbnails(category) {
         }
       });
     });
-  } else {
-    console.error(`No thumbnails found for category: ${category}`);
-    const noThumbnailsMessage = document.createElement("p");
-    noThumbnailsMessage.textContent = `No thumbnails found for ${category}.`;
-    container.appendChild(noThumbnailsMessage);
   }
 }
-
     function expandModel(modelPath) {
   let expandedView = document.createElement('div');
   expandedView.style.position = 'fixed';

@@ -139,11 +139,18 @@
    .thumbnail-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 10px; /* Reduced gap for smaller screens */
   padding: 10px;
   justify-content: start;
   align-items: start;
-  margin: 20px 20px; /* 20px margin from top and left */
+  margin: 10px;
+}
+
+/* Optional: Adjust for very small screens */
+@media (max-width: 400px) {
+  .thumbnail-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
     .thumbnail-grid img {

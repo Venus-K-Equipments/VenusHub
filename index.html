@@ -136,21 +136,125 @@ x<!DOCTYPE html>
   color: #ffcc00;
 }
 
-.thumbnail-grid {
-  display: grid; /* Use CSS Grid layout */
-  grid-template-columns: repeat(3, 1fr); /* Always display 3 columns */
-  gap: 10px; /* Adjust gap between grid items (optional) */
+body { 
+  font-family: "Montserrat", sans-serif; 
+  background: #202030; 
 }
 
-.thumbnail-grid img {
-  width: 100%; /* Fit the grid cell perfectly */
-  height: auto; /* Maintain the aspect ratio */
-  object-fit: cover; /* Keeps thumbnails uniform */
+.thumbnail-grid { 
+  max-width: 900px; 
+  margin: 100px auto; 
+  position: relative; 
+  box-shadow: 0 5px 10px 0 rgba(0,0,0,.3); 
+  overflow:hidden; 
 }
 
-    .thumbnail-grid img:hover {
-      transform: scale(1.1);
-    }
+.thumbnail { 
+  position: relative; 
+  float: left; 
+  width: 33.33333333333%; 
+  background-color: #128EF3; 
+  overflow: hidden; 
+}
+
+.thumbnail:after { 
+  content: ''; 
+  display: block; 
+  background-color: inherit; 
+  opacity: 0.9; 
+  width: 100%; 
+  height: 100%; 
+  position: absolute; 
+  top: 0; 
+  left: 0; 
+  transform: scale(2) translateX(-75%) translateY(-75%) translateZ(0) rotate(-28deg); 
+  transition: transform 3s cubic-bezier(0.23, 1, 0.32, 1); 
+}
+
+.thumbnail:hover:after { 
+  transform: scale(2) translateX(0%) translateY(0%) translateZ(0) rotate(-28deg); 
+}
+
+.thumbnail:hover .thumbnail-image { 
+  transform: scale(1.2) translateZ(0); 
+}
+
+.thumbnail:hover .thumbnail-text { 
+  opacity: 1; 
+  transform: translateY(0); 
+}
+/*--------------------------------------------*/
+.thumbnail-image { 
+  height: auto; 
+  backface-visibility: hidden; 
+  transform: translateZ(0); 
+  transition: transform 750ms cubic-bezier(0.23, 1, 0.32, 1); 
+}
+
+.thumbnail-image::before { 
+  content: ""; 
+  display: block; 
+  padding-top: 75%; 
+  overflow: hidden; 
+}
+
+.thumbnail-image img { 
+  position: absolute; 
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  height: auto; 
+  line-height: 0; 
+}
+
+.thumbnail-text { 
+  position: absolute; 
+  top: 0; 
+  right: 0; 
+  left: 0; 
+  bottom: 0; 
+  opacity: 0; 
+  text-align: center; 
+  z-index: 1; 
+  color: #ffffff; 
+  transition: opacity 500ms cubic-bezier(0.23, 1, 0.32, 1), transform 500ms cubic-bezier(0.23, 1, 0.32, 1); 
+  transition-delay: 300ms; 
+  transform: translateY(-20%); 
+}
+
+.thumbnail-text-wrapper { 
+  width: 100%; 
+  position: absolute; 
+  top: 50%; 
+  transform: translateY(-50%); 
+}
+
+.thumbnail-text-title { 
+  font-weight: normal; 
+  font-size: 16px; 
+  padding: 0 15px; 
+  margin: 5px 0 0 0; 
+}
+
+.thumbnail-text-dek { 
+  text-transform: uppercase; 
+  font-size: 14px; 
+  opacity: 0.7; 
+  margin: 0; 
+}
+
+.thumbnail-link { 
+  position: absolute; 
+  top: 0; 
+  right: 0; 
+  bottom: 0; 
+  left: 0; 
+  z-index: 2; 
+  line-height: 0; 
+  overflow: hidden; 
+  text-indent: -9999px; 
+}
+/*--------------------------------------------*/
     #header-text {
   margin-left: 100px;
   margin-Top: 30px;
@@ -287,41 +391,33 @@ model-viewer {
   // Show thumbnails for the selected category
 function showThumbnails(category) {
   const container = document.getElementById("thumbnail-container");
-  container.style.display = "block"; // Ensure the container is visible
-  container.innerHTML = ""; // Clear existing thumbnails
-
-  // Debugging statement
-  console.log("Loading thumbnails for category:", category);
-
-  // Check if the category exists and iterate over its thumbnails
+  container.style.display = "block";
+  container.innerHTML = "";
   if (thumbnails[category]) {
     thumbnails[category].forEach((thumb) => {
-      const div = document.createElement("div");
-      div.style.position = "relative";
-
+      const thumbnail = document.createElement("div");
+      thumbnail.className = "thumbnail";
+      const thumbnailImage = document.createElement("div");
+      thumbnailImage.className = "thumbnail-image";
       const img = document.createElement("img");
       img.src = thumb.src;
       img.alt = thumb.name;
-
-      const label = document.createElement("div");
-      label.textContent = thumb.name;
-      label.style.position = "absolute";
-      label.style.bottom = "0";
-      label.style.left = "0";
-      label.style.width = "100%";
-      label.style.textAlign = "center";
-      label.style.background = "rgba(0, 0, 0, 0.5)";
-      label.style.color = "white";
-      label.style.fontSize = "12px";
-      label.style.padding = "5px";
-
-      div.appendChild(img);
-      div.appendChild(label);
-      container.appendChild(div);
-
+      thumbnailImage.appendChild(img);
+      const thumbnailText = document.createElement("div");
+      thumbnailText.className = "thumbnail-text";
+      const thumbnailTextWrapper = document.createElement("div");
+      thumbnailTextWrapper.className = "thumbnail-text-wrapper";
+      const thumbnailTextTitle = document.createElement("h2");
+      thumbnailTextTitle.className = "thumbnail-text-title";
+      thumbnailTextTitle.textContent = thumb.name;
+      thumbnailTextWrapper.appendChild(thumbnailTextTitle);
+      thumbnailText.appendChild(thumbnailTextWrapper);
+      thumbnail.appendChild(thumbnailImage);
+      thumbnail.appendChild(thumbnailText);
+      container.appendChild(thumbnail);
       // Double-click handling logic
       let dblClickTimeout = null;
-      div.addEventListener('click', function(event) {
+      thumbnail.addEventListener('click', function(event) {
         if (dblClickTimeout) {
           clearTimeout(dblClickTimeout);
           dblClickTimeout = null;

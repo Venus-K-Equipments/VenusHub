@@ -152,6 +152,18 @@ x<!DOCTYPE html>
   max-width: 100%; /* Prevent overflow within the cell */
   object-fit: cover; /* Keeps thumbnails uniform */
 }
+    @media (max-width: 600px) {
+  .thumbnail-grid {
+    grid-template-columns: repeat(2, 1fr); /* Adjust to 2 columns on smaller screens */
+  }
+}
+
+@media (max-width: 400px) {
+  .thumbnail-grid {
+    grid-template-columns: repeat(1, 1fr); /* Adjust to 1 column on very small screens */
+  }
+}
+
 
     .thumbnail-grid img:hover {
       transform: scale(1.1);

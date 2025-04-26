@@ -153,7 +153,10 @@
   z-index: 0;
   border: 1px solid #dddddd;
   background: #f0f0f0;
-  transition: all 0.1s ease-in-out;
+  transition: all 0.3s ease-in-out; /* Added transition for smooth animation */
+  border-radius: 10px; /* Added round corners */
+  overflow: hidden; /* Ensure the image doesn't overflow the rounded corners */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Added subtle shadow */
 }
 
 .thumbnail img {
@@ -163,20 +166,18 @@
   width: 130px;
   height: 130px;
   object-fit: cover;
+  transition: all 0.3s ease-in-out; /* Added transition for smooth animation */
+  border-radius: 10px; /* Ensure the image has rounded corners */
 }
 
 .thumbnail:hover {
   z-index: 5;
+  transform: scale(1.1); /* Added scale effect on hover */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
 }
 
 .thumbnail:hover img {
-  width: 200px;
-  height: 200px;
-  margin-top: -65px;
-  margin-left: -65px;
-  top: 50%;
-  left: 50%;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  transform: scale(1.1); /* Added scale effect on hover */
 }
     #header-text {
   margin-left: 100px;

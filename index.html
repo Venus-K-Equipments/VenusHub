@@ -530,6 +530,23 @@ function showThumbnails(category) {
       div.appendChild(label);
       container.appendChild(div);
 
+    let hint = document.createElement('div');
+    hint.textContent = 'Double click to view in AR';
+    hint.style.position = 'absolute';
+    hint.style.top = '50%';
+    hint.style.left = '50%';
+    hint.style.transform = 'translate(-50%, -50%)';
+    hint.style.background = 'rgba(0, 0, 0, 0.5)';
+    hint.style.color = 'white';
+    hint.style.padding = '10px';
+    hint.style.borderRadius = '10px';
+    hint.style.zIndex = '1000';
+    hint.style.pointerEvents = 'none'; 
+    panel.appendChild(hint);
+    setTimeout(function() {
+        hint.remove();
+    }, 1000);
+
       // Double-click handling logic
       let dblClickTimeout = null;
       div.addEventListener('click', function(event) {
@@ -685,23 +702,6 @@ document.addEventListener('touchmove', (e) => {
   modelViewer.setAttribute('ar-modes', 'webxr scene-viewer quick-look');
   modelViewer.style.width = '100%';
   modelViewer.style.height = '90%';
-
-      let hint = document.createElement('div');
-    hint.textContent = 'Double click to view in AR';
-    hint.style.position = 'absolute';
-    hint.style.top = '50%';
-    hint.style.left = '50%';
-    hint.style.transform = 'translate(-50%, -50%)';
-    hint.style.background = 'rgba(0, 0, 0, 0.5)';
-    hint.style.color = 'white';
-    hint.style.padding = '10px';
-    hint.style.borderRadius = '10px';
-    hint.style.zIndex = '1000';
-    hint.style.pointerEvents = 'none'; 
-    panel.appendChild(hint);
-    setTimeout(function() {
-        hint.remove();
-    }, 1000);
 
   let closeButton = document.createElement('button');
   closeButton.textContent = 'X';

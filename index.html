@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>VenusHub - AR Catalog</title>
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-  <!-- Place scripts at the end of the body -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/prototype-extender"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three-gltf-loader"></script>
+<script src="https://cdn.jsdelivr.net/npm/three/examples/js/exporters/GLTFExporter.js"></script>
   <style>
     /* Global Styles */
     * {
@@ -442,6 +442,14 @@ model-viewer {
 </button>
   
   <script>
+    function addModelToScene(modelPath, position, scene) {
+  const loader = new THREE.GLTFLoader();
+  loader.load(modelPath, (gltf) => {
+    const model = gltf.scene;
+    model.position.set(position.x, position.y, position.z);
+    scene.add(model);
+  });
+}
     // Toggle the dropdown menu visibility--------------------------------------------------------------------------------------------------------
     function toggleDropdown(event) {
   event.stopPropagation();
@@ -675,47 +683,66 @@ document.addEventListener('touchmove', (e) => {
 });
 
  // Group viewer------------------------------------------------------------------------------------------------------------------------------------------------- 
-
-    groupViewBtn.addEventListener('click', async () => {
-  // Check if there are selected models
+function addModelToScene(modelPath, position, scene) {
+  const loader = new THREE.GLTFLoader();
+  loader.load(modelPath, (gltf) => {
+    const model = gltf.scene;
+    model.position.set(position.x, position.y, position.z);
+    scene.add(model);
+  });
+}
+  groupViewBtn.addEventListener('click', async () => {
   if (selectedModels.length === 0) {
     alert("No models selected!");
     return;
   }
 
-  // Create a Three.js scene
   const scene = new THREE.Scene();
+  selectedModels.forEach((model, index) => {
+    const position = { x: index * 3, y: 0, z: 0 }; // Position models side by side
+    addModelToScene(model.model, position, scene);
+  });
 
-  // Use a Three.js GLTFLoader to load models
-  const loader = new THREE.GLTFLoader();
+  // Export and display the scene in <model-viewer> (same as before)
+});
 
-// Create a loading indicator
-const loadingIndicator = document.createElement('div');
-loadingIndicator.textContent = 'Loading...';
-loadingIndicator.style.position = 'fixed';
-loadingIndicator.style.top = '50%';
-loadingIndicator.style.left = '50%';
-loadingIndicator.style.transform = 'translate(-50%, -50%)';
-loadingIndicator.style.background = 'rgba(0, 0, 0, 0.8)';
-loadingIndicator.style.color = 'white';
-loadingIndicator.style.padding = '20px';
-loadingIndicator.style.borderRadius = '10px';
-loadingIndicator.style.zIndex = '1000';
-document.body.appendChild(loadingIndicator);
+  // Create a loading indicator
+  const loadingIndicator = document.createElement('div');
+  loadingIndicator.textContent = 'Loading...';
+  document.body.appendChild(loadingIndicator);
 
-      
   const promises = selectedModels.map((model, index) =>
-  loader.loadAsync(model.model)
-    .then((gltf) => {
-      const spacing = 2 + index;
-      gltf.scene.position.x = index * spacing;
-      scene.add(gltf.scene);
-    })
-    .catch((error) => {
-      console.error(`Error loading model ${model.model}:`, error);
-    })
-); // Corrected closing parenthesis
+    loader.loadAsync(model.model)
+      .then((gltf) => {
+        const spacing = 2 + index;
+        gltf.scene.position.x = index * spacing;
+        scene.add(gltf.scene);
+      })
+  );
 
+  await Promise.all(promises);
+
+  // Remove the loading indicator
+  loadingIndicator.remove();
+
+  // Export the scene as a single .glb file
+  const exporter = new THREE.GLTFExporter();
+  exporter.parse(
+    scene,
+    (result) => {
+      const blob = new Blob([result], { type: 'model/gltf-binary' });
+      const url = URL.createObjectURL(blob);
+
+      // Use <model-viewer> to display the combined model
+      let expandedView = document.createElement("div");
+      let modelViewer = document.createElement("model-viewer");
+      modelViewer.setAttribute("src", url);
+      expandedView.appendChild(modelViewer);
+      document.body.appendChild(expandedView);
+    },
+    { binary: true }
+  );
+});
       
   // Wait for all models to load
   await Promise.all(promises);

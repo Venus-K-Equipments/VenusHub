@@ -448,6 +448,16 @@ model-viewer {
   const dropdownMenu = document.getElementById("product-dropdown");
   dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
 }
+    
+ window.onload = function() {
+  const productsMenu = document.querySelector('.menu li.dropdown'); // Select the "Products" menu item
+  if (productsMenu) {
+    productsMenu.click(); // First click to show the dropdown
+    setTimeout(() => {
+      productsMenu.click(); // Second click to hide the dropdown
+    }, 100); // Adjust the delay as needed
+  }
+};
 
     // Thumbnail data for each product category-------------------------------------------------------------------------------------------------------
    const thumbnails = {
@@ -537,6 +547,96 @@ function showThumbnails(category) {
     });
   }
 }
+
+    // Expand viewer-------------------------------------------------------------------------------------------------------------------------------------------------
+    function expandModel(modelPath) {
+  let expandedView = document.createElement('div');
+  expandedView.style.position = 'fixed';
+  expandedView.style.top = '0';
+  expandedView.style.left = '0';
+  expandedView.style.width = '100%';
+  expandedView.style.height = '100vh';
+  expandedView.style.display = 'flex';
+  expandedView.style.justifyContent = 'center';
+  expandedView.style.alignItems = 'center';
+
+  let panel = document.createElement('div');
+  panel.style.background = 'rgba(255, 255, 255, 0.4)';
+  panel.style.backdropFilter = 'blur(10px)';
+  panel.style.webkitBackdropFilter = 'blur(10px)';
+  panel.style.padding = '20px';
+  panel.style.borderRadius = '10px';
+  panel.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.5)';
+  panel.style.width = '60vh';
+  panel.style.height = '80vh';
+  panel.style.display = 'flex';
+  panel.style.justifyContent = 'center';
+  panel.style.alignItems = 'center';
+  panel.style.flexDirection = 'column';
+
+  let modelViewer = document.createElement('model-viewer');
+  modelViewer.setAttribute('src', modelPath);
+  modelViewer.setAttribute('auto-rotate', '');
+  modelViewer.setAttribute('camera-controls', '');
+  modelViewer.setAttribute('ar', '');
+  modelViewer.setAttribute('ar-modes', 'webxr scene-viewer quick-look');
+  modelViewer.style.width = '100%';
+  modelViewer.style.height = '90%';
+
+      // Add an AR activation button
+let arvButton = document.createElement('button');
+arButton.textContent = 'Activate AR';
+arButton.style.position = 'absolute';
+arButton.style.bottom = '20px';
+arButton.style.left = '50%';
+arButton.style.transform = 'translateX(-50%)';
+arButton.style.padding = '10px 20px';
+arButton.style.background = '#ffcc00';
+arButton.style.color = '#000';
+arButton.style.border = 'none';
+arButton.style.borderRadius = '5px';
+arButton.style.cursor = 'pointer';
+arButton.style.fontWeight = 'bold';
+arButton.onclick = function () {
+  modelViewer.activateAR();
+};
+expandedView.appendChild(arButton);
+
+  let closeButton = document.createElement('button');
+  closeButton.textContent = 'X';
+  closeButton.style.position = 'absolute';
+  closeButton.style.top = '40px';
+  closeButton.style.right = '10px';
+  closeButton.style.background = 'red';
+  closeButton.style.color = 'white';
+  closeButton.style.border = 'none';
+  closeButton.style.width = '30px';
+  closeButton.style.height = '30px';
+  closeButton.style.fontSize = '18px';
+  closeButton.style.fontWeight = 'bold';
+  closeButton.style.cursor = 'pointer';
+  closeButton.onclick = function() {
+    expandedView.remove();
+  };
+
+  // Remove duplicate declaration
+let arButton = document.createElement('button'); // Declared only once
+arButton.textContent = 'Activate AR';
+  arButton.style.position = 'absolute';
+  arButton.style.bottom = '10px';
+  arButton.style.left = '50%';
+  arButton.style.transform = 'translateX(-50%)';
+  arButton.onclick = function() {
+    modelViewer.activateAR();
+  };
+
+  panel.appendChild(modelViewer);
+  panel.appendChild(closeButton);
+  panel.appendChild(arButton);
+  expandedView.appendChild(panel);
+  document.body.appendChild(expandedView);
+}
+
     
 // Make the button draggable-------------------------------------------------------------------------------------------
 const groupViewBtn = document.getElementById('group-view-btn');
@@ -690,94 +790,6 @@ loadingIndicator.remove();
   );
 });
     
-   // Expand viewer-------------------------------------------------------------------------------------------------------------------------------------------------
-    function expandModel(modelPath) {
-  let expandedView = document.createElement('div');
-  expandedView.style.position = 'fixed';
-  expandedView.style.top = '0';
-  expandedView.style.left = '0';
-  expandedView.style.width = '100%';
-  expandedView.style.height = '100vh';
-  expandedView.style.display = 'flex';
-  expandedView.style.justifyContent = 'center';
-  expandedView.style.alignItems = 'center';
-
-  let panel = document.createElement('div');
-  panel.style.background = 'rgba(255, 255, 255, 0.4)';
-  panel.style.backdropFilter = 'blur(10px)';
-  panel.style.webkitBackdropFilter = 'blur(10px)';
-  panel.style.padding = '20px';
-  panel.style.borderRadius = '10px';
-  panel.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.5)';
-  panel.style.width = '60vh';
-  panel.style.height = '80vh';
-  panel.style.display = 'flex';
-  panel.style.justifyContent = 'center';
-  panel.style.alignItems = 'center';
-  panel.style.flexDirection = 'column';
-
-  let modelViewer = document.createElement('model-viewer');
-  modelViewer.setAttribute('src', modelPath);
-  modelViewer.setAttribute('auto-rotate', '');
-  modelViewer.setAttribute('camera-controls', '');
-  modelViewer.setAttribute('ar', '');
-  modelViewer.setAttribute('ar-modes', 'webxr scene-viewer quick-look');
-  modelViewer.style.width = '100%';
-  modelViewer.style.height = '90%';
-
-      // Add an AR activation button
-let arvButton = document.createElement('button');
-arButton.textContent = 'Activate AR';
-arButton.style.position = 'absolute';
-arButton.style.bottom = '20px';
-arButton.style.left = '50%';
-arButton.style.transform = 'translateX(-50%)';
-arButton.style.padding = '10px 20px';
-arButton.style.background = '#ffcc00';
-arButton.style.color = '#000';
-arButton.style.border = 'none';
-arButton.style.borderRadius = '5px';
-arButton.style.cursor = 'pointer';
-arButton.style.fontWeight = 'bold';
-arButton.onclick = function () {
-  modelViewer.activateAR();
-};
-expandedView.appendChild(arButton);
-
-  let closeButton = document.createElement('button');
-  closeButton.textContent = 'X';
-  closeButton.style.position = 'absolute';
-  closeButton.style.top = '40px';
-  closeButton.style.right = '10px';
-  closeButton.style.background = 'red';
-  closeButton.style.color = 'white';
-  closeButton.style.border = 'none';
-  closeButton.style.width = '30px';
-  closeButton.style.height = '30px';
-  closeButton.style.fontSize = '18px';
-  closeButton.style.fontWeight = 'bold';
-  closeButton.style.cursor = 'pointer';
-  closeButton.onclick = function() {
-    expandedView.remove();
-  };
-
-  // Remove duplicate declaration
-let arButton = document.createElement('button'); // Declared only once
-arButton.textContent = 'Activate AR';
-  arButton.style.position = 'absolute';
-  arButton.style.bottom = '10px';
-  arButton.style.left = '50%';
-  arButton.style.transform = 'translateX(-50%)';
-  arButton.onclick = function() {
-    modelViewer.activateAR();
-  };
-
-  panel.appendChild(modelViewer);
-  panel.appendChild(closeButton);
-  panel.appendChild(arButton);
-  expandedView.appendChild(panel);
-  document.body.appendChild(expandedView);
-}
  function showSection(sectionId) {
   const sections = ["about-us", "our-customers", "contact-us", "welcome-header"];
   sections.forEach((section) => {
@@ -793,17 +805,6 @@ arButton.textContent = 'Activate AR';
     
     console.log("Section being shown:", sectionId);
 console.log("Thumbnail container visibility:", container.style.display);
-
-// Set up event listeners for menu items
-window.addEventListener('load', function () {
-  const productsMenu = document.querySelector('.menu li.dropdown');
-  if (productsMenu) {
-    productsMenu.click();
-    setTimeout(() => {
-      productsMenu.click();
-    }, 100);
-  }
-});
 
 window.addEventListener('load', function () {
   // Set up event listeners for menu items

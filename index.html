@@ -222,6 +222,45 @@ model-viewer {
     opacity: 0;
   }
 }
+    /* Style the floating button */
+.floating-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: transparent;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Style the Arc reactor */
+.arc-reactor {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #3498db;
+  animation: pulse 2s infinite;
+}
+
+/* Animation for the Arc reactor */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(52, 152, 219, 0.8);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
+  }
+}
     .tick {
   position: absolute;
   bottom: 0;
@@ -245,6 +284,7 @@ model-viewer {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+    
     
   </style>
 </head>
@@ -294,6 +334,11 @@ model-viewer {
     <!-- Thumbnails will dynamically show here -->
   </div>
 
+  <button id="group-view-btn" class="floating-btn">
+  <div class="arc-reactor"></div>
+  Group View
+</button>
+  
   <script>
     // Toggle the dropdown menu visibility
     function toggleDropdown(event) {
@@ -339,20 +384,18 @@ model-viewer {
   // Show thumbnails for the selected category
 function showThumbnails(category) {
   const container = document.getElementById("thumbnail-container");
-  container.style.display = "flex";
-  container.style.flexWrap = "wrap";
-  container.style.justifyContent = "center";
-  container.innerHTML = "";
+  container.style.display = "flex"; // Changed to flex to match thumbnail-grid class
+  container.style.flexWrap = "wrap"; // Added flex-wrap to handle multiple thumbnails
+  container.style.justifyContent = "center"; // Center the thumbnails
+  container.innerHTML = ""; // Clear existing thumbnails
 
   if (thumbnails[category]) {
     thumbnails[category].forEach((thumb) => {
       const div = document.createElement("div");
-      div.className = "thumbnail";
-
+      div.className = "thumbnail"; // Added thumbnail class
       const img = document.createElement("img");
       img.src = thumb.src;
       img.alt = thumb.name;
-
       const label = document.createElement("div");
       label.textContent = thumb.name;
       label.style.position = "absolute";
@@ -364,97 +407,27 @@ function showThumbnails(category) {
       label.style.color = "white";
       label.style.fontSize = "12px";
       label.style.padding = "5px";
-
-      const checkbox = document.createElement("input");
-      checkbox.type = "checkbox";
-      checkbox.style.position = "absolute";
-      checkbox.style.top = "5px";
-      checkbox.style.right = "5px";
-
-      const tick = document.createElement("span");
-      tick.style.position = "absolute";
-      tick.style.top = "5px";
-      tick.style.right = "5px";
-      tick.style.width = "20px";
-      tick.style.height = "20px";
-      tick.style.background = "#fff";
-      tick.style.border = "1px solid #ddd";
-      tick.style.display = "none";
-
-      checkbox.addEventListener("change", (e) => {
-  if (e.target.checked) {
-    tick.style.display = "block";
-    tick.style.background = "#0f0";
-    tick.textContent = "\u2713";
-    tick.style.color = "#fff";
-    tick.style.textAlign = "center";
-    tick.style.lineHeight = "20px";
-    if (!selectedModels.includes(thumb.model)) {
-      selectedModels.push(thumb.model);
-    }
-  } else {
-    tick.style.display = "none";
-    selectedModels = selectedModels.filter((model) => model !== thumb.model);
-  }
-  showStartGroupViewButton();
-  showClearSelectionButton();
-});
-      div.addEventListener('click', function(event) {
-  if (event.target === checkbox) {
-    checkbox.checked = !checkbox.checked;
-    const changeEvent = new Event('change');
-    checkbox.dispatchEvent(changeEvent);
-  } else if (event.target !== checkbox) {
-    if (dblClickTimeout) {
-      clearTimeout(dblClickTimeout);
-      dblClickTimeout = null;
-      expandModel(thumb.model);
-    } else {
-      dblClickTimeout = setTimeout(function() {
-        dblClickTimeout = null;
-      }, 300);
-    }
-  }
-});div.addEventListener('click', function(event) {
-  if (event.target === checkbox) {
-    checkbox.checked = !checkbox.checked;
-    const changeEvent = new Event('change');
-    checkbox.dispatchEvent(changeEvent);
-  } else if (event.target !== checkbox) {
-    if (dblClickTimeout) {
-      clearTimeout(dblClickTimeout);
-      dblClickTimeout = null;
-      expandModel(thumb.model);
-    } else {
-      dblClickTimeout = setTimeout(function() {
-        dblClickTimeout = null;
-      }, 300);
-    }
-  }
-});
       div.appendChild(img);
       div.appendChild(label);
-      div.appendChild(checkbox);
-      div.appendChild(tick);
       container.appendChild(div);
 
+      // Double-click handling logic
       let dblClickTimeout = null;
       div.addEventListener('click', function(event) {
-        if (event.target !== checkbox) {
-          if (dblClickTimeout) {
-            clearTimeout(dblClickTimeout);
+        if (dblClickTimeout) {
+          clearTimeout(dblClickTimeout);
+          dblClickTimeout = null;
+          expandModel(thumb.model);
+        } else {
+          dblClickTimeout = setTimeout(function() {
             dblClickTimeout = null;
-            expandModel(thumb.model);
-          } else {
-            dblClickTimeout = setTimeout(function() {
-              dblClickTimeout = null;
-            }, 300);
-          }
+          }, 300);
         }
       });
     });
   }
 }
+
     function expandModel(modelPath) {
   let expandedView = document.createElement('div');
   expandedView.style.position = 'fixed';

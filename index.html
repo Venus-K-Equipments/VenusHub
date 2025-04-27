@@ -5,11 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>VenusHub - AR Catalog</title>
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"></script>
-  <!-- Add jQuery -->
+  <!-- Place scripts at the end of the body -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  
-<!-- Add Prototype Extender (if available via CDN) -->
 <script src="https://cdn.jsdelivr.net/npm/prototype-extender"></script>
   <style>
     /* Global Styles */
@@ -449,11 +446,7 @@ model-viewer {
     function toggleDropdown(event) {
   event.stopPropagation();
   const dropdownMenu = document.getElementById("product-dropdown");
-  if (dropdownMenu.style.display === "block") {
-    dropdownMenu.style.display = "none";
-  } else {
-    dropdownMenu.style.display = "block";
-  }
+  dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
 }
 
     // Thumbnail data for each product category-------------------------------------------------------------------------------------------------------
@@ -733,7 +726,7 @@ loadingIndicator.remove();
   modelViewer.style.height = '90%';
 
       // Add an AR activation button
-let arButton = document.createElement('button');
+let arvButton = document.createElement('button');
 arButton.textContent = 'Activate AR';
 arButton.style.position = 'absolute';
 arButton.style.bottom = '20px';
@@ -785,14 +778,15 @@ arButton.textContent = 'Activate AR';
   expandedView.appendChild(panel);
   document.body.appendChild(expandedView);
 }
-  function showSection(sectionId) {
-  const sections = ["about-us", "our-customers", "contact-us", "welcome-header"]; // Exclude 'thumbnail-container'
+ function showSection(sectionId) {
+  const sections = ["about-us", "our-customers", "contact-us", "welcome-header"];
   sections.forEach((section) => {
     const sectionElement = document.getElementById(section);
     if (sectionElement) {
       sectionElement.style.display = section === sectionId ? "block" : "none";
     }
   });
+}
   // Handle 'thumbnail-container' separately
   const container = document.getElementById("thumbnail-container");
   container.style.display = sectionId === "thumbnail-container" ? "block" : "none";

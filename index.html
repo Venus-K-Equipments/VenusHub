@@ -603,9 +603,6 @@ document.addEventListener('touchmove', (e) => {
    // AR Group view------------------------------------------------------------ 
 // Get the elements
 const groupViewBtn = document.getElementById('group-view-btn');
-const cameraViewContainer = document.getElementById('camera-view-container');
-const cameraView = document.getElementById('camera-view');
-const closeCameraViewBtn = document.getElementById('close-camera-view-btn');
 
 // Add event listener to the group view button
 groupViewBtn.addEventListener('click', () => {
@@ -624,7 +621,7 @@ groupViewBtn.addEventListener('click', () => {
   groupViewContainer.style.zIndex = '1000';
 
   // Request access to the camera
-  navigator.mediaMediaDevices.getUserMedia({ video: true })
+  navigator.mediaDevices.getUserMedia({ video: true })
     .then(stream => {
       // Create a video element
       let video = document.createElement('video');

@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>VenusHub - AR Catalog</title>
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"></script>
   <style>
     /* Global Styles */
     * {
@@ -598,56 +599,83 @@ document.addEventListener('touchmove', (e) => {
 
  // Group viewer------------------------------------------------------------------------------------------------------------------------------------------------- 
 
-    groupViewBtn.addEventListener('click', () => {
-  // Create a new container for the group view
-  let groupViewContainer = document.createElement('div');
-  groupViewContainer.style.position = 'fixed';
-  groupViewContainer.style.top = '0';
-  groupViewContainer.style.left = '0';
-  groupViewContainer.style.width = '100%';
-  groupViewContainer.style.height = '100vh';
-  groupViewContainer.style.display = 'flex';
-  groupViewContainer.style.flexWrap = 'wrap';
-  groupViewContainer.style.justifyContent = 'center';
-  groupViewContainer.style.alignItems = 'center';
-  groupViewContainer.style.background = 'rgba(0, 0, 0, 0.8)';
-  groupViewContainer.style.zIndex = '1000';
+    groupViewBtn.addEventListener('click', async () => {
+  // Check if there are selected models
+  if (selectedModels.length === 0) {
+    alert("No models selected!");
+    return;
+  }
 
-  // Loop through the selected models and display each one
-  selectedModels.forEach((model) => {
-    let modelViewer = document.createElement('model-viewer');
-    modelViewer.setAttribute('src', model.model);
-    modelViewer.setAttribute('auto-rotate', '');
-    modelViewer.setAttribute('camera-controls', '');
-    modelViewer.setAttribute('ar', '');
-    modelViewer.setAttribute('ar-modes', 'webxr scene-viewer quick-look');
-    modelViewer.style.width = '300px';
-    modelViewer.style.height = '300px';
-    modelViewer.style.margin = '20px';
-    groupViewContainer.appendChild(modelViewer);
-  });
+  // Create a Three.js scene
+  const scene = new THREE.Scene();
 
-  // Add a close button to the group view container
-  let closeButton = document.createElement('button');
-  closeButton.textContent = 'X';
-  closeButton.style.position = 'absolute';
-  closeButton.style.top = '40px';
-  closeButton.style.right = '10px';
-  closeButton.style.background = 'red';
-  closeButton.style.color = 'white';
-  closeButton.style.border = 'none';
-  closeButton.style.width = '30px';
-  closeButton.style.height = '30px';
-  closeButton.style.fontSize = '18px';
-  closeButton.style.fontWeight = 'bold';
-  closeButton.style.cursor = 'pointer';
-  closeButton.onclick = function() {
-    groupViewContainer.remove();
-  };
-  groupViewContainer.appendChild(closeButton);
+  // Use a Three.js GLTFLoader to load models
+  const loader = new THREE.GLTFLoader();
+  const promises = selectedModels.map((model, index) =>
+    loader.loadAsync(model.model).then((gltf) => {
+      // Position each model in the scene to avoid overlap
+      gltf.scene.position.x = index * 2; // Adjust spacing as needed
+      scene.add(gltf.scene);
+    })
+  );
 
-  // Add the group view container to the body
-  document.body.appendChild(groupViewContainer);
+  // Wait for all models to load
+  await Promise.all(promises);
+
+  // Export the scene as a single .glb file
+  const exporter = new THREE.GLTFExporter();
+  exporter.parse(
+    scene,
+    (result) => {
+      const blob = new Blob([result], { type: "model/gltf-binary" });
+      const url = URL.createObjectURL(blob);
+
+      // Display the combined model in AR using <model-viewer>
+      let expandedView = document.createElement("div");
+      expandedView.style.position = "fixed";
+      expandedView.style.top = "0";
+      expandedView.style.left = "0";
+      expandedView.style.width = "100%";
+      expandedView.style.height = "100vh";
+      expandedView.style.display = "flex";
+      expandedView.style.justifyContent = "center";
+      expandedView.style.alignItems = "center";
+      expandedView.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
+      expandedView.style.zIndex = "1000";
+
+      let modelViewer = document.createElement("model-viewer");
+      modelViewer.setAttribute("src", url);
+      modelViewer.setAttribute("auto-rotate", "");
+      modelViewer.setAttribute("camera-controls", "");
+      modelViewer.setAttribute("ar", "");
+      modelViewer.setAttribute("ar-modes", "webxr scene-viewer quick-look");
+      modelViewer.style.width = "90%";
+      modelViewer.style.height = "90%";
+
+      // Close button
+      let closeButton = document.createElement("button");
+      closeButton.textContent = "X";
+      closeButton.style.position = "absolute";
+      closeButton.style.top = "10px";
+      closeButton.style.right = "10px";
+      closeButton.style.background = "red";
+      closeButton.style.color = "white";
+      closeButton.style.border = "none";
+      closeButton.style.width = "30px";
+      closeButton.style.height = "30px";
+      closeButton.style.fontSize = "18px";
+      closeButton.style.fontWeight = "bold";
+      closeButton.style.cursor = "pointer";
+      closeButton.onclick = function () {
+        expandedView.remove();
+      };
+
+      expandedView.appendChild(modelViewer);
+      expandedView.appendChild(closeButton);
+      document.body.appendChild(expandedView);
+    },
+    { binary: true }
+  );
 });
     
    // Expand viewer-------------------------------------------------------------------------------------------------------------------------------------------------

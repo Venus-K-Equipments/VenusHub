@@ -291,9 +291,11 @@ model-viewer {
 }
 
 .coil-container {
-  position: relative;
+  position: absolute;
   width: 100%;
   height: 100%;
+  top: 0;
+  left: 0;
   animation: 3s infinite linear reactor-anim;
 }
 
@@ -301,45 +303,46 @@ model-viewer {
   position: absolute;
   width: 15px;
   height: 10px;
-  top: calc(50% - 85px);
-  left: calc(50% - 7.5px);
-  transform-origin: 7.5px 55px;
+  top: 50%;
+  left: 50%;
+  transform-origin: 0px 75px;
   background-color: #073c4b;
   box-shadow: 0px 0px 2.5px #52fefe inset;
 }
 
 .coil-1 {
-  transform: rotate(0deg);
+  transform: rotate(0deg) translate(75px);
 }
 
 .coil-2 {
-  transform: rotate(45deg);
+  transform: rotate(45deg) translate(75px);
 }
 
 .coil-3 {
-  transform: rotate(90deg);
+  transform: rotate(90deg) translate(75px);
 }
 
 .coil-4 {
-  transform: rotate(135deg);
+  transform: rotate(135deg) translate(75px);
 }
 
 .coil-5 {
-  transform: rotate(180deg);
+  transform: rotate(180deg) translate(75px);
 }
 
 .coil-6 {
-  transform: rotate(225deg);
+  transform: rotate(225deg) translate(75px);
 }
 
 .coil-7 {
-  transform: rotate(270deg);
+  transform: rotate(270deg) translate(75px);
 }
 
 .coil-8 {
-  transform: rotate(315deg);
+  transform: rotate(315deg) translate(75px);
 }
-    @keyframes reactor-anim {
+
+@keyframes reactor-anim {
   from {
     transform: rotate(0deg);
   }

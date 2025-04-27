@@ -485,51 +485,75 @@ model-viewer {
 let selectedModels = [];
 
 function showThumbnails(category) {
-  const container = document.getElementById("thumbnail-container");
-  container.style.display = "flex"; 
-  container.style.flexWrap = "wrap"; 
-  container.style.justifyContent = "center"; 
-  container.innerHTML = ""; 
-
-  if (thumbnails[category]) {
-    thumbnails[category].forEach((thumb) => {
-      const div = document.createElement("div");
-      div.className = "thumbnail"; 
-
-      const img = document.createElement("img");
-      img.src = thumb.src;
-      img.alt = thumb.name;
-
-      const tickBox = document.createElement("div");
-      tickBox.className = "tick";
-      tickBox.addEventListener("click", (event) => {
+  thumbnails[category].forEach((thumb) => {
+    const div = document.createElement("div");
+    div.className = "thumbnail";
+    const img = document.createElement("img");
+    img.src = thumb.src;
+    img.alt = thumb.name;
+    const tickBox = document.createElement("div");
+    tickBox.className = "tick";
+    tickBox.addEventListener("click", (event) => {
         event.stopPropagation();
         tickBox.classList.toggle("selected");
         if (tickBox.classList.contains("selected")) {
-          selectedModels.push({ name: thumb.name, model: thumb.model });
+            selectedModels.push({ name: thumb.name, model: thumb.model });
         } else {
-          selectedModels = selectedModels.filter(model => model.model !== thumb.model);
+            selectedModels = selectedModels.filter(model => model.model !== thumb.model);
         }
         console.log(selectedModels);
-      });
+    });
+    const label = document.createElement("div");
+    label.textContent = thumb.name;
+    label.style.position = "absolute";
+    label.style.bottom = "20px";
+    label.style.left = "0";
+    label.style.width = "100%";
+    label.style.textAlign = "center";
+    label.style.background = "rgba(0, 0, 0, 0.5)";
+    label.style.color = "white";
+    label.style.fontSize = "12px";
+    label.style.padding = "5px";
 
-      const label = document.createElement("div");
-      label.textContent = thumb.name;
-      label.style.position = "absolute";
-      label.style.bottom = "20px"; 
-      label.style.left = "0";
-      label.style.width = "100%";
-      label.style.textAlign = "center";
-      label.style.background = "rgba(0, 0, 0, 0.5)";
-      label.style.color = "white";
-      label.style.fontSize = "12px";
-      label.style.padding = "5px";
+    const dblClickHint = document.createElement("div");
+    dblClickHint.textContent = "Double click to AR";
+    dblClickHint.style.position = "absolute";
+    dblClickHint.style.top = "50%";
+    dblClickHint.style.left = "50%";
+    dblClickHint.style.transform = "translate(-50%, -50%) scale(0)";
+    dblClickHint.style.background = "rgba(0, 0, 0, 0.7)";
+    dblClickHint.style.color = "white";
+    dblClickHint.style.fontSize = "14px";
+    dblClickHint.style.padding = "10px";
+    dblClickHint.style.borderRadius = "10px";
+    dblClickHint.style.transition = "transform 0.3s ease-in-out";
 
-      div.appendChild(img);
-      div.appendChild(tickBox);
-      div.appendChild(label);
-      container.appendChild(div);
+    div.appendChild(img);
+    div.appendChild(tickBox);
+    div.appendChild(label);
+    div.appendChild(dblClickHint);
 
+    let dblClickTimeout = null;
+    div.addEventListener('click', function(event) {
+        if (event.target !== tickBox) {
+            dblClickHint.style.transform = "translate(-50%, -50%) scale(1)";
+            setTimeout(() => {
+                dblClickHint.style.transform = "translate(-50%, -50%) scale(0)";
+            }, 1000);
+            if (dblClickTimeout) {
+                clearTimeout(dblClickTimeout);
+                dblClickTimeout = null;
+                expandModel(thumb.model);
+            } else {
+                dblClickTimeout = setTimeout(function() {
+                    dblClickTimeout = null;
+                }, 300);
+            }
+        }
+    });
+
+    container.appendChild(div);
+});
       // Double-click handling logic
       let dblClickTimeout = null;
       div.addEventListener('click', function(event) {

@@ -481,24 +481,42 @@ model-viewer {
   });
 
   // Show thumbnails for the selected category
+
+let selectedModels = [];
+
 function showThumbnails(category) {
   const container = document.getElementById("thumbnail-container");
-  container.style.display = "flex"; // Changed to flex to match thumbnail-grid class
-  container.style.flexWrap = "wrap"; // Added flex-wrap to handle multiple thumbnails
-  container.style.justifyContent = "center"; // Center the thumbnails
-  container.innerHTML = ""; // Clear existing thumbnails
+  container.style.display = "flex"; 
+  container.style.flexWrap = "wrap"; 
+  container.style.justifyContent = "center"; 
+  container.innerHTML = ""; 
 
   if (thumbnails[category]) {
     thumbnails[category].forEach((thumb) => {
       const div = document.createElement("div");
-      div.className = "thumbnail"; // Added thumbnail class
+      div.className = "thumbnail"; 
+
       const img = document.createElement("img");
       img.src = thumb.src;
       img.alt = thumb.name;
+
+      const tickBox = document.createElement("div");
+      tickBox.className = "tick";
+      tickBox.addEventListener("click", (event) => {
+        event.stopPropagation();
+        tickBox.classList.toggle("selected");
+        if (tickBox.classList.contains("selected")) {
+          selectedModels.push({ name: thumb.name, model: thumb.model });
+        } else {
+          selectedModels = selectedModels.filter(model => model.model !== thumb.model);
+        }
+        console.log(selectedModels);
+      });
+
       const label = document.createElement("div");
       label.textContent = thumb.name;
       label.style.position = "absolute";
-      label.style.bottom = "0";
+      label.style.bottom = "20px"; 
       label.style.left = "0";
       label.style.width = "100%";
       label.style.textAlign = "center";
@@ -506,26 +524,31 @@ function showThumbnails(category) {
       label.style.color = "white";
       label.style.fontSize = "12px";
       label.style.padding = "5px";
+
       div.appendChild(img);
+      div.appendChild(tickBox);
       div.appendChild(label);
       container.appendChild(div);
 
       // Double-click handling logic
       let dblClickTimeout = null;
       div.addEventListener('click', function(event) {
-        if (dblClickTimeout) {
-          clearTimeout(dblClickTimeout);
-          dblClickTimeout = null;
-          expandModel(thumb.model);
-        } else {
-          dblClickTimeout = setTimeout(function() {
+        if (event.target !== tickBox) {
+          if (dblClickTimeout) {
+            clearTimeout(dblClickTimeout);
             dblClickTimeout = null;
-          }, 300);
+            expandModel(thumb.model);
+          } else {
+            dblClickTimeout = setTimeout(function() {
+              dblClickTimeout = null;
+            }, 300);
+          }
         }
       });
     });
   }
 }
+    
 // Make the button draggable
 const groupViewBtn = document.getElementById('group-view-btn');
 let isDown = false;
@@ -572,6 +595,60 @@ document.addEventListener('touchmove', (e) => {
     groupViewBtn.style.right = 'auto';
   }
 });
+
+    groupViewBtn.addEventListener('click', () => {
+  // Create a new container for the group view
+  let groupViewContainer = document.createElement('div');
+  groupViewContainer.style.position = 'fixed';
+  groupViewContainer.style.top = '0';
+  groupViewContainer.style.left = '0';
+  groupViewContainer.style.width = '100%';
+  groupViewContainer.style.height = '100vh';
+  groupViewContainer.style.display = 'flex';
+  groupViewContainer.style.flexWrap = 'wrap';
+  groupViewContainer.style.justifyContent = 'center';
+  groupViewContainer.style.alignItems = 'center';
+  groupViewContainer.style.background = 'rgba(0, 0, 0, 0.8)';
+  groupViewContainer.style.zIndex = '1000';
+
+  // Loop through the selected models and display each one
+  selectedModels.forEach((model) => {
+    let modelViewer = document.createElement('model-viewer');
+    modelViewer.setAttribute('src', model.model);
+    modelViewer.setAttribute('auto-rotate', '');
+    modelViewer.setAttribute('camera-controls', '');
+    modelViewer.setAttribute('ar', '');
+    modelViewer.setAttribute('ar-modes', 'webxr scene-viewer quick-look');
+    modelViewer.style.width = '300px';
+    modelViewer.style.height = '300px';
+    modelViewer.style.margin = '20px';
+    groupViewContainer.appendChild(modelViewer);
+  });
+
+  // Add a close button to the group view container
+  let closeButton = document.createElement('button');
+  closeButton.textContent = 'X';
+  closeButton.style.position = 'absolute';
+  closeButton.style.top = '40px';
+  closeButton.style.right = '10px';
+  closeButton.style.background = 'red';
+  closeButton.style.color = 'white';
+  closeButton.style.border = 'none';
+  closeButton.style.width = '30px';
+  closeButton.style.height = '30px';
+  closeButton.style.fontSize = '18px';
+  closeButton.style.fontWeight = 'bold';
+  closeButton.style.cursor = 'pointer';
+  closeButton.onclick = function() {
+    groupViewContainer.remove();
+  };
+  groupViewContainer.appendChild(closeButton);
+
+  // Add the group view container to the body
+  document.body.appendChild(groupViewContainer);
+});
+
+    
    // Expand viewer
     function expandModel(modelPath) {
   let expandedView = document.createElement('div');

@@ -584,7 +584,7 @@ function showThumbnails(category) {
   modelViewer.style.height = '90%';
 
       // Add an AR activation button
-let arvButton = document.createElement('button');
+let arButton = document.createElement('button');
 arButton.textContent = 'Activate AR';
 arButton.style.position = 'absolute';
 arButton.style.bottom = '20px';
@@ -618,18 +618,7 @@ expandedView.appendChild(arButton);
   closeButton.onclick = function() {
     expandedView.remove();
   };
-
-  // Remove duplicate declaration
-let arButton = document.createElement('button'); // Declared only once
-arButton.textContent = 'Activate AR';
-  arButton.style.position = 'absolute';
-  arButton.style.bottom = '10px';
-  arButton.style.left = '50%';
-  arButton.style.transform = 'translateX(-50%)';
-  arButton.onclick = function() {
-    modelViewer.activateAR();
-  };
-
+      
   panel.appendChild(modelViewer);
   panel.appendChild(closeButton);
   panel.appendChild(arButton);

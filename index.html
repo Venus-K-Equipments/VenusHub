@@ -243,8 +243,8 @@ model-viewer {
 }
 
 .core-inner {
-  width: 18px;
-  height: 18px;
+  width: 12px;
+  height: 12px;
   border: 1px solid #1b4e5f;
   background-color: #ffffff;
   box-shadow: 0px 0px 2px 1px #52fefe, 0px 0px 2px 2px #52fefe inset;
@@ -252,8 +252,8 @@ model-viewer {
 }
 
 .core-outer {
-  width: 25px;
-  height: 25px;
+  width: 20px;
+  height: 20px;
   border: 0.5px solid #52fefe;
   background-color: #ffffff;
   box-shadow: 0px 0px 1px 0.5px #52fefe, 0px 0px 2px 1px #52fefe inset;
@@ -261,11 +261,28 @@ model-viewer {
 }
 
 .core-wrapper {
-  width: 35px;
-  height: 35px;
+  width: 30px;
+  height: 30px;
   background-color: #073c4b;
   box-shadow: 0px 0px 2px 1px #52fefe, 0px 0px 2px 1px #52fefe inset;
   border-radius: 50%;
+}
+
+.tunnel {
+  width: 45px;
+  height: 45px;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 1px 0.5px #52fefe, 0px 0px 1px 1px #52fefe inset;
+  border-radius: 50%;
+}
+
+.abs-center {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
 }
 
 .coil-container {
@@ -273,8 +290,8 @@ model-viewer {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
   animation: 3s infinite linear reactor-anim;
 }
 
@@ -290,36 +307,37 @@ model-viewer {
 }
 
 .coil-1 {
-  transform: translate(-50%, -50%) rotate(0deg) translate(13px);
+  transform: translate(-50%, -50%) rotate(0deg) translate(8px);
 }
 
 .coil-2 {
-  transform: translate(-50%, -50%) rotate(45deg) translate(13px);
+  transform: translate(-50%, -50%) rotate(45deg) translate(8px);
 }
 
 .coil-3 {
-  transform: translate(-50%, -50%) rotate(90deg) translate(13px);
+  transform: translate(-50%, -50%) rotate(90deg) translate(8px);
 }
 
 .coil-4 {
-  transform: translate(-50%, -50%) rotate(135deg) translate(13px);
+  transform: translate(-50%, -50%) rotate(135deg) translate(8px);
 }
 
 .coil-5 {
-  transform: translate(-50%, -50%) rotate(180deg) translate(13px);
+  transform: translate(-50%, -50%) rotate(180deg) translate(8px);
 }
 
 .coil-6 {
-  transform: translate(-50%, -50%) rotate(225deg) translate(13px);
+  transform: translate(-50%, -50%) rotate(225deg) translate(8px);
 }
 
 .coil-7 {
-  transform: translate(-50%, -50%) rotate(270deg) translate(13px);
+  transform: translate(-50%, -50%) rotate(270deg) translate(8px);
 }
 
 .coil-8 {
-  transform: translate(-50%, -50%) rotate(315deg) translate(13px);
+  transform: translate(-50%, -50%) rotate(315deg) translate(8px);
 }
+
 @keyframes reactor-anim {
   from {
     transform: translate(-50%, -50%) rotate(0deg);

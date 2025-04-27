@@ -225,54 +225,127 @@ model-viewer {
     /* Style the floating button */
 #group-view-btn {
   position: absolute;
-  width: 50px;
-  height: 50px;
+  width: 150px;
+  height: 150px;
   border: none;
-  background: #007bff; /* Add a background color */
+  background: #384c50;
   cursor: grab;
   z-index: 1000;
   padding: 0;
   left: 20px;
   top: 20px;
-  border-radius: 50%; /* Make it a circle */
+  border-radius: 50%;
+  box-shadow: 0px 0px 32px 8px #121414, 0px 0px 4px 1px #121414 inset;
+  font-size: 14px;
+  color: #fff;
 }
 
-#group-view-btn .reactor-container-inner {
-  width: 18px;
-  height: 18px;
+.reactor-container-inner {
+  height: 119px;
+  width: 119px;
+  background-color: #161a1b;
+  box-shadow: 0px 0px 4px 1px #52fefe;
 }
 
-#group-view-btn .tunnel {
-  width: 22px;
-  height: 22px;
+.circle {
+  border-radius: 50%;
 }
 
-#group-view-btn .core-wrapper {
-  width: 14px;
-  height: 14px;
+.abs-center {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
 }
 
-#group-view-btn .core-outer {
-  width: 10px;
+.core-inner {
+  width: 35px;
+  height: 35px;
+  border: 2.5px solid #1b4e5f;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 3.5px 2.5px #52fefe, 0px 0px 5px 5px #52fefe inset;
+}
+
+.core-outer {
+  width: 60px;
+  height: 60px;
+  border: 0.5px solid #52fefe;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 1px 0.5px #52fefe, 0px 0px 5px 2.5px #52fefe inset;
+}
+
+.core-wrapper {
+  width: 90px;
+  height: 90px;
+  background-color: #073c4b;
+  box-shadow: 0px 0px 2.5px 2px #52fefe, 0px 0px 3px 1px #52fefe inset;
+}
+
+.tunnel {
+  width: 110px;
+  height: 110px;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 2.5px 0.5px #52fefe, 0px 0px 2.5px 2px #52fefe inset;
+}
+
+.coil-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  animation: 3s infinite linear reactor-anim;
+}
+
+.coil {
+  position: absolute;
+  width: 15px;
   height: 10px;
+  top: calc(50% - 55px);
+  left: calc(50% - 7.5px);
+  transform-origin: 7.5px 55px;
+  background-color: #073c4b;
+  box-shadow: 0px 0px 2.5px #52fefe inset;
 }
 
-#group-view-btn .core-inner {
-  width: 6px;
-  height: 6px;
-  border: 1px solid #1b4e5f;
+.coil-1 {
+  transform: rotate(0deg);
 }
 
-#group-view-btn .coil-container {
-  transform: scale(0.3);
+.coil-2 {
+  transform: rotate(45deg);
 }
 
-#group-view-btn .coil {
-  width: 10px;
-  height: 6px;
-  top: calc(50% - 15px);
-  left: calc(50% - 5px);
-  transform-origin: 5px 15px;
+.coil-3 {
+  transform: rotate(90deg);
+}
+
+.coil-4 {
+  transform: rotate(135deg);
+}
+
+.coil-5 {
+  transform: rotate(180deg);
+}
+
+.coil-6 {
+  transform: rotate(225deg);
+}
+
+.coil-7 {
+  transform: rotate(270deg);
+}
+
+.coil-8 {
+  transform: rotate(315deg);
+}
+    @keyframes reactor-anim {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
     .tick {
   position: absolute;
@@ -348,6 +421,7 @@ model-viewer {
   </div>
 
  <button id="group-view-btn" class="reactor-container">
+  Group View
   <div class="reactor-container-inner circle abs-center"></div>
   <div class="tunnel circle abs-center"></div>
   <div class="core-wrapper circle abs-center"></div>
@@ -363,7 +437,6 @@ model-viewer {
     <div class="coil coil-7"></div>
     <div class="coil coil-8"></div>
   </div>
-  <!-- <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #fff; font-size: 6px;">Group View</span> -->
 </button>
   
   <script>

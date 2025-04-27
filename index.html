@@ -439,7 +439,7 @@ model-viewer {
 </button>
   
   <script>
-    // Toggle the dropdown menu visibility
+    // Toggle the dropdown menu visibility--------------------------------------------------------------------------------------------------------
     function toggleDropdown(event) {
   event.stopPropagation();
   const dropdownMenu = document.getElementById("product-dropdown");
@@ -460,7 +460,7 @@ model-viewer {
   }
 };
 
-    // Thumbnail data for each product category
+    // Thumbnail data for each product category-------------------------------------------------------------------------------------------------------
    const thumbnails = {
   worktable: [
     { src: "models/WT.jpg", name: "Work Table", model: "models/WT.glb" },
@@ -480,7 +480,7 @@ model-viewer {
     }
   });
 
-  // Show thumbnails for the selected category
+  // Show thumbnails for the selected category------------------------------------------------------------------------------------------------------------------
 
 let selectedModels = [];
 
@@ -530,7 +530,7 @@ function showThumbnails(category) {
       div.appendChild(label);
       container.appendChild(div);
 
-      // Double-click handling logic
+      // Double-click handling logic-------------------------------------------------------------------------------------------------------
       let dblClickTimeout = null;
       div.addEventListener('click', function(event) {
         if (event.target !== tickBox) {
@@ -549,7 +549,7 @@ function showThumbnails(category) {
   }
 }
     
-// Make the button draggable
+// Make the button draggable-------------------------------------------------------------------------------------------
 const groupViewBtn = document.getElementById('group-view-btn');
 let isDown = false;
 let offset = [0, 0];
@@ -596,60 +596,162 @@ document.addEventListener('touchmove', (e) => {
   }
 });
 
-    groupViewBtn.addEventListener('click', () => {
-  // Create a new container for the group view
-  let groupViewContainer = document.createElement('div');
-  groupViewContainer.style.position = 'fixed';
-  groupViewContainer.style.top = '0';
-  groupViewContainer.style.left = '0';
-  groupViewContainer.style.width = '100%';
-  groupViewContainer.style.height = '100vh';
-  groupViewContainer.style.display = 'flex';
-  groupViewContainer.style.flexWrap = 'wrap';
-  groupViewContainer.style.justifyContent = 'center';
-  groupViewContainer.style.alignItems = 'center';
-  groupViewContainer.style.background = 'rgba(0, 0, 0, 0.8)';
-  groupViewContainer.style.zIndex = '1000';
+  // Group viewer------------------------------------------------------------------------------------------------------------------------------------------------- 
+// Create a new container for the group view
+let groupViewContainer = document.createElement('div');
+groupViewContainer.style.position = 'fixed';
+groupViewContainer.style.top = '0';
+groupViewContainer.style.left = '0';
+groupViewContainer.style.width = '100%';
+groupViewContainer.style.height = '100vh';
+groupViewContainer.style.display = 'flex';
+groupViewContainer.style.flexDirection = 'column';
+groupViewContainer.style.alignItems = 'center';
+groupViewContainer.style.background = 'rgba(0, 0, 0, 0.8)';
+groupViewContainer.style.zIndex = '1000';
+groupViewContainer.style.overflowY = 'auto';
 
-  // Loop through the selected models and display each one
-  selectedModels.forEach((model) => {
-    let modelViewer = document.createElement('model-viewer');
-    modelViewer.setAttribute('src', model.model);
-    modelViewer.setAttribute('auto-rotate', '');
-    modelViewer.setAttribute('camera-controls', '');
-    modelViewer.setAttribute('ar', '');
-    modelViewer.setAttribute('ar-modes', 'webxr scene-viewer quick-look');
-    modelViewer.style.width = '300px';
-    modelViewer.style.height = '300px';
-    modelViewer.style.margin = '20px';
-    groupViewContainer.appendChild(modelViewer);
-  });
+// Create a list container
+let listContainer = document.createElement('div');
+listContainer.style.width = '80%';
+listContainer.style.margin = '20px';
+listContainer.style.padding = '20px';
+listContainer.style.background = 'white';
+listContainer.style.borderRadius = '10px';
 
-  // Add a close button to the group view container
-  let closeButton = document.createElement('button');
-  closeButton.textContent = 'X';
-  closeButton.style.position = 'absolute';
-  closeButton.style.top = '40px';
-  closeButton.style.right = '10px';
-  closeButton.style.background = 'red';
-  closeButton.style.color = 'white';
-  closeButton.style.border = 'none';
-  closeButton.style.width = '30px';
-  closeButton.style.height = '30px';
-  closeButton.style.fontSize = '18px';
-  closeButton.style.fontWeight = 'bold';
-  closeButton.style.cursor = 'pointer';
-  closeButton.onclick = function() {
-    groupViewContainer.remove();
-  };
-  groupViewContainer.appendChild(closeButton);
+// Create a list of selected models
+let modelList = document.createElement('ul');
+let selectedModels = []; // assuming this array is defined elsewhere
 
-  // Add the group view container to the body
-  document.body.appendChild(groupViewContainer);
+selectedModels.forEach((model, index) => {
+  let modelListItem = document.createElement('li');
+  modelListItem.textContent = `Model ${index + 1}: ${model.model}`;
+  modelListItem.style.padding = '10px';
+  modelListItem.style.borderBottom = '1px solid #ccc';
+  modelList.appendChild(modelListItem);
 });
 
+// Add the list to the list container
+listContainer.appendChild(modelList);
+
+// Create a model viewer container
+let modelViewerContainer = document.createElement('div');
+modelViewerContainer.style.display = 'flex';
+modelViewerContainer.style.flexWrap = 'wrap';
+modelViewerContainer.style.justifyContent = 'center';
+
+// Function to add model viewer
+function addModelViewer(model) {
+  let modelViewer = document.createElement('model-viewer');
+  modelViewer.setAttribute('src', model.model);
+  modelViewer.setAttribute('auto-rotate', '');
+  modelViewer.setAttribute('camera-controls', '');
+  modelViewer.setAttribute('ar', '');
+  modelViewer.setAttribute('ar-modes', 'webxr scene-viewer quick-look');
+  modelViewer.style.width = '300px';
+  modelViewer.style.height = '300px';
+  modelViewer.style.margin = '20px';
+  modelViewerContainer.appendChild(modelViewer);
+
+  // Add model to list
+  let modelListItem = document.createElement('li');
+  modelListItem.textContent = `Model ${selectedModels.length + 1}: ${model.model}`;
+  modelListItem.style.padding = '10px';
+  modelListItem.style.borderBottom = '1px solid #ccc';
+  modelList.appendChild(modelListItem);
+}
+
+// Loop through the selected models and display each one
+selectedModels.forEach((model) => {
+  addModelViewer(model);
+});
+
+// Create a button to add new model
+let addButton = document.createElement('button');
+addButton.textContent = 'Add Model';
+addButton.style.margin = '20px';
+addButton.style.padding = '10px';
+addButton.style.background = 'blue';
+addButton.style.color = 'white';
+addButton.style.border = 'none';
+addButton.style.borderRadius = '5px';
+addButton.style.cursor = 'pointer';
+
+addButton.onclick = function() {
+  // Open model selection interface
+  let modelSelectionInterface = document.createElement('div');
+  modelSelectionInterface.style.position = 'fixed';
+  modelSelectionInterface.style.top = '0';
+  modelSelectionInterface.style.left = '0';
+  modelSelectionInterface.style.width = '100%';
+  modelSelectionInterface.style.height = '100vh';
+  modelSelectionInterface.style.background = 'rgba(0, 0, 0, 0.8)';
+  modelSelectionInterface.style.display = 'flex';
+  modelSelectionInterface.style.justifyContent = 'center';
+  modelSelectionInterface.style.alignItems = 'center';
+
+  // Create a dropdown or list of available models
+  let modelDropdown = document.createElement('select');
+  // assuming availableModels array is defined elsewhere
+  availableModels.forEach((model) => {
+    let option = document.createElement('option');
+    option.value = model.model;
+    option.text = model.name;
+    modelDropdown.appendChild(option);
+  });
+  let confirmButton = document.createElement('button');
+confirmButton.textContent = 'Confirm';
+confirmButton.style.margin = '20px';
+confirmButton.style.padding = '10px';
+confirmButton.style.background = 'green';
+confirmButton.style.color = 'white';
+confirmButton.style.border = 'none';
+confirmButton.style.borderRadius = '5px';
+confirmButton.style.cursor = 'pointer';
+
+confirmButton.onclick = function() {
+  let selectedModel = {
+    model: modelDropdown.value
+  };
+  selectedModels.push(selectedModel);
+  addModelViewer(selectedModel);
+  modelSelectionInterface.remove();
+};
+
+modelSelectionInterface.appendChild(modelDropdown);
+modelSelectionInterface.appendChild(confirmButton);
+document.body.appendChild(modelSelectionInterface);
+};
+
+// Add the list container, model viewer container, and add button to the group view container
+groupViewContainer.appendChild(listContainer);
+groupViewContainer.appendChild(modelViewerContainer);
+groupViewContainer.appendChild(addButton);
+
+// Add a close button to the group view container
+let closeButton = document.createElement('button');
+closeButton.textContent = 'X';
+closeButton.style.position = 'absolute';
+closeButton.style.top = '40px';
+closeButton.style.right = '10px';
+closeButton.style.background = 'red';
+closeButton.style.color = 'white';
+closeButton.style.border = 'none';
+closeButton.style.width = '30px';
+closeButton.style.height = '30px';
+closeButton.style.fontSize = '18px';
+closeButton.style.fontWeight = 'bold';
+closeButton.style.cursor = 'pointer';
+closeButton.onclick = function() {
+  groupViewContainer.remove();
+};
+groupViewContainer.appendChild(closeButton);
+
+// Add the group view container to the body
+document.body.appendChild(groupViewContainer);
+
     
-   // Expand viewer
+   // Expand viewer-------------------------------------------------------------------------------------------------------------------------------------------------
     function expandModel(modelPath) {
   let expandedView = document.createElement('div');
   expandedView.style.position = 'fixed';
@@ -752,7 +854,7 @@ document.querySelectorAll(".menu li").forEach((li) => {
 showSection("welcome-header");
 
   </script>
-  <!-- Footer Section -->
+  <!-- Footer Section -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
 <footer style="background-color: rgba(51, 51, 51, 0.3); color: white; text-align: center; padding: 20px 0; margin-top: 20px; font-family: Arial, sans-serif;">
   <div>
     <p style="margin: 5px;">

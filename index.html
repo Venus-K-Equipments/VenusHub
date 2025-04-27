@@ -437,6 +437,11 @@ model-viewer {
     <div class="coil coil-8"></div>
   </div>
 </button>
+ <!-- Camera show here -->
+  <div id="camera-view-container" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background-color: rgba(0, 0, 0, 0.8); z-index: 1000;">
+  <video id="camera-view" width="100%" height="100%" style="object-fit: cover;"></video>
+  <button id="close-camera-view-btn" style="position: absolute; top: 40px; right: 10px; background-color: red; color: white; border: none; width: 30px; height: 30px; font-size: 18px; font-weight: bold; cursor: pointer;">X</button>
+</div>
   
   <script>
     // Toggle the dropdown menu visibility
@@ -480,7 +485,7 @@ model-viewer {
     }
   });
 
-  // Show thumbnails for the selected category
+  // Show thumbnails for the selected category--------------------------------------------------------------
 
 let selectedModels = [];
 
@@ -549,7 +554,7 @@ function showThumbnails(category) {
   }
 }
     
-// Make the button draggable
+// Make the button draggable-------------------------------------------------------------------------------
 const groupViewBtn = document.getElementById('group-view-btn');
 let isDown = false;
 let offset = [0, 0];
@@ -595,8 +600,15 @@ document.addEventListener('touchmove', (e) => {
     groupViewBtn.style.right = 'auto';
   }
 });
+   // AR Group view------------------------------------------------------------ 
+// Get the elements
+const groupViewBtn = document.getElementById('group-view-btn');
+const cameraViewContainer = document.getElementById('camera-view-container');
+const cameraView = document.getElementById('camera-view');
+const closeCameraViewBtn = document.getElementById('close-camera-view-btn');
 
-    groupViewBtn.addEventListener('click', () => {
+// Add event listener to the group view button
+groupViewBtn.addEventListener('click', () => {
   // Create a new container for the group view
   let groupViewContainer = document.createElement('div');
   groupViewContainer.style.position = 'fixed';
@@ -611,45 +623,60 @@ document.addEventListener('touchmove', (e) => {
   groupViewContainer.style.background = 'rgba(0, 0, 0, 0.8)';
   groupViewContainer.style.zIndex = '1000';
 
-  // Loop through the selected models and display each one
-  selectedModels.forEach((model) => {
-    let modelViewer = document.createElement('model-viewer');
-    modelViewer.setAttribute('src', model.model);
-    modelViewer.setAttribute('auto-rotate', '');
-    modelViewer.setAttribute('camera-controls', '');
-    modelViewer.setAttribute('ar', '');
-    modelViewer.setAttribute('ar-modes', 'webxr scene-viewer quick-look');
-    modelViewer.style.width = '300px';
-    modelViewer.style.height = '300px';
-    modelViewer.style.margin = '20px';
-    groupViewContainer.appendChild(modelViewer);
-  });
+  // Request access to the camera
+  navigator.mediaMediaDevices.getUserMedia({ video: true })
+    .then(stream => {
+      // Create a video element
+      let video = document.createElement('video');
+      video.srcObject = stream;
+      video.play();
+      video.style.width = '100%';
+      video.style.height = '100%';
+      video.style.objectFit = 'cover';
+      groupViewContainer.appendChild(video);
 
-  // Add a close button to the group view container
-  let closeButton = document.createElement('button');
-  closeButton.textContent = 'X';
-  closeButton.style.position = 'absolute';
-  closeButton.style.top = '40px';
-  closeButton.style.right = '10px';
-  closeButton.style.background = 'red';
-  closeButton.style.color = 'white';
-  closeButton.style.border = 'none';
-  closeButton.style.width = '30px';
-  closeButton.style.height = '30px';
-  closeButton.style.fontSize = '18px';
-  closeButton.style.fontWeight = 'bold';
-  closeButton.style.cursor = 'pointer';
-  closeButton.onclick = function() {
-    groupViewContainer.remove();
-  };
-  groupViewContainer.appendChild(closeButton);
+      // Loop through the selected models and display each one
+      selectedModels.forEach((model) => {
+        let modelViewer = document.createElement('model-viewer');
+        modelViewer.setAttribute('src', model.model);
+        modelViewer.setAttribute('auto-rotate', '');
+        modelViewer.setAttribute('camera-controls', '');
+        modelViewer.setAttribute('ar', '');
+        modelViewer.setAttribute('ar-modes', 'webxr scene-viewer quick-look');
+        modelViewer.style.width = '300px';
+        modelViewer.style.height = '300px';
+        modelViewer.style.margin = '20px';
+        groupViewContainer.appendChild(modelViewer);
+      });
 
-  // Add the group view container to the body
-  document.body.appendChild(groupViewContainer);
+      // Add a close button to the group view container
+      let closeButton = document.createElement('button');
+      closeButton.textContent = 'X';
+      closeButton.style.position = 'absolute';
+      closeButton.style.top = '40px';
+      closeButton.style.right = '10px';
+      closeButton.style.background = 'red';
+      closeButton.style.color = 'white';
+      closeButton.style.border = 'none';
+      closeButton.style.width = '30px';
+      closeButton.style.height = '30px';
+      closeButton.style.fontSize = '18px';
+      closeButton.style.fontWeight = 'bold';
+      closeButton.style.cursor = 'pointer';
+      closeButton.onclick = function() {
+        // Stop the video stream
+        stream.getTracks().forEach(track => track.stop());
+        groupViewContainer.remove();
+      };
+      groupViewContainer.appendChild(closeButton);
+
+      // Add the group view container to the body
+      document.body.appendChild(groupViewContainer);
+    })
+    .catch(error => console.error('Error accessing camera:', error));
 });
-
     
-   // Expand viewer
+   // Expand viewer--------------------------------------------------------------------
     function expandModel(modelPath) {
   let expandedView = document.createElement('div');
   expandedView.style.position = 'fixed';

@@ -8,7 +8,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"></script>
   <!-- Add jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+  
 <!-- Add Prototype Extender (if available via CDN) -->
 <script src="https://cdn.jsdelivr.net/npm/prototype-extender"></script>
   <style>
@@ -768,8 +768,9 @@ expandedView.appendChild(arButton);
     expandedView.remove();
   };
 
-  let arButton = document.createElement('button');
-  arButton.textContent = 'View in AR';
+  // Remove duplicate declaration
+let arButton = document.createElement('button'); // Declared only once
+arButton.textContent = 'Activate AR';
   arButton.style.position = 'absolute';
   arButton.style.bottom = '10px';
   arButton.style.left = '50%';

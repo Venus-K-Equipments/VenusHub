@@ -611,16 +611,40 @@ document.addEventListener('touchmove', (e) => {
 
   // Use a Three.js GLTFLoader to load models
   const loader = new THREE.GLTFLoader();
+
+// Create a loading indicator
+const loadingIndicator = document.createElement('div');
+loadingIndicator.textContent = 'Loading...';
+loadingIndicator.style.position = 'fixed';
+loadingIndicator.style.top = '50%';
+loadingIndicator.style.left = '50%';
+loadingIndicator.style.transform = 'translate(-50%, -50%)';
+loadingIndicator.style.background = 'rgba(0, 0, 0, 0.8)';
+loadingIndicator.style.color = 'white';
+loadingIndicator.style.padding = '20px';
+loadingIndicator.style.borderRadius = '10px';
+loadingIndicator.style.zIndex = '1000';
+document.body.appendChild(loadingIndicator);
+
+      
   const promises = selectedModels.map((model, index) =>
-    loader.loadAsync(model.model).then((gltf) => {
-      // Position each model in the scene to avoid overlap
-      gltf.scene.position.x = index * 2; // Adjust spacing as needed
-      scene.add(gltf.scene);
-    })
+    loader.loadAsync(model.model)
+  .then((gltf) => {
+    // Position each model in the scene
+   const spacing = 2 + index; // Calculate dynamic spacing (adjust formula as needed)
+gltf.scene.position.x = index * spacing;
+    scene.add(gltf.scene);
+  })
+  .catch((error) => {
+    console.error(`Error loading model ${model.model}:`, error);
+  });
   );
 
   // Wait for all models to load
   await Promise.all(promises);
+
+    // Remove the loading indicator
+loadingIndicator.remove();  
 
   // Export the scene as a single .glb file
   const exporter = new THREE.GLTFExporter();
@@ -712,6 +736,25 @@ document.addEventListener('touchmove', (e) => {
   modelViewer.setAttribute('ar-modes', 'webxr scene-viewer quick-look');
   modelViewer.style.width = '100%';
   modelViewer.style.height = '90%';
+
+      // Add an AR activation button
+let arButton = document.createElement('button');
+arButton.textContent = 'Activate AR';
+arButton.style.position = 'absolute';
+arButton.style.bottom = '20px';
+arButton.style.left = '50%';
+arButton.style.transform = 'translateX(-50%)';
+arButton.style.padding = '10px 20px';
+arButton.style.background = '#ffcc00';
+arButton.style.color = '#000';
+arButton.style.border = 'none';
+arButton.style.borderRadius = '5px';
+arButton.style.cursor = 'pointer';
+arButton.style.fontWeight = 'bold';
+arButton.onclick = function () {
+  modelViewer.activateAR();
+};
+expandedView.appendChild(arButton);
 
   let closeButton = document.createElement('button');
   closeButton.textContent = 'X';

@@ -224,73 +224,59 @@ model-viewer {
 }
   /* Style the floating button */
  #group-view-btn {
+  width: 300px;
+  height: 300px;
+  margin: auto;
+  border: 1px dashed #888;
   position: relative;
-  width: 200px;
-  height: 200px;
-  border: none;
-  background: #384c50; /* added background color */
-  cursor: grab;
   border-radius: 50%;
-  overflow: hidden;
+  background-color: #384c50;
+  border: 1px solid #121414;
+  box-shadow: 0px 0px 32px 8px #121414, 0px 0px 4px 1px #121414 inset;
 }
-
-.reactor-container-inner {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  height: 119px;
-  width: 119px;
+.reactor-container-inner{
+  height: 238px;
+  width: 238px;
   background-color: #161a1b;
   box-shadow: 0px 0px 4px 1px #52fefe;
 }
-
-.tunnel {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 110px;
-  height: 110px;
-  background-color: #ffffff;
-  box-shadow: 0px 0px 2.5px 0.5px #52fefe, 0px 0px 2.5px 2px #52fefe inset;
+.circle{
+  border-radius: 50%;
 }
-
-.core-inner {
+.abs-center{
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 35px;
-  height: 35px;
-  border: 2.5px solid #1b4e5f;
-  background-color: #ffffff;
-  box-shadow: 0px 0px 3.5px 2.5px #52fefe, 0px 0px 5px 5px #52fefe inset;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
 }
-
-.core-outer {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 60px;
-  height: 60px;
-  border: 0.5px solid #52fefe;
+.core-inner{
+  width: 70px;
+  height: 70px;
+  border: 5px solid #1b4e5f;
   background-color: #ffffff;
-  box-shadow: 0px 0px 1px 0.5px #52fefe, 0px 0px 5px 2.5px #52fefe inset;
+  box-shadow: 0px 0px 7px 5px #52fefe, 0px 0px 10px 10px #52fefe inset;
 }
-
-.core-wrapper {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 90px;
-  height: 90px;
+.core-outer{
+  width: 120px;
+  height: 120px;
+  border: 1px solid #52fefe;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 2px 1px #52fefe, 0px 0px 10px 5px #52fefe inset;
+}
+.core-wrapper{
+  width: 180px;
+  height: 180px;
   background-color: #073c4b;
-  box-shadow: 0px 0px 2.5px 2px #52fefe, 0px 0px 3px 1px #52fefe inset;
+  box-shadow: 0px 0px 5px 4px #52fefe, 0px 0px 6px 2px #52fefe inset;
 }
-
+.tunnel{
+  width: 220px;
+  height: 220px;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 5px 1px #52fefe, 0px 0px 5px 4px #52fefe inset;
+}
 .coil-container {
   position: absolute;
   top: 50%;
@@ -426,22 +412,25 @@ model-viewer {
   </div>
 
  <button id="group-view-btn">
-  <div class="reactor-container-inner circle"></div>
-  <div class="tunnel circle"></div>
-  <div class="core-wrapper circle"></div>
-  <div class="core-outer circle"></div>
-  <div class="core-inner circle"></div>
-  <div class="coil-container">
-    <div class="coil coil-1"></div>
-    <div class="coil coil-2"></div>
-    <div class="coil coil-3"></div>
-    <div class="coil coil-4"></div>
-    <div class="coil coil-5"></div>
-    <div class="coil coil-6"></div>
-    <div class="coil coil-7"></div>
-    <div class="coil coil-8"></div>
+    <div class="reactor-container">
+      <div class="tunnel circle abs-center"></div>
+      <div class="core-wrapper circle abs-center"></div>
+      <div class="core-outer circle abs-center"></div>
+      <div class="reactor-container-inner circle abs-center"></div>
+      <div class="core-inner circle abs-center"></div>
+      <div class="coil-container">
+        <div class="coil coil-1"></div>
+        <div class="coil coil-2"></div>
+        <div class="coil coil-3"></div>
+        <div class="coil coil-4"></div>
+        <div class="coil coil-5"></div>
+        <div class="coil coil-6"></div>
+        <div class="coil coil-7"></div>
+        <div class="coil coil-8"></div>
+      </div>
+    </div>
   </div>
-</button>
+ </button>
   
   <script>
     // Toggle the dropdown menu visibility

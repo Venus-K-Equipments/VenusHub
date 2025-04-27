@@ -442,14 +442,7 @@ model-viewer {
 </button>
   
   <script>
-    function addModelToScene(modelPath, position, scene) {
-  const loader = new THREE.GLTFLoader();
-  loader.load(modelPath, (gltf) => {
-    const model = gltf.scene;
-    model.position.set(position.x, position.y, position.z);
-    scene.add(model);
-  });
-}
+    
     // Toggle the dropdown menu visibility--------------------------------------------------------------------------------------------------------
     function toggleDropdown(event) {
   event.stopPropagation();
@@ -703,7 +696,23 @@ function addModelToScene(modelPath, position, scene) {
     addModelToScene(model.model, position, scene);
   });
 
-  // Export and display the scene in <model-viewer> (same as before)
+  // Export the scene as a single .glb file
+  const exporter = new THREE.GLTFExporter();
+  exporter.parse(
+    scene,
+    (result) => {
+      const blob = new Blob([result], { type: 'model/gltf-binary' });
+      const url = URL.createObjectURL(blob);
+
+      // Display the combined model in AR
+      let expandedView = document.createElement('div');
+      let modelViewer = document.createElement('model-viewer');
+      modelViewer.setAttribute('src', url);
+      expandedView.appendChild(modelViewer);
+      document.body.appendChild(expandedView);
+    },
+    { binary: true }
+  );
 });
 
   // Create a loading indicator

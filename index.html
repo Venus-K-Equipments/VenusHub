@@ -382,20 +382,56 @@ function showThumbnails(category) {
       tick.style.display = "none";
 
       checkbox.addEventListener("change", (e) => {
-        if (e.target.checked) {
-          tick.style.display = "block";
-          tick.style.background = "#0f0";
-          tick.textContent = "\u2713";
-          tick.style.color = "#fff";
-          tick.style.textAlign = "center";
-          tick.style.lineHeight = "20px";
-          selectedModels.push(thumb.model);
-        } else {
-          tick.style.display = "none";
-          selectedModels = selectedModels.filter((model) => model !== thumb.model);
-        }
-      });
-
+  if (e.target.checked) {
+    tick.style.display = "block";
+    tick.style.background = "#0f0";
+    tick.textContent = "\u2713";
+    tick.style.color = "#fff";
+    tick.style.textAlign = "center";
+    tick.style.lineHeight = "20px";
+    if (!selectedModels.includes(thumb.model)) {
+      selectedModels.push(thumb.model);
+    }
+  } else {
+    tick.style.display = "none";
+    selectedModels = selectedModels.filter((model) => model !== thumb.model);
+  }
+  showStartGroupViewButton();
+  showClearSelectionButton();
+});
+      div.addEventListener('click', function(event) {
+  if (event.target === checkbox) {
+    checkbox.checked = !checkbox.checked;
+    const changeEvent = new Event('change');
+    checkbox.dispatchEvent(changeEvent);
+  } else if (event.target !== checkbox) {
+    if (dblClickTimeout) {
+      clearTimeout(dblClickTimeout);
+      dblClickTimeout = null;
+      expandModel(thumb.model);
+    } else {
+      dblClickTimeout = setTimeout(function() {
+        dblClickTimeout = null;
+      }, 300);
+    }
+  }
+});div.addEventListener('click', function(event) {
+  if (event.target === checkbox) {
+    checkbox.checked = !checkbox.checked;
+    const changeEvent = new Event('change');
+    checkbox.dispatchEvent(changeEvent);
+  } else if (event.target !== checkbox) {
+    if (dblClickTimeout) {
+      clearTimeout(dblClickTimeout);
+      dblClickTimeout = null;
+      expandModel(thumb.model);
+    } else {
+      dblClickTimeout = setTimeout(function() {
+        dblClickTimeout = null;
+      }, 300);
+    }
+  }
+});
       div.appendChild(img);
       div.appendChild(label);
       div.appendChild(checkbox);

@@ -223,43 +223,55 @@ model-viewer {
   }
 }
     /* Style the floating button */
-.floating-btn {
+#group-view-btn {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background-color: transparent;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* Style the Arc reactor */
-.arc-reactor {
   width: 30px;
   height: 30px;
-  border-radius: 50%;
-  background-color: #3498db;
-  animation: pulse 2s infinite;
+  border: none;
+  background: transparent;
+  cursor: grab;
+  z-index: 1000;
+  padding: 0;
 }
 
-/* Animation for the Arc reactor */
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-    box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
-  }
-  50% {
-    transform: scale(1.1);
-    box-shadow: 0 0 20px rgba(52, 152, 219, 0.8);
-  }
-  100% {
-    transform: scale(1);
-    box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
-  }
+#group-view-btn .reactor-container-inner {
+  width: 18px;
+  height: 18px;
+}
+
+#group-view-btn .tunnel {
+  width: 22px;
+  height: 22px;
+}
+
+#group-view-btn .core-wrapper {
+  width: 14px;
+  height: 14px;
+}
+
+#group-view-btn .core-outer {
+  width: 10px;
+  height: 10px;
+}
+
+#group-view-btn .core-inner {
+  width: 6px;
+  height: 6px;
+  border: 1px solid #1b4e5f;
+}
+
+#group-view-btn .coil-container {
+  transform: scale(0.3);
+}
+
+#group-view-btn .coil {
+  width: 10px;
+  height: 6px;
+  top: calc(50% - 15px);
+  left: calc(50% - 5px);
+  transform-origin: 5px 15px;
 }
     .tick {
   position: absolute;
@@ -334,9 +346,23 @@ model-viewer {
     <!-- Thumbnails will dynamically show here -->
   </div>
 
-  <button id="group-view-btn" class="floating-btn">
-  <div class="arc-reactor"></div>
-  Group View
+ <button id="group-view-btn" class="reactor-container">
+  <div class="reactor-container-inner circle abs-center"></div>
+  <div class="tunnel circle abs-center"></div>
+  <div class="core-wrapper circle abs-center"></div>
+  <div class="core-outer circle abs-center"></div>
+  <div class="core-inner circle abs-center"></div>
+  <div class="coil-container">
+    <div class="coil coil-1"></div>
+    <div class="coil coil-2"></div>
+    <div class="coil coil-3"></div>
+    <div class="coil coil-4"></div>
+    <div class="coil coil-5"></div>
+    <div class="coil coil-6"></div>
+    <div class="coil coil-7"></div>
+    <div class="coil coil-8"></div>
+  </div>
+  <!-- <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #fff; font-size: 6px;">Group View</span> -->
 </button>
   
   <script>
@@ -427,7 +453,31 @@ function showThumbnails(category) {
     });
   }
 }
+// Make the button draggable
+const groupViewBtn = document.getElementById('group-view-btn');
+let isDown = false;
+let offset = [0, 0];
 
+groupViewBtn.addEventListener('mousedown', (e) => {
+  if (e.button === 0) {
+    isDown = true;
+    offset = [groupViewBtn.offsetLeft - e.clientX, groupViewBtn.offsetTop - e.clientY];
+  }
+});
+
+document.addEventListener('mouseup', () => {
+  isDown = false;
+});
+
+document.addEventListener('mousemove', (e) => {
+  if (isDown) {
+    groupViewBtn.style.left = `${e.clientX + offset[0]}px`;
+    groupViewBtn.style.top = `${e.clientY + offset[1]}px`;
+    groupViewBtn.style.bottom = 'auto';
+    groupViewBtn.style.right = 'auto';
+  }
+});
+   // Expand viewer
     function expandModel(modelPath) {
   let expandedView = document.createElement('div');
   expandedView.style.position = 'fixed';

@@ -5,9 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>VenusHub - AR Catalog</title>
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three-gltf-loader"></script>
-<script src="https://cdn.jsdelivr.net/npm/three/examples/js/exporters/GLTFExporter.js"></script>
   <style>
     /* Global Styles */
     * {
@@ -180,7 +177,7 @@
 }
 
 .thumbnail:hover img {
-  transform: scale(1.5); /* Added scale effect on hover */
+  transform: scale(1.1); /* Added scale effect on hover */
 }
     #header-text {
   margin-left: 80px;
@@ -442,15 +439,18 @@ model-viewer {
 </button>
   
   <script>
-    
-    // Toggle the dropdown menu visibility--------------------------------------------------------------------------------------------------------
+    // Toggle the dropdown menu visibility
     function toggleDropdown(event) {
   event.stopPropagation();
   const dropdownMenu = document.getElementById("product-dropdown");
-  dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
+  if (dropdownMenu.style.display === "block") {
+    dropdownMenu.style.display = "none";
+  } else {
+    dropdownMenu.style.display = "block";
+  }
 }
-    
- window.onload = function() {
+
+    window.onload = function() {
   const productsMenu = document.querySelector('.menu li.dropdown'); // Select the "Products" menu item
   if (productsMenu) {
     productsMenu.click(); // First click to show the dropdown
@@ -460,7 +460,7 @@ model-viewer {
   }
 };
 
-    // Thumbnail data for each product category-------------------------------------------------------------------------------------------------------
+    // Thumbnail data for each product category
    const thumbnails = {
   worktable: [
     { src: "models/WT.jpg", name: "Work Table", model: "models/WT.glb" },
@@ -480,7 +480,7 @@ model-viewer {
     }
   });
 
-  // Show thumbnails for the selected category------------------------------------------------------------------------------------------------------------------
+  // Show thumbnails for the selected category
 
 let selectedModels = [];
 
@@ -530,7 +530,7 @@ function showThumbnails(category) {
       div.appendChild(label);
       container.appendChild(div);
 
-      // Double-click handling logic-------------------------------------------------------------------------------------------------------
+      // Double-click handling logic
       let dblClickTimeout = null;
       div.addEventListener('click', function(event) {
         if (event.target !== tickBox) {
@@ -548,87 +548,8 @@ function showThumbnails(category) {
     });
   }
 }
-
-    // Expand viewer-------------------------------------------------------------------------------------------------------------------------------------------------
-    function expandModel(modelPath) {
-  let expandedView = document.createElement('div');
-  expandedView.style.position = 'fixed';
-  expandedView.style.top = '0';
-  expandedView.style.left = '0';
-  expandedView.style.width = '100%';
-  expandedView.style.height = '100vh';
-  expandedView.style.display = 'flex';
-  expandedView.style.justifyContent = 'center';
-  expandedView.style.alignItems = 'center';
-
-  let panel = document.createElement('div');
-  panel.style.background = 'rgba(255, 255, 255, 0.4)';
-  panel.style.backdropFilter = 'blur(10px)';
-  panel.style.webkitBackdropFilter = 'blur(10px)';
-  panel.style.padding = '20px';
-  panel.style.borderRadius = '10px';
-  panel.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.5)';
-  panel.style.width = '60vh';
-  panel.style.height = '80vh';
-  panel.style.display = 'flex';
-  panel.style.justifyContent = 'center';
-  panel.style.alignItems = 'center';
-  panel.style.flexDirection = 'column';
-
-  let modelViewer = document.createElement('model-viewer');
-  modelViewer.setAttribute('src', modelPath);
-  modelViewer.setAttribute('auto-rotate', '');
-  modelViewer.setAttribute('camera-controls', '');
-  modelViewer.setAttribute('ar', '');
-  modelViewer.setAttribute('ar-modes', 'webxr scene-viewer quick-look');
-  modelViewer.style.width = '100%';
-  modelViewer.style.height = '90%';
-
-      // Add an AR activation button
-let arButton = document.createElement('button');
-arButton.textContent = 'Activate AR';
-arButton.style.position = 'absolute';
-arButton.style.bottom = '20px';
-arButton.style.left = '50%';
-arButton.style.transform = 'translateX(-50%)';
-arButton.style.padding = '10px 20px';
-arButton.style.background = '#ffcc00';
-arButton.style.color = '#000';
-arButton.style.border = 'none';
-arButton.style.borderRadius = '5px';
-arButton.style.cursor = 'pointer';
-arButton.style.fontWeight = 'bold';
-arButton.onclick = function () {
-  modelViewer.activateAR();
-};
-expandedView.appendChild(arButton);
-
-  let closeButton = document.createElement('button');
-  closeButton.textContent = 'X';
-  closeButton.style.position = 'absolute';
-  closeButton.style.top = '40px';
-  closeButton.style.right = '10px';
-  closeButton.style.background = 'red';
-  closeButton.style.color = 'white';
-  closeButton.style.border = 'none';
-  closeButton.style.width = '30px';
-  closeButton.style.height = '30px';
-  closeButton.style.fontSize = '18px';
-  closeButton.style.fontWeight = 'bold';
-  closeButton.style.cursor = 'pointer';
-  closeButton.onclick = function() {
-    expandedView.remove();
-  };
-      
-  panel.appendChild(modelViewer);
-  panel.appendChild(closeButton);
-  panel.appendChild(arButton);
-  expandedView.appendChild(panel);
-  document.body.appendChild(expandedView);
-}
-
     
-// Make the button draggable-------------------------------------------------------------------------------------------
+// Make the button draggable
 const groupViewBtn = document.getElementById('group-view-btn');
 let isDown = false;
 let offset = [0, 0];
@@ -676,154 +597,136 @@ document.addEventListener('touchmove', (e) => {
 });
 
  // Group viewer------------------------------------------------------------------------------------------------------------------------------------------------- 
-function addModelToScene(modelPath, position, scene) {
-  const loader = new THREE.GLTFLoader();
-  loader.load(modelPath, (gltf) => {
-    const model = gltf.scene;
-    model.position.set(position.x, position.y, position.z);
-    scene.add(model);
+
+    groupViewBtn.addEventListener('click', () => {
+  // Create a new container for the group view
+  let groupViewContainer = document.createElement('div');
+  groupViewContainer.style.position = 'fixed';
+  groupViewContainer.style.top = '0';
+  groupViewContainer.style.left = '0';
+  groupViewContainer.style.width = '100%';
+  groupViewContainer.style.height = '100vh';
+  groupViewContainer.style.display = 'flex';
+  groupViewContainer.style.flexWrap = 'wrap';
+  groupViewContainer.style.justifyContent = 'center';
+  groupViewContainer.style.alignItems = 'center';
+  groupViewContainer.style.background = 'rgba(0, 0, 0, 0.8)';
+  groupViewContainer.style.zIndex = '1000';
+
+  // Loop through the selected models and display each one
+  selectedModels.forEach((model) => {
+    let modelViewer = document.createElement('model-viewer');
+    modelViewer.setAttribute('src', model.model);
+    modelViewer.setAttribute('auto-rotate', '');
+    modelViewer.setAttribute('camera-controls', '');
+    modelViewer.setAttribute('ar', '');
+    modelViewer.setAttribute('ar-modes', 'webxr scene-viewer quick-look');
+    modelViewer.style.width = '300px';
+    modelViewer.style.height = '300px';
+    modelViewer.style.margin = '20px';
+    groupViewContainer.appendChild(modelViewer);
   });
-}
-  groupViewBtn.addEventListener('click', async () => {
-  if (selectedModels.length === 0) {
-    alert("No models selected!");
-    return;
-  }
 
-  const scene = new THREE.Scene();
-  selectedModels.forEach((model, index) => {
-    const position = { x: index * 3, y: 0, z: 0 }; // Position models side by side
-    addModelToScene(model.model, position, scene);
-  });
+  // Add a close button to the group view container
+  let closeButton = document.createElement('button');
+  closeButton.textContent = 'X';
+  closeButton.style.position = 'absolute';
+  closeButton.style.top = '40px';
+  closeButton.style.right = '10px';
+  closeButton.style.background = 'red';
+  closeButton.style.color = 'white';
+  closeButton.style.border = 'none';
+  closeButton.style.width = '30px';
+  closeButton.style.height = '30px';
+  closeButton.style.fontSize = '18px';
+  closeButton.style.fontWeight = 'bold';
+  closeButton.style.cursor = 'pointer';
+  closeButton.onclick = function() {
+    groupViewContainer.remove();
+  };
+  groupViewContainer.appendChild(closeButton);
 
-  // Export the scene as a single .glb file
-  const exporter = new THREE.GLTFExporter();
-  exporter.parse(
-    scene,
-    (result) => {
-      const blob = new Blob([result], { type: 'model/gltf-binary' });
-      const url = URL.createObjectURL(blob);
-
-      // Display the combined model in AR
-      let expandedView = document.createElement('div');
-      let modelViewer = document.createElement('model-viewer');
-      modelViewer.setAttribute('src', url);
-      expandedView.appendChild(modelViewer);
-      document.body.appendChild(expandedView);
-    },
-    { binary: true }
-  );
+  // Add the group view container to the body
+  document.body.appendChild(groupViewContainer);
 });
 
-  // Create a loading indicator
-  const loadingIndicator = document.createElement('div');
-  loadingIndicator.textContent = 'Loading...';
-  document.body.appendChild(loadingIndicator);
-
-  const promises = selectedModels.map((model, index) =>
-    loader.loadAsync(model.model)
-      .then((gltf) => {
-        const spacing = 2 + index;
-        gltf.scene.position.x = index * spacing;
-        scene.add(gltf.scene);
-      })
-  );
-
-  await Promise.all(promises);
-
-  // Remove the loading indicator
-  loadingIndicator.remove();
-
-  // Export the scene as a single .glb file
-  const exporter = new THREE.GLTFExporter();
-  exporter.parse(
-    scene,
-    (result) => {
-      const blob = new Blob([result], { type: 'model/gltf-binary' });
-      const url = URL.createObjectURL(blob);
-
-      // Use <model-viewer> to display the combined model
-      let expandedView = document.createElement("div");
-      let modelViewer = document.createElement("model-viewer");
-      modelViewer.setAttribute("src", url);
-      expandedView.appendChild(modelViewer);
-      document.body.appendChild(expandedView);
-    },
-    { binary: true }
-  );
-});
-      
-  // Wait for all models to load
-  await Promise.all(promises);
-
-    // Remove the loading indicator
-loadingIndicator.remove();  
-
-  // Export the scene as a single .glb file
-  const exporter = new THREE.GLTFExporter();
-  exporter.parse(
-    scene,
-    (result) => {
-      const blob = new Blob([result], { type: "model/gltf-binary" });
-      const url = URL.createObjectURL(blob);
-
-      // Display the combined model in AR using <model-viewer>
-      let expandedView = document.createElement("div");
-      expandedView.style.position = "fixed";
-      expandedView.style.top = "0";
-      expandedView.style.left = "0";
-      expandedView.style.width = "100%";
-      expandedView.style.height = "100vh";
-      expandedView.style.display = "flex";
-      expandedView.style.justifyContent = "center";
-      expandedView.style.alignItems = "center";
-      expandedView.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
-      expandedView.style.zIndex = "1000";
-
-      let modelViewer = document.createElement("model-viewer");
-      modelViewer.setAttribute("src", url);
-      modelViewer.setAttribute("auto-rotate", "");
-      modelViewer.setAttribute("camera-controls", "");
-      modelViewer.setAttribute("ar", "");
-      modelViewer.setAttribute("ar-modes", "webxr scene-viewer quick-look");
-      modelViewer.style.width = "90%";
-      modelViewer.style.height = "90%";
-
-      // Close button
-      let closeButton = document.createElement("button");
-      closeButton.textContent = "X";
-      closeButton.style.position = "absolute";
-      closeButton.style.top = "10px";
-      closeButton.style.right = "10px";
-      closeButton.style.background = "red";
-      closeButton.style.color = "white";
-      closeButton.style.border = "none";
-      closeButton.style.width = "30px";
-      closeButton.style.height = "30px";
-      closeButton.style.fontSize = "18px";
-      closeButton.style.fontWeight = "bold";
-      closeButton.style.cursor = "pointer";
-      closeButton.onclick = function () {
-        expandedView.remove();
-      };
-
-      expandedView.appendChild(modelViewer);
-      expandedView.appendChild(closeButton);
-      document.body.appendChild(expandedView);
-    },
-    { binary: true }
-  );
-});
     
- function showSection(sectionId) {
-  const sections = ["about-us", "our-customers", "contact-us", "welcome-header"];
+   // Expand viewer
+    function expandModel(modelPath) {
+  let expandedView = document.createElement('div');
+  expandedView.style.position = 'fixed';
+  expandedView.style.top = '0';
+  expandedView.style.left = '0';
+  expandedView.style.width = '100%';
+  expandedView.style.height = '100vh';
+  expandedView.style.display = 'flex';
+  expandedView.style.justifyContent = 'center';
+  expandedView.style.alignItems = 'center';
+
+  let panel = document.createElement('div');
+  panel.style.background = 'rgba(255, 255, 255, 0.4)';
+  panel.style.backdropFilter = 'blur(10px)';
+  panel.style.webkitBackdropFilter = 'blur(10px)';
+  panel.style.padding = '20px';
+  panel.style.borderRadius = '10px';
+  panel.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.5)';
+  panel.style.width = '60vh';
+  panel.style.height = '80vh';
+  panel.style.display = 'flex';
+  panel.style.justifyContent = 'center';
+  panel.style.alignItems = 'center';
+  panel.style.flexDirection = 'column';
+
+  let modelViewer = document.createElement('model-viewer');
+  modelViewer.setAttribute('src', modelPath);
+  modelViewer.setAttribute('auto-rotate', '');
+  modelViewer.setAttribute('camera-controls', '');
+  modelViewer.setAttribute('ar', '');
+  modelViewer.setAttribute('ar-modes', 'webxr scene-viewer quick-look');
+  modelViewer.style.width = '100%';
+  modelViewer.style.height = '90%';
+
+  let closeButton = document.createElement('button');
+  closeButton.textContent = 'X';
+  closeButton.style.position = 'absolute';
+  closeButton.style.top = '40px';
+  closeButton.style.right = '10px';
+  closeButton.style.background = 'red';
+  closeButton.style.color = 'white';
+  closeButton.style.border = 'none';
+  closeButton.style.width = '30px';
+  closeButton.style.height = '30px';
+  closeButton.style.fontSize = '18px';
+  closeButton.style.fontWeight = 'bold';
+  closeButton.style.cursor = 'pointer';
+  closeButton.onclick = function() {
+    expandedView.remove();
+  };
+
+  let arButton = document.createElement('button');
+  arButton.textContent = 'View in AR';
+  arButton.style.position = 'absolute';
+  arButton.style.bottom = '10px';
+  arButton.style.left = '50%';
+  arButton.style.transform = 'translateX(-50%)';
+  arButton.onclick = function() {
+    modelViewer.activateAR();
+  };
+
+  panel.appendChild(modelViewer);
+  panel.appendChild(closeButton);
+  panel.appendChild(arButton);
+  expandedView.appendChild(panel);
+  document.body.appendChild(expandedView);
+}
+  function showSection(sectionId) {
+  const sections = ["about-us", "our-customers", "contact-us", "welcome-header"]; // Exclude 'thumbnail-container'
   sections.forEach((section) => {
     const sectionElement = document.getElementById(section);
     if (sectionElement) {
       sectionElement.style.display = section === sectionId ? "block" : "none";
     }
   });
-}
   // Handle 'thumbnail-container' separately
   const container = document.getElementById("thumbnail-container");
   container.style.display = sectionId === "thumbnail-container" ? "block" : "none";
@@ -831,27 +734,27 @@ loadingIndicator.remove();
     console.log("Section being shown:", sectionId);
 console.log("Thumbnail container visibility:", container.style.display);
 
-window.addEventListener('load', function () {
-  // Set up event listeners for menu items
-  document.querySelectorAll(".menu li").forEach((li) => {
-    li.addEventListener("click", (e) => {
-      if (e.target.textContent === "About Us") {
-        showSection("about-us");
-      }
-      if (e.target.textContent === "Our Customers") {
-        showSection("our-customers");
-      }
-      if (e.target.textContent === "Contact Us") {
-        showSection("contact-us");
-      }
-    });
-  });
+}
 
-  // Show welcome header by default
-  showSection("welcome-header");
+// Set up event listeners for menu items
+document.querySelectorAll(".menu li").forEach((li) => {
+  li.addEventListener("click", (e) => {
+    if (e.target.textContent === "About Us") {
+      showSection("about-us");
+    }
+    if (e.target.textContent === "Our Customers") {
+      showSection("our-customers");
+    }
+    if (e.target.textContent === "Contact Us") {
+      showSection("contact-us");
+    }
+  });
 });
+// Show welcome header by default
+showSection("welcome-header");
+
   </script>
-  <!-- Footer Section -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+  <!-- Footer Section -->
 <footer style="background-color: rgba(51, 51, 51, 0.3); color: white; text-align: center; padding: 20px 0; margin-top: 20px; font-family: Arial, sans-serif;">
   <div>
     <p style="margin: 5px;">

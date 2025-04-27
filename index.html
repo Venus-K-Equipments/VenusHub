@@ -224,6 +224,8 @@ model-viewer {
 }
   /* Style the floating button */
  #group-view-btn {
+  top: 200px;
+  right: 30px;
   width: 50px;
   height: 50px;
   margin: auto;
@@ -530,6 +532,7 @@ const groupViewBtn = document.getElementById('group-view-btn');
 let isDown = false;
 let offset = [0, 0];
 
+// Mouse events
 groupViewBtn.addEventListener('mousedown', (e) => {
   if (e.button === 0) {
     isDown = true;
@@ -545,6 +548,27 @@ document.addEventListener('mousemove', (e) => {
   if (isDown) {
     groupViewBtn.style.left = `${e.clientX + offset[0]}px`;
     groupViewBtn.style.top = `${e.clientY + offset[1]}px`;
+    groupViewBtn.style.bottom = 'auto';
+    groupViewBtn.style.right = 'auto';
+  }
+});
+
+// Touch events
+groupViewBtn.addEventListener('touchstart', (e) => {
+  isDown = true;
+  const touch = e.touches[0];
+  offset = [groupViewBtn.offsetLeft - touch.clientX, groupViewBtn.offsetTop - touch.clientY];
+});
+
+document.addEventListener('touchend', () => {
+  isDown = false;
+});
+
+document.addEventListener('touchmove', (e) => {
+  if (isDown) {
+    const touch = e.touches[0];
+    groupViewBtn.style.left = `${touch.clientX + offset[0]}px`;
+    groupViewBtn.style.top = `${touch.clientY + offset[1]}px`;
     groupViewBtn.style.bottom = 'auto';
     groupViewBtn.style.right = 'auto';
   }

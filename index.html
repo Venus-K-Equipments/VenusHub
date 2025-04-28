@@ -393,7 +393,41 @@ model-viewer {
   left: 50%;
   transform: translate(-50%, -50%);
 }
-    
+    .img-thumb {
+  position: relative;
+  width: 130px;
+  height: 130px;
+  margin: 5px;
+  padding: 5px;
+  z-index: 0;
+  border: 1px solid #dddddd;
+  background: #f0f0f0;
+  transition: all 0.3s ease-in-out; /* Smooth animation */
+  border-radius: 10px; /* Rounded corners */
+  overflow: hidden; /* Prevent image overflow */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.img-thumb img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%; /* Ensure the image fills the container */
+  height: 100%; /* Maintain dimensions */
+  object-fit: cover;
+  transition: all 0.3s ease-in-out; /* Smooth animation */
+  border-radius: 10px; /* Ensure rounded corners */
+}
+
+.img-thumb:hover {
+  z-index: 5;
+  transform: scale(1.1); /* Scale effect on hover */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+}
+
+.img-thumb:hover img {
+  transform: scale(1.1); /* Scale effect on hover for the image */
+}
     
   </style>
 </head>
@@ -417,7 +451,7 @@ model-viewer {
       </ul>
     </li>
     <li onclick="showSection('about-us')">About Us</li>
-    <li onclick="showSection('Our-Services')">Our Services </li>
+    <li onclick="showSection('our-Services')">Our Services </li>
     <li onclick="showSection('our-customers')">Our Customers</li>
     <li onclick="showSection('contact-us')">Contact Us</li>
   </ul>
@@ -427,15 +461,70 @@ model-viewer {
 <div id="about-us" style="display: none; padding: 20px; text-align: justify; background-color: rgba(255, 255, 255, 0.3); border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.4); position: absolute; top: 60%; left: 50%; transform: translate(-50%, -50%); width: 80%; max-height: 80vh; overflow-y: auto;">
   <p>Venus Kitchen Equipments holds a prominent position in the realm of commercial kitchen equipment and furniture. With a rich portfolio of over 1500 projects, we have established ourselves as the largest manufacturer and exporter of food service equipment and supplies in the country. Our expansive facility, spanning 15,000 square feet, includes a 9,000 square feet factory dedicated to storing all the customized products for production and dispatch activities.</p>
   <p>As a leading manufacturer, supplier and exporter, catering to clients worldwide, we pride ourselves on our commitment to delivering high-quality products and exceptional service. Our team of experts works tirelessly to ensure efficient operations and timely delivery of our products, meeting the diverse needs of our clients.</p>
+
+  <!-- Image Gallery -->
+  <div class="image-gallery" style="margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
+    <div class="img-thumb">
+      <img src="images/na.jpg" alt="Image 1">
+    </div>
+    <div class="img-thumb">
+      <img src="images/image2.jpg" alt="Image 2">
+    </div>
+    <div class="img-thumb">
+      <img src="images/image3.jpg" alt="Image 3">
+    </div>
+  </div>
 </div>
+  
 <!-- Our Services Section -->
-  <div id="Our-Services" style="display: none; padding: 20px; text-align: justify; background-color: rgba(255, 255, 255, 0.3); border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.4); position: absolute; top: 60%; left: 50%; transform: translate(-50%, -50%); width: 80%; max-height: 80vh; overflow-y: auto;">
-  <p>Venus Kitchen Equipments holds a prominent position in the realm of commercial kitchen equipment and furniture. With a rich portfolio of over 1500 projects, we have established ourselves as the largest manufacturer and exporter of food service equipment and supplies in the country. Our expansive facility, spanning 15,000 square feet, includes a 9,000 square feet factory dedicated to storing all the customized products for production and dispatch activities.</p>
-  <p>As a leading manufacturer, supplier and exporter, catering to clients worldwide, we pride ourselves on our commitment to delivering high-quality products and exceptional service. Our team of experts works tirelessly to ensure efficient operations and timely delivery of our products, meeting the diverse needs of our clients.</p>
+  <div id="our-Services" style="display: none; padding: 20px; text-align: justify; background-color: rgba(255, 255, 255, 0.3); border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.4); position: absolute; top: 60%; left: 50%; transform: translate(-50%, -50%); width: 80%; max-height: 80vh; overflow-y: auto;">
+  <p>As a seasoned Hotel & Restaurant Consultant, I provide comprehensive turnkey solutions tailored to your unique needs, regardless of the size of your business.</p>
+  <p>With years of experience in the industry, I take pride in offering end-to-end services that cover every aspect of your restaurant project. From initial project planning to efficient management strategies, I am here to ensure your investment yields maximum returns.</p>
+
+  <!-- Image Gallery -->
+  <div class="image-gallery" style="margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
+    <div class="img-thumb">
+      <img src="images/image1.jpg" alt="Image 1">
+    </div>
+    <div class="img-thumb">
+      <img src="images/image2.jpg" alt="Image 2">
+    </div>
+    <div class="img-thumb">
+      <img src="images/image3.jpg" alt="Image 3">
+    </div>
+    <div class="img-thumb">
+      <img src="images/image4.jpg" alt="Image 4">
+    </div>
+    <div class="img-thumb">
+      <img src="images/image5.jpg" alt="Image 5">
+    </div>
+    <!-- Add more images as necessary -->
+  </div>
 </div>
+  
 <!-- Our Customers Section -->
 <div id="our-customers" style="display: none; padding: 20px; text-align: justify; background-color: rgba(255, 255, 255, 0.3); border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.4); position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80%; max-height: 80vh; overflow-y: auto;">
   <p>Our customers are the backbone of our business. We value their trust and strive to deliver exceptional service and quality products.</p>
+
+<!-- Image Gallery -->
+  <div class="image-gallery" style="margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
+    <div class="img-thumb">
+      <img src="images/image1.jpg" alt="Image 1">
+    </div>
+    <div class="img-thumb">
+      <img src="images/image2.jpg" alt="Image 2">
+    </div>
+    <div class="img-thumb">
+      <img src="images/image3.jpg" alt="Image 3">
+    </div>
+    <div class="img-thumb">
+      <img src="images/image4.jpg" alt="Image 4">
+    </div>
+    <div class="img-thumb">
+      <img src="images/image5.jpg" alt="Image 5">
+    </div>
+    <!-- Add more images as necessary -->
+  </div>
 </div>
 
 <!-- Contact Us Section -->

@@ -673,6 +673,7 @@ model-viewer {
 let selectedModels = [];
 
 function showThumbnails(category) {
+  const sections = ["about-us", "our-services", "our-customers", "contact-us", "welcome-header"];
   const container = document.getElementById("thumbnail-container");
 
   // Hide all other sections
@@ -682,12 +683,14 @@ function showThumbnails(category) {
       sectionElement.style.display = "none";
     }
   });
-  
+
+  // Show the thumbnail container
   container.style.display = "flex"; 
   container.style.flexWrap = "wrap"; 
   container.style.justifyContent = "center"; 
-  container.innerHTML = ""; 
+  container.innerHTML = ""; // Clear previous thumbnails
 
+  // Load thumbnails for the selected category
   if (thumbnails[category]) {
     thumbnails[category].forEach((thumb) => {
       const div = document.createElement("div");
@@ -744,8 +747,9 @@ function showThumbnails(category) {
       });
     });
   }
-}
-    
+
+  console.log("Showing thumbnails for category:", category);
+}    
 // Make the button draggable
 const groupViewBtn = document.getElementById('group-view-btn');
 let isDown = false;
@@ -920,22 +924,28 @@ groupViewContainer.style.padding = '20px'; // Add padding for better scrolling e
   document.body.appendChild(expandedView);
 }
   function showSection(sectionId) {
-  const sections = ["about-us", "our-services", "our-customers", "contact-us", "welcome-header"]; // Exclude 'thumbnail-container'
+  const sections = ["about-us", "our-services", "our-customers", "contact-us", "welcome-header"]; // Main sections
+  const container = document.getElementById("thumbnail-container"); // Thumbnail container
+
+  // Show the selected section and hide others
   sections.forEach((section) => {
     const sectionElement = document.getElementById(section);
     if (sectionElement) {
       sectionElement.style.display = section === sectionId ? "block" : "none";
     }
   });
-  // Handle 'thumbnail-container' separately
-  const container = document.getElementById("thumbnail-container");
-  container.style.display = sectionId === "thumbnail-container" ? "block" : "none";
-    
-    console.log("Section being shown:", sectionId);
-console.log("Thumbnail container visibility:", container.style.display);
 
+  // Handle the thumbnail container visibility
+  if (container) {
+    container.style.display = sectionId === "thumbnail-container" ? "block" : "none";
+  }
+
+  // Debugging logs
+  console.log("Section being shown:", sectionId);
+  if (container) {
+    console.log("Thumbnail container visibility:", container.style.display);
+  }
 }
-
 // Set up event listeners for menu items
 document.querySelectorAll(".menu li").forEach((li) => {
   li.addEventListener("click", (e) => {

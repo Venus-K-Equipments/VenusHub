@@ -950,7 +950,11 @@ groupViewContainer.style.padding = '20px'; // Add padding for better scrolling e
   if (container) {
     console.log("Thumbnail container visibility:", container.style.display);
   }
+  if (footer) {
+    console.log("Footer visibility:", footer.style.display);
+  }
 }
+    
 // Set up event listeners for menu items
 document.querySelectorAll(".menu li").forEach((li) => {
   li.addEventListener("click", (e) => {

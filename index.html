@@ -923,9 +923,11 @@ groupViewContainer.style.padding = '20px'; // Add padding for better scrolling e
   expandedView.appendChild(panel);
   document.body.appendChild(expandedView);
 }
+    //-------------------------------------------------------------------------------------------------------------
   function showSection(sectionId) {
   const sections = ["about-us", "our-services", "our-customers", "contact-us", "welcome-header"]; // Main sections
   const container = document.getElementById("thumbnail-container"); // Thumbnail container
+  const footer = document.querySelector("footer"); // Select the footer element
 
   // Show the selected section and hide others
   sections.forEach((section) => {
@@ -940,11 +942,11 @@ groupViewContainer.style.padding = '20px'; // Add padding for better scrolling e
     container.style.display = sectionId === "thumbnail-container" ? "block" : "none";
   }
 
-    // Show the footer only for the "contact-us" section
+  // Show the footer only for the "contact-us" section
   if (footer) {
     footer.style.display = sectionId === "contact-us" ? "block" : "none";
   }
-    
+
   // Debugging logs
   console.log("Section being shown:", sectionId);
   if (container) {

@@ -511,8 +511,9 @@ form {
   width:400px;
   border-radius: 10px;
   overflow: hidden;
--webkit-box-shadow: 0px 0px 40px 9px rgba(0,0,0,0.6); 
-box-shadow: 0px 0px 40px 9px rgba(0,0,0,0.4);
+  -webkit-box-shadow: 0px 0px 40px 9px rgba(0,0,0,0.6); 
+  box-shadow: 0px 0px 40px 9px rgba(0,0,0,0.4);
+  margin-bottom: 20px;
 }
 
 .head {
@@ -701,7 +702,7 @@ input:invalid {
 
   <!-- Contact Form -->
   <div class="bg-image"></div>
-  <form>
+ <form action="https://formspree.io/f/{your-form-id}" method="POST">
       <!-- Header -->
       <div class="head">
           <h1>Contact Form</h1>
@@ -714,14 +715,14 @@ input:invalid {
       <input type="text" placeholder="Full Name" name="fullName" id="fullName">
 
       <label for="email">Your Email:</label>
-      <input type="email" placeholder="abcd@xyz.com" name="email" id="email" required>
+     <input type="email" placeholder="abcd@xyz.com" name="email" id="email" required pattern="[^@\s]+@[^@\s]+\.[^@\s]+">
 
      <label for="phone">Your Phpne Number:</label>
       <input type="tel" placeholder="+91-XXXXXXXXXX" name="phone" id="phone" required>
     
       <label for="subject">Subject:</label>
-      <input type="text" placeholder="Job Enquiry" name="subject" id="subject" required>
-
+     <input type="tel" placeholder="Enter Your Phone Number (+91-XXXXXXXXXX)" name="phone" id="phone" required>
+    
       <label for="message">Message:</label>
       <textarea placeholder="Your Message Here" name="message" id="message" required></textarea>
 

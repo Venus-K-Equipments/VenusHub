@@ -622,19 +622,22 @@ document.addEventListener('touchmove', (e) => {
 
     groupViewBtn.addEventListener('click', () => {
   // Create a new container for the group view
-  let groupViewContainer = document.createElement('div');
-  groupViewContainer.style.position = 'fixed';
-  groupViewContainer.style.top = '0';
-  groupViewContainer.style.left = '0';
-  groupViewContainer.style.width = '100%';
-  groupViewContainer.style.height = '100vh';
-  groupViewContainer.style.display = 'flex';
-  groupViewContainer.style.flexWrap = 'wrap';
-  groupViewContainer.style.justifyContent = 'center';
-  groupViewContainer.style.alignItems = 'center';
-  groupViewContainer.style.background = 'rgba(0, 0, 0, 0.8)';
-  groupViewContainer.style.zIndex = '1000';
-
+let groupViewContainer = document.createElement('div');
+groupViewContainer.style.position = 'fixed';
+groupViewContainer.style.top = '0';
+groupViewContainer.style.left = '0';
+groupViewContainer.style.width = '100%';
+groupViewContainer.style.height = '100vh';
+groupViewContainer.style.display = 'flex';
+groupViewContainer.style.flexWrap = 'wrap';
+groupViewContainer.style.justifyContent = 'center';
+groupViewContainer.style.alignItems = 'center';
+groupViewContainer.style.background = 'rgba(0, 0, 0, 0.8)';
+groupViewContainer.style.zIndex = '1000';
+groupViewContainer.style.overflowY = 'auto'; // Enable vertical scrolling
+groupViewContainer.style.overflowX = 'hidden'; // Prevent horizontal scrolling
+groupViewContainer.style.padding = '20px'; // Add padding for better scrolling experience
+      
   // Loop through the selected models and display each one
   selectedModels.forEach((model) => {
     let modelViewer = document.createElement('model-viewer');

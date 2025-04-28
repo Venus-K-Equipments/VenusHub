@@ -507,7 +507,7 @@ model-viewer {
 form {
   display: flex;
   flex-direction: column;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.8); /* Adds transparency */
   width:400px;
   border-radius: 10px;
   overflow: hidden;
@@ -543,6 +543,10 @@ textarea {
   border-radius: 10px;
   border: 1px solid #ccc;
 }
+    ::placeholder {
+  color: gray;
+  font-style: italic;
+}
 
 input:focus,
 textarea:focus {
@@ -551,6 +555,9 @@ textarea:focus {
 
 textarea {
   resize: vertical;
+  textarea {
+  transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
 }
 
 button {
@@ -563,12 +570,20 @@ button {
   color: white;
   cursor: pointer;
   transition: all 0.5s;
+  transition: background 0.3s ease-in-out;
 }
-
+    
+button:focus {
+  outline: 2px solid #0056b3; /* Add a visible focus outline */
+}
+    
 button:hover {
   background: rgb(0, 105, 204);
 }
-
+    
+input:invalid {
+  border: 1px solid red;
+}
 
 @media screen and (max-width: 417px){
   form{

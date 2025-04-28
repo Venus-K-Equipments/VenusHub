@@ -940,6 +940,11 @@ groupViewContainer.style.padding = '20px'; // Add padding for better scrolling e
     container.style.display = sectionId === "thumbnail-container" ? "block" : "none";
   }
 
+    // Show the footer only for the "contact-us" section
+  if (footer) {
+    footer.style.display = sectionId === "contact-us" ? "block" : "none";
+  }
+    
   // Debugging logs
   console.log("Section being shown:", sectionId);
   if (container) {

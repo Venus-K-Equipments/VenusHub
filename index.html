@@ -924,7 +924,7 @@ groupViewContainer.style.padding = '20px'; // Add padding for better scrolling e
   document.body.appendChild(expandedView);
 }
     //-------------------------------------------------------------------------------------------------------------
-  function showSection(sectionId) {
+ function showSection(sectionId) {
   const sections = ["about-us", "our-services", "our-customers", "contact-us", "welcome-header"]; // Main sections
   const container = document.getElementById("thumbnail-container"); // Thumbnail container
   const footer = document.querySelector("footer"); // Select the footer element
@@ -947,7 +947,7 @@ groupViewContainer.style.padding = '20px'; // Add padding for better scrolling e
     footer.style.display = sectionId === "contact-us" ? "block" : "none";
   }
 
-  // Debugging logs
+  // Debugging logs (optional)
   console.log("Section being shown:", sectionId);
   if (container) {
     console.log("Thumbnail container visibility:", container.style.display);
@@ -971,13 +971,15 @@ document.querySelectorAll(".menu li").forEach((li) => {
     }
   });
 });
-// Show welcome header by default
-showSection("welcome-header");
+// Show welcome header by default on page load
+window.onload = function () {
+  showSection("welcome-header");
+};
 
   </script>
   <!-- Footer Section -->
-<footer style="background-color: rgba(51, 51, 51, 0.3); color: white; text-align: center; padding: 20px 0; margin-top: 20px; font-family: Arial, sans-serif;">
-  <div>
+<footer style="display: none; background-color: rgba(51, 51, 51, 0.3); color: white; text-align: center; padding: 20px 0; margin-top: 20px; font-family: Arial, sans-serif;">
+    <div>
     <p style="margin: 5px;">
   <span style="font-size: 18px;">🎧</span> Contact Us: +919840940137, +919840940126, +919840617999
 </p>

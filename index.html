@@ -875,17 +875,14 @@ let offset = [0, 0];
     
 // Mouse events
 groupViewBtn.addEventListener('mousedown', (e) => {
-    e.preventDefault();
-    if (e.button === 0) {
-        isDown = true;
-        offset = [groupViewBtn.offsetLeft - e.clientX, groupViewBtn.offsetTop - e.clientY];
-        document.body.style.overflow = 'hidden'; // Disable scrolling
-    }
+  if (e.button === 0) {
+    isDown = true;
+    offset = [groupViewBtn.offsetLeft - e.clientX, groupViewBtn.offsetTop - e.clientY];
+  }
 });
 
 document.addEventListener('mouseup', () => {
-    isDown = false;
-    document.body.style.overflow = ''; // Re-enable scrolling
+  isDown = false;
 });
 
 document.addEventListener('mousemove', (e) => {
@@ -900,18 +897,14 @@ document.addEventListener('mousemove', (e) => {
 
 // Touch events
 groupViewBtn.addEventListener('touchstart', (e) => {
-    e.preventDefault();
-    isDown = true;
-    const touch = e.touches[0];
-    offset = [groupViewBtn.offsetLeft - touch.clientX, groupViewBtn.offsetTop - touch.clientY];
-    document.body.style.overflow = 'hidden'; // Disable scrolling
+  isDown = true;
+  const touch = e.touches[0];
+  offset = [groupViewBtn.offsetLeft - touch.clientX, groupViewBtn.offsetTop - touch.clientY];
 });
 
 document.addEventListener('touchend', () => {
-    isDown = false;
-    document.body.style.overflow = ''; // Re-enable scrolling
+  isDown = false;
 });
-
 
 document.addEventListener('touchmove', (e) => {
   if (isDown) {
@@ -923,7 +916,6 @@ document.addEventListener('touchmove', (e) => {
     groupViewBtn.style.right = 'auto';
   }
 });
-
     
  // Group viewer------------------------------------------------------------------------------------------------------------------------------------------------- 
 

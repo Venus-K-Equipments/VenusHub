@@ -875,14 +875,17 @@ let offset = [0, 0];
     
 // Mouse events
 groupViewBtn.addEventListener('mousedown', (e) => {
-  if (e.button === 0) {
-    isDown = true;
-    offset = [groupViewBtn.offsetLeft - e.clientX, groupViewBtn.offsetTop - e.clientY];
-  }
+    e.preventDefault();
+    if (e.button === 0) {
+        isDown = true;
+        offset = [groupViewBtn.offsetLeft - e.clientX, groupViewBtn.offsetTop - e.clientY];
+        document.body.style.overflow = 'hidden'; // Disable scrolling
+    }
 });
 
 document.addEventListener('mouseup', () => {
-  isDown = false;
+    isDown = false;
+    document.body.style.overflow = ''; // Re-enable scrolling
 });
 
 document.addEventListener('mousemove', (e) => {
@@ -897,14 +900,18 @@ document.addEventListener('mousemove', (e) => {
 
 // Touch events
 groupViewBtn.addEventListener('touchstart', (e) => {
-  isDown = true;
-  const touch = e.touches[0];
-  offset = [groupViewBtn.offsetLeft - touch.clientX, groupViewBtn.offsetTop - touch.clientY];
+    e.preventDefault();
+    isDown = true;
+    const touch = e.touches[0];
+    offset = [groupViewBtn.offsetLeft - touch.clientX, groupViewBtn.offsetTop - touch.clientY];
+    document.body.style.overflow = 'hidden'; // Disable scrolling
 });
 
 document.addEventListener('touchend', () => {
-  isDown = false;
+    isDown = false;
+    document.body.style.overflow = ''; // Re-enable scrolling
 });
+
 
 document.addEventListener('touchmove', (e) => {
   if (isDown) {

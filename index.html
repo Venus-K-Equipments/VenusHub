@@ -933,22 +933,6 @@ document.addEventListener('touchmove', (e) => {
         groupViewBtn.style.right = 'auto';
     }
 });
-
-// Click event for the button
-groupViewBtn.addEventListener('click', () => {
-    console.log("Button clicked!"); // Add your logic here
-    // Example: Open the group view
-    const groupViewContainer = document.createElement('div');
-    groupViewContainer.textContent = "Group View Opened!";
-    groupViewContainer.style.position = 'fixed';
-    groupViewContainer.style.top = '50%';
-    groupViewContainer.style.left = '50%';
-    groupViewContainer.style.transform = 'translate(-50%, -50%)';
-    groupViewContainer.style.padding = '20px';
-    groupViewContainer.style.background = 'white';
-    groupViewContainer.style.zIndex = '1000';
-    document.body.appendChild(groupViewContainer);
-});
     
  // Group viewer------------------------------------------------------------------------------------------------------------------------------------------------- 
 

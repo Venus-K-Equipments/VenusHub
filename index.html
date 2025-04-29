@@ -426,7 +426,7 @@ model-viewer {
 }
 
 .img-thumb:hover img {
-  transform: scale(1.1); /* Scale effect on hover for the image */
+  transform: scale(2); /* Scale effect on hover for the image */
 }
 
 .cus-thumb {
@@ -872,56 +872,82 @@ const groupViewBtn = document.getElementById('group-view-btn');
 let isDown = false;
 let offset = [0, 0];
 
-    
 // Mouse events
 groupViewBtn.addEventListener('mousedown', (e) => {
     e.preventDefault();
     if (e.button === 0) {
         isDown = true;
+        isDragging = false; // Reset dragging flag
         offset = [groupViewBtn.offsetLeft - e.clientX, groupViewBtn.offsetTop - e.clientY];
         document.body.style.overflow = 'hidden'; // Disable scrolling
     }
 });
 
-document.addEventListener('mouseup', () => {
+document.addEventListener('mouseup', (e) => {
+    if (isDown && !isDragging) {
+        // Only trigger "click" logic if no dragging occurred
+        groupViewBtn.click();
+    }
     isDown = false;
     document.body.style.overflow = ''; // Re-enable scrolling
 });
 
 document.addEventListener('mousemove', (e) => {
-  if (isDown) {
-    e.preventDefault(); // Prevent default behavior that causes scrolling
-    groupViewBtn.style.left = `${e.clientX + offset[0]}px`;
-    groupViewBtn.style.top = `${e.clientY + offset[1]}px`;
-    groupViewBtn.style.bottom = 'auto';
-    groupViewBtn.style.right = 'auto';
-  }
+    if (isDown) {
+        e.preventDefault(); // Prevent default behavior that causes scrolling
+        isDragging = true; // Mark as dragging
+        groupViewBtn.style.left = `${e.clientX + offset[0]}px`;
+        groupViewBtn.style.top = `${e.clientY + offset[1]}px`;
+        groupViewBtn.style.bottom = 'auto';
+        groupViewBtn.style.right = 'auto';
+    }
 });
 
 // Touch events
 groupViewBtn.addEventListener('touchstart', (e) => {
     e.preventDefault();
     isDown = true;
+    isDragging = false; // Reset dragging flag
     const touch = e.touches[0];
     offset = [groupViewBtn.offsetLeft - touch.clientX, groupViewBtn.offsetTop - touch.clientY];
     document.body.style.overflow = 'hidden'; // Disable scrolling
 });
 
-document.addEventListener('touchend', () => {
+document.addEventListener('touchend', (e) => {
+    if (isDown && !isDragging) {
+        // Only trigger "click" logic if no dragging occurred
+        groupViewBtn.click();
+    }
     isDown = false;
     document.body.style.overflow = ''; // Re-enable scrolling
 });
 
-
 document.addEventListener('touchmove', (e) => {
-  if (isDown) {
-    e.preventDefault(); // Prevent default behavior that causes scrolling
-    const touch = e.touches[0];
-    groupViewBtn.style.left = `${touch.clientX + offset[0]}px`;
-    groupViewBtn.style.top = `${touch.clientY + offset[1]}px`;
-    groupViewBtn.style.bottom = 'auto';
-    groupViewBtn.style.right = 'auto';
-  }
+    if (isDown) {
+        e.preventDefault(); // Prevent default behavior that causes scrolling
+        isDragging = true; // Mark as dragging
+        const touch = e.touches[0];
+        groupViewBtn.style.left = `${touch.clientX + offset[0]}px`;
+        groupViewBtn.style.top = `${touch.clientY + offset[1]}px`;
+        groupViewBtn.style.bottom = 'auto';
+        groupViewBtn.style.right = 'auto';
+    }
+});
+
+// Click event for the button
+groupViewBtn.addEventListener('click', () => {
+    console.log("Button clicked!"); // Add your logic here
+    // Example: Open the group view
+    const groupViewContainer = document.createElement('div');
+    groupViewContainer.textContent = "Group View Opened!";
+    groupViewContainer.style.position = 'fixed';
+    groupViewContainer.style.top = '50%';
+    groupViewContainer.style.left = '50%';
+    groupViewContainer.style.transform = 'translate(-50%, -50%)';
+    groupViewContainer.style.padding = '20px';
+    groupViewContainer.style.background = 'white';
+    groupViewContainer.style.zIndex = '1000';
+    document.body.appendChild(groupViewContainer);
 });
     
  // Group viewer------------------------------------------------------------------------------------------------------------------------------------------------- 

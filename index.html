@@ -708,7 +708,7 @@ input:invalid {
       <label for="email">Your Email:</label>
      <input type="email" placeholder="abcd@xyz.com" name="email" id="email" required pattern="[^@\s]+@[^@\s]+\.[^@\s]+">
 
-     <label for="phone">Your Phpne Number:</label>
+     <label for="phone">Your Phone Number:</label>
       <input type="tel" placeholder="+91-XXXXXXXXXX" name="phone" id="phone" required>
     
       <label for="message">Message:</label>
@@ -872,49 +872,56 @@ const groupViewBtn = document.getElementById('group-view-btn');
 let isDown = false;
 let offset = [0, 0];
 
-/// Mouse events
+// Mouse events
 groupViewBtn.addEventListener('mousedown', (e) => {
-  if (e.button === 0) {
-    isDown = true;
-    offset = [groupViewBtn.offsetLeft - e.clientX, groupViewBtn.offsetTop - e.clientY];
-  }
+    e.preventDefault(); // Prevent default behavior
+    if (e.button === 0) {
+        isDown = true;
+        offset = [groupViewBtn.offsetLeft - e.clientX, groupViewBtn.offsetTop - e.clientY];
+    }
 });
 
-document.addEventListener('mouseup', () => {
-  isDown = false;
+document.addEventListener('mouseup', (e) => {
+    e.preventDefault(); // Prevent default behavior
+    isDown = false;
 });
 
 document.addEventListener('mousemove', (e) => {
-  if (isDown) {
-    e.preventDefault(); // Prevent default behavior that causes scrolling
-    groupViewBtn.style.left = `${e.clientX + offset[0]}px`;
-    groupViewBtn.style.top = `${e.clientY + offset[1]}px`;
-    groupViewBtn.style.bottom = 'auto';
-    groupViewBtn.style.right = 'auto';
-  }
+    if (isDown) {
+        e.preventDefault(); // Prevent default behavior
+        groupViewBtn.style.left = `${e.clientX + offset[0]}px`;
+        groupViewBtn.style.top = `${e.clientY + offset[1]}px`;
+        groupViewBtn.style.bottom = 'auto';
+        groupViewBtn.style.right = 'auto';
+    }
 });
 
 // Touch events
 groupViewBtn.addEventListener('touchstart', (e) => {
-  isDown = true;
-  const touch = e.touches[0];
-  offset = [groupViewBtn.offsetLeft - touch.clientX, groupViewBtn.offsetTop - touch.clientY];
+    e.preventDefault(); // Prevent default behavior
+    isDown = true;
+    const touch = e.touches[0];
+    offset = [groupViewBtn.offsetLeft - touch.clientX, groupViewBtn.offsetTop - touch.clientY];
 });
 
-document.addEventListener('touchend', () => {
-  isDown = false;
+document.addEventListener('touchend', (e) => {
+    e.preventDefault(); // Prevent default behavior
+    isDown = false;
 });
 
 document.addEventListener('touchmove', (e) => {
-  if (isDown) {
-    e.preventDefault(); // Prevent default behavior that causes scrolling
-    const touch = e.touches[0];
-    groupViewBtn.style.left = `${touch.clientX + offset[0]}px`;
-    groupViewBtn.style.top = `${touch.clientY + offset[1]}px`;
-    groupViewBtn.style.bottom = 'auto';
-    groupViewBtn.style.right = 'auto';
-  }
+    if (isDown) {
+        e.preventDefault(); // Prevent default behavior
+        const touch = e.touches[0];
+        groupViewBtn.style.left = `${touch.clientX + offset[0]}px`;
+        groupViewBtn.style.top = `${touch.clientY + offset[1]}px`;
+        groupViewBtn.style.bottom = 'auto';
+        groupViewBtn.style.right = 'auto';
+    }
 });
+
+
+    
  // Group viewer------------------------------------------------------------------------------------------------------------------------------------------------- 
 
     groupViewBtn.addEventListener('click', () => {

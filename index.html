@@ -936,7 +936,35 @@ document.addEventListener('touchmove', (e) => {
     
  // Group viewer------------------------------------------------------------------------------------------------------------------------------------------------- 
 
-    groupViewBtn.addEventListener('click', () => {
+   groupViewBtn.addEventListener('click', () => {
+    if (selectedModels.length === 0) {
+        // Create a popup message
+        const popup = document.createElement('div');
+        popup.textContent = 'Please select a set of models to view here!';
+        popup.style.position = 'fixed';
+        popup.style.top = '50%';
+        popup.style.left = '50%';
+        popup.style.transform = 'translate(-50%, -50%)';
+        popup.style.background = 'rgba(0, 0, 0, 0.7)'; // Transparent black background
+        popup.style.color = 'white';
+        popup.style.padding = '20px';
+        popup.style.borderRadius = '10px';
+        popup.style.fontSize = '16px';
+        popup.style.textAlign = 'center';
+        popup.style.zIndex = '1000';
+        popup.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.5)';
+
+        // Add the popup to the body
+        document.body.appendChild(popup);
+
+        // Remove the popup after 3 seconds
+        setTimeout(() => {
+            popup.remove();
+        }, 3000);
+
+        return; // Exit the function if no models are selected
+    }
+
   // Create a new container for the group view
 let groupViewContainer = document.createElement('div');
 groupViewContainer.style.position = 'fixed';

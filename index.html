@@ -872,7 +872,7 @@ const groupViewBtn = document.getElementById('group-view-btn');
 let isDown = false;
 let offset = [0, 0];
 
-// Mouse events
+/// Mouse events
 groupViewBtn.addEventListener('mousedown', (e) => {
   if (e.button === 0) {
     isDown = true;
@@ -886,6 +886,7 @@ document.addEventListener('mouseup', () => {
 
 document.addEventListener('mousemove', (e) => {
   if (isDown) {
+    e.preventDefault(); // Prevent default behavior that causes scrolling
     groupViewBtn.style.left = `${e.clientX + offset[0]}px`;
     groupViewBtn.style.top = `${e.clientY + offset[1]}px`;
     groupViewBtn.style.bottom = 'auto';
@@ -906,6 +907,7 @@ document.addEventListener('touchend', () => {
 
 document.addEventListener('touchmove', (e) => {
   if (isDown) {
+    e.preventDefault(); // Prevent default behavior that causes scrolling
     const touch = e.touches[0];
     groupViewBtn.style.left = `${touch.clientX + offset[0]}px`;
     groupViewBtn.style.top = `${touch.clientY + offset[1]}px`;
@@ -913,7 +915,6 @@ document.addEventListener('touchmove', (e) => {
     groupViewBtn.style.right = 'auto';
   }
 });
-
  // Group viewer------------------------------------------------------------------------------------------------------------------------------------------------- 
 
     groupViewBtn.addEventListener('click', () => {

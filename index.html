@@ -446,13 +446,14 @@ model-viewer {
 
 .cus-thumb img {
   position: absolute;
-  left: 3px;
-  top: 3px;
-  width: 90%; /* Ensure the image fills the container */
-  height: 90%; /* Maintain dimensions */
-  object-fit: cover;
+  left: 0;
+  top: 0;
+  width: 100%; /* Make the image fit the container's width */
+  height: 100%; /* Make the image fit the container's height */
+  object-fit: contain; /* Ensure the entire image is visible without trimming */
   transition: all 0.3s ease-in-out; /* Smooth animation */
-  border-radius: 3px; /* Ensure rounded corners */
+  border-radius: 5px; /* Ensure rounded corners */
+  background-color: transparent; /* Optional: Set a background color to fill empty spaces */
 }
 
 .cus-thumb:hover {

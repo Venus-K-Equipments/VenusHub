@@ -610,48 +610,91 @@ input:invalid {
   }
 }
 
-    /* Slideshow Styles */
+/* Slideshow Container */
 .slideshow-container {
-  width: 1005px; /* Exact width */
-  height: 80px; /* Exact height */
-  margin: 20px auto; /* Center horizontally and add spacing */
+  width: 1005px; /* Set exact width */
+  height: 80px; /* Set exact height */
+  margin: 20px auto; /* Center horizontally */
   overflow: hidden; /* Hide overflow */
-  position: relative; /* Needed for positioning slides */
-  border-radius: 10px; /* Add rounded corners */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Add subtle shadow */
+  position: relative;
+  z-index: 1;
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Add shadow */
 }
 
-.slide {
+/* Slideshow Styles */
+.slideshow {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
   width: 100%;
   height: 100%;
+}
+
+.slideshow li {
   position: absolute;
-  animation: slideAnimation 14s infinite; /* Adjust timing if needed */
-}
-
-.slide img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Ensure the image fills the space */
-  border-radius: 10px; /* Ensure images match container's rounded corners */
 }
 
-@keyframes slideAnimation {
-  0% { transform: translateX(0); opacity: 1; }
-  14% { transform: translateX(0); opacity: 1; }
-  16% { transform: translateX(-100%); opacity: 0; }
-  30% { transform: translateX(-100%); opacity: 1; }
-  32% { transform: translateX(-200%); opacity: 0; }
-  46% { transform: translateX(-200%); opacity: 1; }
-  48% { transform: translateX(-300%); opacity: 0; }
-  62% { transform: translateX(-300%); opacity: 1; }
-  64% { transform: translateX(-400%); opacity: 0; }
-  78% { transform: translateX(-400%); opacity: 1; }
-  80% { transform: translateX(-500%); opacity: 0; }
-  94% { transform: translateX(-500%); opacity: 1; }
-  96% { transform: translateX(-600%); opacity: 0; }
-  100% { transform: translateX(-600%); opacity: 1; }
+.slideshow li span {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  color: transparent;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  z-index: 0;
+  animation: imageAnimation 14s linear infinite; /* Adjust timing */
 }
 
+.slideshow li:nth-child(1) span {
+  animation-delay: 0s;
+}
+.slideshow li:nth-child(2) span {
+  animation-delay: 2s;
+}
+.slideshow li:nth-child(3) span {
+  animation-delay: 4s;
+}
+.slideshow li:nth-child(4) span {
+  animation-delay: 6s;
+}
+.slideshow li:nth-child(5) span {
+  animation-delay: 8s;
+}
+.slideshow li:nth-child(6) span {
+  animation-delay: 10s;
+}
+.slideshow li:nth-child(7) span {
+  animation-delay: 12s;
+}
+
+/* Image Animation */
+@keyframes imageAnimation {
+  0% {
+    opacity: 0;
+    animation-timing-function: ease-in;
+  }
+  8% {
+    opacity: 1;
+    animation-timing-function: ease-out;
+  }
+  17% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
     
     /*------------------------------------------------------------------------------------------------------------------------------------------*/
   </style>
@@ -681,29 +724,18 @@ input:invalid {
     <li onclick="showSection('contact-us')">Contact Us</li>
   </ul>
 </div>
+  
 
 <div class="slideshow-container">
-  <div class="slide">
-    <img src="images/budget.jpg" alt="BUDGETING">
-  </div>
-  <div class="slide">
-    <img src="images/kitchen .jpg" alt="DESIGN">
-  </div>
-  <div class="slide">
-    <img src="images/planning.jpg" alt="PLANNING">
-  </div>
-  <div class="slide">
-    <img src="images/interior.jpg" alt="ELEVATION">
-  </div>
-  <div class="slide">
-    <img src="images/mockup.jpg" alt="3D MOCKUP">
-  </div>
-  <div class="slide">
-    <img src="images/research.jpg" alt="RESEARCH">
-  </div>
-  <div class="slide">
-    <img src="images/mep.jpg" alt="MEP">
-  </div>
+  <ul class="slideshow">
+    <li><span style="background-image: url('images/budget.jpg');"></span></li>
+    <li><span style="background-image: url('images/kitchen .jpg');"></span></li>
+    <li><span style="background-image: url('images/planning.jpg');"></span></li>
+    <li><span style="background-image: url('images/interior.jpg');"></span></li>
+    <li><span style="background-image: url('images/mockup.jpg');"></span></li>
+    <li><span style="background-image: url('images/research.jpg');"></span></li>
+    <li><span style="background-image: url('images/mep.jpg');"></span></li>
+  </ul>
 </div>
 
   
@@ -846,23 +878,6 @@ input:invalid {
 </button>
   
   <script>
-    
-  const slides = document.querySelectorAll('.slide');
-  let currentSlide = 0;
-
-  function showSlide(index) {
-    slides.forEach((slide, i) => {
-      slide.style.opacity = i === index ? '1' : '0';
-      slide.style.transform = `translateX(${(i - index) * 100}%)`;
-    });
-  }
-
-  function nextSlide() {
-    currentSlide = (currentSlide + 1) % slides.length;
-    showSlide(currentSlide);
-  }
-
-  setInterval(nextSlide, 3000); // Change slide every 3 seconds
 
     // Toggle the dropdown menu visibility
     function toggleDropdown(event) {

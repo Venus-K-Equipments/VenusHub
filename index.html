@@ -738,6 +738,7 @@ input:invalid {
     transform: translateY(20px);
   }
 }
+    
     /*------------------------------------------------------------------------------------------------------------------------------------------*/
   </style>
 </head>
@@ -927,14 +928,16 @@ input:invalid {
   <script>
     
     // Toggle the dropdown menu visibility
-    function toggleDropdown(event) {
+   function toggleDropdown(event) {
   event.stopPropagation();
   const dropdownMenu = document.getElementById("product-dropdown");
-  if (dropdownMenu.style.display === "block") {
-    dropdownMenu.style.display = "none";
-  } else {
-    dropdownMenu.style.display = "block";
-  }
+  const isVisible = dropdownMenu.style.display === "block";
+
+  // Hide all sections to avoid conflicts
+  showSection(""); // Pass an empty section ID to hide all
+
+  // Toggle dropdown visibility
+  dropdownMenu.style.display = isVisible ? "none" : "block";
 }
 
     window.onload = function() {
@@ -949,21 +952,21 @@ input:invalid {
 //---------------------------------------------------------------------------------------------
       // List of dynamic text content
   const messages = [
-    "TRANSFORMING YOUR KITCHEN IDEAS",
-    "INTO REALITY",
-    "CREATING INNOVATIVE SOLUTIONS",
-    "ELEVATING YOUR CULINARY EXPERIENCE"
-    "DESIGNING SPACES THAT INSPIRE", 
-    "ELEVATING DINING THROUGH INNOVATION"
-    "CRAFTING FUNCTIONAL KITCHEN SOLUTIONS", 
-      "REVOLUTIONIZING RESTAURANT INTERIORS"
-    "INSPIRING EFFICIENT WORKSPACES", 
-      "SEAMLESSLY BLENDING STYLE AND FUNCTIONALITY"
-    "TRANSFORMING VISIONS INTO MODERN DINING ENVIRONMENTS",
-      "ENGINEERING EQUIPMENT FOR PERFECTION"
-    "REDEFINING PROFESSIONAL KITCHEN DESIGN", 
-      "CREATING SPACES THAT DRIVE SUCCESS"
-  ];
+  "TRANSFORMING YOUR KITCHEN IDEAS",
+  "INTO REALITY",
+  "CREATING INNOVATIVE SOLUTIONS",
+  "ELEVATING YOUR CULINARY EXPERIENCE",
+  "DESIGNING SPACES THAT INSPIRE", 
+  "ELEVATING DINING THROUGH INNOVATION",
+  "CRAFTING FUNCTIONAL KITCHEN SOLUTIONS", 
+  "REVOLUTIONIZING RESTAURANT INTERIORS",
+  "INSPIRING EFFICIENT WORKSPACES", 
+  "SEAMLESSLY BLENDING STYLE AND FUNCTIONALITY",
+  "TRANSFORMING VISIONS INTO MODERN DINING ENVIRONMENTS",
+  "ENGINEERING EQUIPMENT FOR PERFECTION",
+  "REDEFINING PROFESSIONAL KITCHEN DESIGN", 
+  "CREATING SPACES THAT DRIVE SUCCESS"
+];
 
   // Get the span element
   const dynamicText = document.getElementById("dynamic-text");

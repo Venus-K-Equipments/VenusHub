@@ -709,21 +709,33 @@ input:invalid {
   font-family: 'Poppins', sans-serif; /* Trendy font */
   font-size: 10vw; /* Responsive font size */
   font-weight: 1000; /* Extra bold text */
-  color: #000000; /* White text color */
+  color: #000000; /* Black text color */
   text-transform: uppercase; /* Convert text to uppercase */
   letter-spacing: 2px; /* Add spacing between letters */
-  animation: popIn 3s ease-in-out infinite; /* Smooth animation */
+  animation: popIn 6s ease-in-out infinite; /* Total animation time: 6 seconds */
 }
 
 /* Add a pop-in animation */
 @keyframes popIn {
   0% {
-    transform: scale(0.5);
-    opacity: 0;
+    opacity: 0; /* Start invisible */
+    transform: translateY(-20px); /* Move slightly upward */
+  }
+  20% {
+    opacity: 1; /* Fade in */
+    transform: translateY(0); /* Move to original position */
+  }
+  50% {
+    opacity: 1; /* Hold for 3 seconds */
+    transform: translateY(0); /* Stay in place */
+  }
+  80% {
+    opacity: 0; /* Fade out */
+    transform: translateY(20px); /* Move slightly downward */
   }
   100% {
-    transform: scale(1);
-    opacity: 1;
+    opacity: 0; /* End invisible */
+    transform: translateY(20px);
   }
 }
     /*------------------------------------------------------------------------------------------------------------------------------------------*/
@@ -770,9 +782,8 @@ input:invalid {
 
   <div class="trendy-text">
   <h1>
-  <span>TRANSFORMING YOUR KITCHEN IDEAS</span><br>
-  <span>INTO REALITY</span>
-</h1>
+    <span id="dynamic-text"></span>
+  </h1>
 </div>
   
 <!-- About Us Section -->
@@ -914,6 +925,41 @@ input:invalid {
 </button>
   
   <script>
+
+    // List of dynamic text content
+  const messages = [
+    "TRANSFORMING YOUR KITCHEN IDEAS",
+    "INTO REALITY",
+    "CREATING INNOVATIVE SOLUTIONS",
+    "ELEVATING YOUR CULINARY EXPERIENCE"
+    "DESIGNING SPACES THAT INSPIRE", 
+    "ELEVATING DINING THROUGH INNOVATION"
+    "CRAFTING FUNCTIONAL KITCHEN SOLUTIONS", 
+      "REVOLUTIONIZING RESTAURANT INTERIORS"
+    "INSPIRING EFFICIENT WORKSPACES", 
+      "SEAMLESSLY BLENDING STYLE AND FUNCTIONALITY"
+    "TRANSFORMING VISIONS INTO MODERN DINING ENVIRONMENTS",
+      "ENGINEERING EQUIPMENT FOR PERFECTION"
+    "REDEFINING PROFESSIONAL KITCHEN DESIGN", 
+      "CREATING SPACES THAT DRIVE SUCCESS"
+  ];
+
+  // Get the span element
+  const dynamicText = document.getElementById("dynamic-text");
+
+  let index = 0;
+
+  // Function to update the text content
+  function updateText() {
+    dynamicText.textContent = messages[index]; // Update the text
+    index = (index + 1) % messages.length; // Cycle through messages
+  }
+
+  // Initial text update
+  updateText();
+
+  // Change text every 6 seconds (match animation duration)
+  setInterval(updateText, 6000);
 
     // Toggle the dropdown menu visibility
     function toggleDropdown(event) {

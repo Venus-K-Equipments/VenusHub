@@ -695,7 +695,7 @@ input:invalid {
   }
 }
     
-/* Add a pop-in animation *---------------------------------------------------------------------/
+/*---------------------------------------------------------------------*/
     .trendy-text {
   text-align: center; /* Center the text */
   margin: 20px auto; /* Add spacing around the text */
@@ -709,7 +709,7 @@ input:invalid {
   font-family: 'Poppins', sans-serif; /* Trendy font */
   font-size: 3vw; /* Responsive font size */
   font-weight: 800; /* Extra bold text */
-  color: #ffffff; /* White text color */
+  color: #f4b628; /* White text color */
   text-transform: uppercase; /* Convert text to uppercase */
   letter-spacing: 2px; /* Add spacing between letters */
   animation: popIn 1.5s ease-in-out; /* Smooth animation */
@@ -718,7 +718,7 @@ input:invalid {
 /* Add a pop-in animation */
 @keyframes popIn {
   0% {
-    transform: scale(0.8);
+    transform: scale(0.5);
     opacity: 0;
   }
   100% {
@@ -769,7 +769,10 @@ input:invalid {
 </div>
 
   <div class="trendy-text">
-  <h1>TRANSFORMING YOUR KITCHEN IDEAS INTO REALITY</h1>
+  <h1>
+  <span>TRANSFORMING YOUR KITCHEN IDEAS</span><br>
+  <span>INTO REALITY</span>
+</h1>
 </div>
   
 <!-- About Us Section -->
@@ -1265,6 +1268,7 @@ closeButton.onclick = function() {
   const container = document.getElementById("thumbnail-container"); // Thumbnail container
   const footer = document.querySelector("footer"); // Select the footer element
   const slideshow = document.querySelector(".slideshow-container"); // Slideshow container
+  const trendyText = document.querySelector(".trendy-text"); // Trendy text below slideshow
 
   // Show the selected section and hide others
   sections.forEach((section) => {
@@ -1289,6 +1293,11 @@ closeButton.onclick = function() {
     slideshow.style.display = sectionId === "welcome-header" ? "block" : "none";
   }
 
+   // Hide the trendy text if it's not the welcome-header section
+  if (trendyText) {
+    trendyText.style.display = sectionId === "welcome-header" ? "block" : "none";
+  }
+
   // Debugging logs (optional)
   console.log("Section being shown:", sectionId);
   if (container) {
@@ -1299,6 +1308,10 @@ closeButton.onclick = function() {
   }
   if (slideshow) {
     console.log("Slideshow visibility:", slideshow.style.display);
+  }
+}
+    if (trendyText) {
+    console.log("Trendy text visibility:", trendyText.style.display);
   }
 }
     

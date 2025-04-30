@@ -722,7 +722,7 @@ input:invalid {
     transform: translateY(-20px); /* Move slightly upward */
   }
   20% {
-    opacity: 1; /* Fade in */
+    opacity: 0.5; /* Fade in */
     transform: translateY(0); /* Move to original position */
   }
   50% {
@@ -730,7 +730,7 @@ input:invalid {
     transform: translateY(0); /* Stay in place */
   }
   80% {
-    opacity: 0; /* Fade out */
+    opacity: 0.5; /* Fade out */
     transform: translateY(20px); /* Move slightly downward */
   }
   100% {
@@ -925,8 +925,29 @@ input:invalid {
 </button>
   
   <script>
+    
+    // Toggle the dropdown menu visibility
+    function toggleDropdown(event) {
+  event.stopPropagation();
+  const dropdownMenu = document.getElementById("product-dropdown");
+  if (dropdownMenu.style.display === "block") {
+    dropdownMenu.style.display = "none";
+  } else {
+    dropdownMenu.style.display = "block";
+  }
+}
 
-    // List of dynamic text content
+    window.onload = function() {
+  const productsMenu = document.querySelector('.menu li.dropdown'); // Select the "Products" menu item
+  if (productsMenu) {
+    productsMenu.click(); // First click to show the dropdown
+    setTimeout(() => {
+      productsMenu.click(); // Second click to hide the dropdown
+    }, 100); // Adjust the delay as needed
+  }
+};
+//---------------------------------------------------------------------------------------------
+      // List of dynamic text content
   const messages = [
     "TRANSFORMING YOUR KITCHEN IDEAS",
     "INTO REALITY",
@@ -961,26 +982,7 @@ input:invalid {
   // Change text every 6 seconds (match animation duration)
   setInterval(updateText, 6000);
 
-    // Toggle the dropdown menu visibility
-    function toggleDropdown(event) {
-  event.stopPropagation();
-  const dropdownMenu = document.getElementById("product-dropdown");
-  if (dropdownMenu.style.display === "block") {
-    dropdownMenu.style.display = "none";
-  } else {
-    dropdownMenu.style.display = "block";
-  }
-}
-
-    window.onload = function() {
-  const productsMenu = document.querySelector('.menu li.dropdown'); // Select the "Products" menu item
-  if (productsMenu) {
-    productsMenu.click(); // First click to show the dropdown
-    setTimeout(() => {
-      productsMenu.click(); // Second click to hide the dropdown
-    }, 100); // Adjust the delay as needed
-  }
-};
+//---------------------------------------------------------------------------------------------
 
     // Thumbnail data for each product category
    const thumbnails = {

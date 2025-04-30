@@ -954,7 +954,8 @@ input:invalid {
     setTimeout(() => {
       productsMenu.click(); // Second click to hide the dropdown
     }, 100); // Adjust the delay as needed
-  }
+  showSection("welcome-header");
+
 };
 //---------------------------------------------------------------------------------------------
       // List of dynamic text content
@@ -986,6 +987,8 @@ input:invalid {
     index = (index + 1) % messages.length; // Cycle through messages
   }
 
+    // Start dynamic text updates
+setInterval(updateText, 6000); // Rotate every 6 seconds
 //---------------------------------------------------------------------------------------------
 
     // Thumbnail data for each product category
@@ -1352,16 +1355,14 @@ function showSection(sectionId) {
     footer.style.display = sectionId === "contact-us" ? "block" : "none";
   }
 
-  // Hide the slideshow if it's not the welcome-header section
+ // Handle slideshow and trendy text visibility
   if (slideshow) {
     slideshow.style.display = sectionId === "welcome-header" ? "block" : "none";
   }
-
-  // Hide the trendy text if it's not the welcome-header section
   if (trendyText) {
     trendyText.style.display = sectionId === "welcome-header" ? "block" : "none";
   }
-
+}
   // Debugging logs (optional)
   console.log("Section being shown:", sectionId);
   if (container) {

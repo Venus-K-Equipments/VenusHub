@@ -613,7 +613,7 @@ input:invalid {
 /* Slideshow Container */
 .slideshow-container {
   width: 100%; /* Set exact width */
-  height: 150px; /* Set exact height */
+  height: 250px; /* Set exact height */
   margin: 20px auto; /* Center horizontally */
   overflow: hidden; /* Hide overflow */
   position: relative;
@@ -1231,6 +1231,7 @@ closeButton.onclick = function() {
   const sections = ["about-us", "our-services", "our-customers", "contact-us", "welcome-header"]; // Main sections
   const container = document.getElementById("thumbnail-container"); // Thumbnail container
   const footer = document.querySelector("footer"); // Select the footer element
+  const slideshow = document.querySelector(".slideshow-container"); // Slideshow container
 
   // Show the selected section and hide others
   sections.forEach((section) => {
@@ -1250,6 +1251,11 @@ closeButton.onclick = function() {
     footer.style.display = sectionId === "contact-us" ? "block" : "none";
   }
 
+  // Hide the slideshow if it's not the welcome-header section
+  if (slideshow) {
+    slideshow.style.display = sectionId === "welcome-header" ? "block" : "none";
+  }
+
   // Debugging logs (optional)
   console.log("Section being shown:", sectionId);
   if (container) {
@@ -1257,6 +1263,9 @@ closeButton.onclick = function() {
   }
   if (footer) {
     console.log("Footer visibility:", footer.style.display);
+  }
+  if (slideshow) {
+    console.log("Slideshow visibility:", slideshow.style.display);
   }
 }
     

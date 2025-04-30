@@ -1322,36 +1322,33 @@ closeButton.onclick = function() {
     
     //-------------------------------------------------------------------------------------------------------------
 function showSection(sectionId) {
-  const sections = ["about-us", "our-services", "our-customers", "contact-us", "welcome-header"]; // Main sections
-  const container = document.getElementById("thumbnail-container"); // Thumbnail container
-  const footer = document.querySelector("footer"); // Select the footer element
-  const slideshow = document.querySelector(".slideshow-container"); // Slideshow container
-  const trendyText = document.querySelector(".trendy-text"); // Trendy text below slideshow
-
-  // Show the selected section and hide others
-  sections.forEach((section) => {
-    const sectionElement = document.getElementById(section);
-    if (sectionElement) {
-      sectionElement.style.display = section === sectionId ? "block" : "none";
-    }
+  // Get all sections
+  const sections = document.querySelectorAll("div[id]");
+  sections.forEach((sectionElement) => {
+    // Show or hide sections based on their ID
+    sectionElement.style.display = sectionElement.id === sectionId ? "block" : "none";
   });
 
   // Handle the thumbnail container visibility
+  const container = document.getElementById("thumbnail-container");
   if (container) {
     container.style.display = sectionId === "thumbnail-container" ? "block" : "none";
   }
 
   // Show the footer only for the "contact-us" section
+  const footer = document.querySelector("footer");
   if (footer) {
     footer.style.display = sectionId === "contact-us" ? "block" : "none";
   }
 
   // Hide the slideshow if it's not the welcome-header section
+  const slideshow = document.querySelector(".slideshow-container");
   if (slideshow) {
     slideshow.style.display = sectionId === "welcome-header" ? "block" : "none";
   }
 
   // Hide the trendy text if it's not the welcome-header section
+  const trendyText = document.querySelector(".trendy-text");
   if (trendyText) {
     trendyText.style.display = sectionId === "welcome-header" ? "block" : "none";
   }
@@ -1371,25 +1368,23 @@ function showSection(sectionId) {
     console.log("Trendy text visibility:", trendyText.style.display);
   }
 }
-    
+
 // Set up event listeners for menu items
 document.querySelectorAll(".menu li").forEach((li) => {
   li.addEventListener("click", (e) => {
-    if (e.target.textContent === "About Us") {
-      showSection("about-us");
-    }
-    if (e.target.textContent === "Our Customers") {
-      showSection("our-customers");
-    }
-    if (e.target.textContent === "Contact Us") {
-      showSection("contact-us");
+    const sectionId = e.target.getAttribute("data-section-id");
+    if (sectionId) {
+      showSection(sectionId);
     }
   });
 });
+
 // Show welcome header by default on page load
 window.onload = function () {
   showSection("welcome-header");
-  const productsMenu = document.querySelector('.menu li.dropdown'); // Select the "Products" menu item
+
+  // Dropdown menu handling (optional)
+  const productsMenu = document.querySelector(".menu li.dropdown"); // Select the "Products" menu item
   if (productsMenu) {
     productsMenu.click(); // First click to show the dropdown
     setTimeout(() => {

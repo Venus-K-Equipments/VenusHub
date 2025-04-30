@@ -53,7 +53,7 @@
     }
 
     /* Updated Menu Styles */
-    .menu {
+     .menu {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -209,7 +209,7 @@
 #header-text h1 {
   font-size: 7vw; /* Adjust the size as needed */
   font-family: 'Arial', sans-serif; /* Formal sans-serif font */
-  font-weight: 900; /* Keeps the text bold */
+  font-weight: bold; /* Keeps the text bold */
   color: #ffff00; /* Dark gray for a professional look */
   text-transform: uppercase; /* Remove this if uppercase is not required */
 }
@@ -608,137 +608,6 @@ input:invalid {
     height:100%;
   }
 }
-
-/* Slideshow Container */
-.slideshow-container {
-  width: 100%; /* Set exact width */
-  height: 250px; /* Set exact height */
-  margin: 20px auto; /* Center horizontally */
-  overflow: hidden; /* Hide overflow */
-  position: relative;
-  border-radius: 10px; /* Rounded corners */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Add shadow */
-}
-
-/* Slideshow Styles */
-.slideshow {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-.slideshow li {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
-
-.slideshow li span {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  color: transparent;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  opacity: 0;
-  z-index: 0;
-  animation: imageAnimation 14s linear infinite; /* Adjust timing */
-}
-
-.slideshow li:nth-child(1) span {
-  animation-delay: 0s;
-}
-.slideshow li:nth-child(2) span {
-  animation-delay: 3s;
-}
-.slideshow li:nth-child(3) span {
-  animation-delay: 6s;
-}
-.slideshow li:nth-child(4) span {
-  animation-delay: 9s;
-}
-.slideshow li:nth-child(5) span {
-  animation-delay: 12s;
-}
-.slideshow li:nth-child(6) span {
-  animation-delay: 15s;
-}
-.slideshow li:nth-child(7) span {
-  animation-delay: 12s;
-}
-
-/* Image Animation */
-@keyframes imageAnimation {
-  0% {
-    opacity: 0;
-    animation-timing-function: ease-in;
-  }
-  8% {
-    opacity: 1;
-    animation-timing-function: ease-out;
-  }
-  17% {
-    opacity: 1;
-  }
-  25% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-    
-/*---------------------------------------------------------------------*/
-    .trendy-text {
-  text-align: center; /* Center the text */
-  margin: 10px auto; /* Add spacing around the text */
-  padding: 20px;
-  height: 350px;
-  width: 100%;
-  background: #ffff00; /* Yellow-based gradient background */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Subtle shadow */
-}
-
-.trendy-text h1 {
-  font-family: 'Poppins', sans-serif; /* Trendy font */
-  font-size: 10vw; /* Responsive font size */
-  font-weight: 1000; /* Extra bold text */
-  color: #000000; /* Black text color */
-  text-transform: uppercase; /* Convert text to uppercase */
-  letter-spacing: 2px; /* Add spacing between letters */
-  animation: popIn 6s ease-in-out infinite; /* Total animation time: 6 seconds */
-}
-
-/* Add a pop-in animation */
-@keyframes popIn {
-  0% {
-    opacity: 0; /* Start invisible */
-    transform: translateY(-20px); /* Move slightly upward */
-  }
-  20% {
-    opacity: 0.5; /* Fade in */
-    transform: translateY(0); /* Move to original position */
-  }
-  50% {
-    opacity: 1; /* Hold for 3 seconds */
-    transform: translateY(0); /* Stay in place */
-  }
-  80% {
-    opacity: 0.5; /* Fade out */
-    transform: translateY(20px); /* Move slightly downward */
-  }
-  100% {
-    opacity: 0; /* End invisible */
-    transform: translateY(20px);
-  }
-}
-    
     /*------------------------------------------------------------------------------------------------------------------------------------------*/
   </style>
 </head>
@@ -767,26 +636,7 @@ input:invalid {
     <li onclick="showSection('contact-us')">Contact Us</li>
   </ul>
 </div>
-  
 
-<div class="slideshow-container">
-  <ul class="slideshow">
-    <li><span style="background-image: url('images/budget.jpg');"></span></li>
-    <li><span style="background-image: url('images/kitchen .jpg');"></span></li>
-    <li><span style="background-image: url('images/planning.jpg');"></span></li>
-    <li><span style="background-image: url('images/interior.jpg');"></span></li>
-    <li><span style="background-image: url('images/mockup.jpg');"></span></li>
-    <li><span style="background-image: url('images/research.jpg');"></span></li>
-    <li><span style="background-image: url('images/mep.jpg');"></span></li>
-  </ul>
-</div>
-
-  <div class="trendy-text">
-  <h1>
-    <span id="dynamic-text"></span>
-  </h1>
-</div>
-  
 <!-- About Us Section -->
 <div id="about-us" style="display: none; padding: 20px; text-align: justify; color: rgba(0, 0, 0, 1)!important; background-color: rgba(255, 255, 255, 0.2); border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.4); position: absolute; margin-top: 200px; left: 50%; transform: translate(-50%, 0); width: 80%; max-height: 80vh; overflow-y: auto;">
   <p>Venus Kitchen Equipments holds a prominent position in the realm of commercial kitchen equipment and furniture. With a rich portfolio of over 1500 projects, we have established ourselves as the largest manufacturer and exporter of food service equipment and supplies in the country. Our expansive facility, spanning 15,000 square feet, includes a 9,000 square feet factory dedicated to storing all the customized products for production and dispatch activities.</p>
@@ -926,70 +776,26 @@ input:invalid {
 </button>
   
   <script>
-    
     // Toggle the dropdown menu visibility
-   function toggleDropdown(event) {
+    function toggleDropdown(event) {
   event.stopPropagation();
   const dropdownMenu = document.getElementById("product-dropdown");
-  const isVisible = dropdownMenu.style.display === "block";
-
-  // Hide all sections to avoid conflicts
-  showSection(""); // Pass an empty section ID to hide all
-
-  // Toggle dropdown visibility
-  dropdownMenu.style.display = isVisible ? "none" : "block";
+  if (dropdownMenu.style.display === "block") {
+    dropdownMenu.style.display = "none";
+  } else {
+    dropdownMenu.style.display = "block";
+  }
 }
 
     window.onload = function() {
-  // Hide the contact form on page load
-  const contactForm = document.getElementById('contact-us'); // Select the contact form section
-  if (contactForm) {
-    contactForm.style.display = 'none'; // Explicitly hide the contact form
-  }
-
-  // Dropdown menu logic for "Products"
   const productsMenu = document.querySelector('.menu li.dropdown'); // Select the "Products" menu item
   if (productsMenu) {
     productsMenu.click(); // First click to show the dropdown
     setTimeout(() => {
       productsMenu.click(); // Second click to hide the dropdown
     }, 100); // Adjust the delay as needed
-  showSection("welcome-header");
-
-};
-//---------------------------------------------------------------------------------------------
-      // List of dynamic text content
-  const messages = [
-  "TRANSFORMING YOUR KITCHEN IDEAS",
-  "INTO REALITY",
-  "CREATING INNOVATIVE SOLUTIONS",
-  "ELEVATING YOUR CULINARY EXPERIENCE",
-  "DESIGNING SPACES THAT INSPIRE", 
-  "ELEVATING DINING THROUGH INNOVATION",
-  "CRAFTING FUNCTIONAL KITCHEN SOLUTIONS", 
-  "REVOLUTIONIZING RESTAURANT INTERIORS",
-  "INSPIRING EFFICIENT WORKSPACES", 
-  "SEAMLESSLY BLENDING STYLE AND FUNCTIONALITY",
-  "TRANSFORMING VISIONS INTO MODERN DINING ENVIRONMENTS",
-  "ENGINEERING EQUIPMENT FOR PERFECTION",
-  "REDEFINING PROFESSIONAL KITCHEN DESIGN", 
-  "CREATING SPACES THAT DRIVE SUCCESS"
-];
-
-  // Get the span element
-  const dynamicText = document.getElementById("dynamic-text");
-
-  let index = 0;
-
-  // Function to update the text content
-  function updateText() {
-    dynamicText.textContent = messages[index]; // Update the text
-    index = (index + 1) % messages.length; // Cycle through messages
   }
-
-    // Start dynamic text updates
-setInterval(updateText, 6000); // Rotate every 6 seconds
-//---------------------------------------------------------------------------------------------
+};
 
     // Thumbnail data for each product category
    const thumbnails = {
@@ -1016,36 +822,24 @@ setInterval(updateText, 6000); // Rotate every 6 seconds
 let selectedModels = [];
 
 function showThumbnails(category) {
+  const sections = ["about-us", "our-services", "our-customers", "contact-us", "welcome-header"];
   const container = document.getElementById("thumbnail-container");
-  if (!container) {
-    console.error("Thumbnail container not found!");
-    return;
-  }
 
-  // Clear existing thumbnails
-  container.innerHTML = "";
+  // Hide all other sections
+  sections.forEach((section) => {
+    const sectionElement = document.getElementById(section);
+    if (sectionElement) {
+      sectionElement.style.display = "none";
+    }
+  });
 
-  // Thumbnail data for each category
-  const thumbnails = {
-    worktable: [
-      { src: "models/WT.jpg", name: "Work Table", model: "models/WT.glb" },
-      { src: "models/Idly table.jpg", name: "Idly Table", model: "models/WT idly.glb" },
-    ],
-    Counter: [
-      { src: "models/chat.jpg", name: "Chat Counter", model: "models/Chat.glb" },
-      { src: "models/chat2.jpg", name: "Chat Counter 2", model: "models/Chatc2.glb" },
-    ],
-    Sink: [
-      { src: "models/sink1.jpg", name: "Sink 1", model: "models/Sink1.glb" },
-      { src: "models/sink2.jpg", name: "Sink 2", model: "models/Sink2.glb" },
-    ],
-    Rack: [
-      { src: "models/rack1.jpg", name: "Rack 1", model: "models/Rack1.glb" },
-      { src: "models/rack2.jpg", name: "Rack 2", model: "models/Rack2.glb" },
-    ],
-  };
+  // Show the thumbnail container
+  container.style.display = "flex"; 
+  container.style.flexWrap = "wrap"; 
+  container.style.justifyContent = "center"; 
+  container.innerHTML = ""; // Clear previous thumbnails
 
-  let selectedModels = [];
+  // Load thumbnails for the selected category
   if (thumbnails[category]) {
     thumbnails[category].forEach((thumb) => {
       const div = document.createElement("div");
@@ -1104,7 +898,7 @@ function showThumbnails(category) {
   }
 
   console.log("Showing thumbnails for category:", category);
-}
+}    
 // Make the button draggable
 const groupViewBtn = document.getElementById('group-view-btn');
 let isDown = false;
@@ -1178,7 +972,7 @@ document.addEventListener('touchmove', (e) => {
     if (selectedModels.length === 0) {
         // Create a popup message
         const popup = document.createElement('div');
-        popup.textContent = 'Please select a set of models from product menu!';
+        popup.textContent = 'Please select a set of models to view here!';
         popup.style.position = 'fixed';
         popup.style.top = '50%';
         popup.style.left = '50%';
@@ -1330,12 +1124,10 @@ closeButton.onclick = function() {
 }
     
     //-------------------------------------------------------------------------------------------------------------
-function showSection(sectionId) {
+ function showSection(sectionId) {
   const sections = ["about-us", "our-services", "our-customers", "contact-us", "welcome-header"]; // Main sections
   const container = document.getElementById("thumbnail-container"); // Thumbnail container
   const footer = document.querySelector("footer"); // Select the footer element
-  const slideshow = document.querySelector(".slideshow-container"); // Slideshow container
-  const trendyText = document.querySelector(".trendy-text"); // Trendy text below slideshow
 
   // Show the selected section and hide others
   sections.forEach((section) => {
@@ -1355,14 +1147,6 @@ function showSection(sectionId) {
     footer.style.display = sectionId === "contact-us" ? "block" : "none";
   }
 
- // Handle slideshow and trendy text visibility
-  if (slideshow) {
-    slideshow.style.display = sectionId === "welcome-header" ? "block" : "none";
-  }
-  if (trendyText) {
-    trendyText.style.display = sectionId === "welcome-header" ? "block" : "none";
-  }
-}
   // Debugging logs (optional)
   console.log("Section being shown:", sectionId);
   if (container) {
@@ -1371,30 +1155,26 @@ function showSection(sectionId) {
   if (footer) {
     console.log("Footer visibility:", footer.style.display);
   }
-  if (slideshow) {
-    console.log("Slideshow visibility:", slideshow.style.display);
-  }
-  if (trendyText) {
-    console.log("Trendy text visibility:", trendyText.style.display);
-  }
 }
-
+    
 // Set up event listeners for menu items
 document.querySelectorAll(".menu li").forEach((li) => {
   li.addEventListener("click", (e) => {
-    const sectionId = e.target.getAttribute("data-section-id");
-    if (sectionId) {
-      showSection(sectionId);
+    if (e.target.textContent === "About Us") {
+      showSection("about-us");
+    }
+    if (e.target.textContent === "Our Customers") {
+      showSection("our-customers");
+    }
+    if (e.target.textContent === "Contact Us") {
+      showSection("contact-us");
     }
   });
 });
-
 // Show welcome header by default on page load
 window.onload = function () {
   showSection("welcome-header");
-
-  // Dropdown menu handling (optional)
-  const productsMenu = document.querySelector(".menu li.dropdown"); // Select the "Products" menu item
+  const productsMenu = document.querySelector('.menu li.dropdown'); // Select the "Products" menu item
   if (productsMenu) {
     productsMenu.click(); // First click to show the dropdown
     setTimeout(() => {

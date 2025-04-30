@@ -963,6 +963,8 @@ let selectedModels = [];
 function showThumbnails(category) {
   const sections = ["about-us", "our-services", "our-customers", "contact-us", "welcome-header"];
   const container = document.getElementById("thumbnail-container");
+  const slideshow = document.querySelector(".slideshow-container"); // Slideshow container
+  const trendyText = document.querySelector(".trendy-text"); // Trendy text below slideshow
 
   // Hide all other sections
   sections.forEach((section) => {
@@ -971,6 +973,14 @@ function showThumbnails(category) {
       sectionElement.style.display = "none";
     }
   });
+
+  // Hide the slideshow and trendy text
+  if (slideshow) {
+    slideshow.style.display = "none";
+  }
+  if (trendyText) {
+    trendyText.style.display = "none";
+  }
 
   // Show the thumbnail container
   container.style.display = "flex"; 

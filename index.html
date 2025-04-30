@@ -941,6 +941,13 @@ input:invalid {
 }
 
     window.onload = function() {
+  // Hide the contact form on page load
+  const contactForm = document.getElementById('contact-us'); // Select the contact form section
+  if (contactForm) {
+    contactForm.style.display = 'none'; // Explicitly hide the contact form
+  }
+
+  // Dropdown menu logic for "Products"
   const productsMenu = document.querySelector('.menu li.dropdown'); // Select the "Products" menu item
   if (productsMenu) {
     productsMenu.click(); // First click to show the dropdown

@@ -607,6 +607,137 @@ input:invalid {
     width:100%;
     height:100%;
   }
+
+  /* Slideshow Container */
+.slideshow-container {
+  width: 100%; /* Set exact width */
+  height: 250px; /* Set exact height */
+  margin: 20px auto; /* Center horizontally */
+  overflow: hidden; /* Hide overflow */
+  position: relative;
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Add shadow */
+}
+
+/* Slideshow Styles */
+.slideshow {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.slideshow li {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.slideshow li span {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  color: transparent;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  z-index: 0;
+  animation: imageAnimation 14s linear infinite; /* Adjust timing */
+}
+
+.slideshow li:nth-child(1) span {
+  animation-delay: 0s;
+}
+.slideshow li:nth-child(2) span {
+  animation-delay: 3s;
+}
+.slideshow li:nth-child(3) span {
+  animation-delay: 6s;
+}
+.slideshow li:nth-child(4) span {
+  animation-delay: 9s;
+}
+.slideshow li:nth-child(5) span {
+  animation-delay: 12s;
+}
+.slideshow li:nth-child(6) span {
+  animation-delay: 15s;
+}
+.slideshow li:nth-child(7) span {
+  animation-delay: 12s;
+}
+
+/* Image Animation */
+@keyframes imageAnimation {
+  0% {
+    opacity: 0;
+    animation-timing-function: ease-in;
+  }
+  8% {
+    opacity: 1;
+    animation-timing-function: ease-out;
+  }
+  17% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+    
+/*---------------------------------------------------------------------*/
+    .trendy-text {
+  text-align: center; /* Center the text */
+  margin: 10px auto; /* Add spacing around the text */
+  padding: 20px;
+  height: 350px;
+  width: 100%;
+  background: #ffff00; /* Yellow-based gradient background */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+
+.trendy-text h1 {
+  font-family: 'Poppins', sans-serif; /* Trendy font */
+  font-size: 10vw; /* Responsive font size */
+  font-weight: 1000; /* Extra bold text */
+  color: #000000; /* Black text color */
+  text-transform: uppercase; /* Convert text to uppercase */
+  letter-spacing: 2px; /* Add spacing between letters */
+  animation: popIn 6s ease-in-out infinite; /* Total animation time: 6 seconds */
+}
+
+/* Add a pop-in animation */
+@keyframes popIn {
+  0% {
+    opacity: 0; /* Start invisible */
+    transform: translateY(-20px); /* Move slightly upward */
+  }
+  20% {
+    opacity: 0.5; /* Fade in */
+    transform: translateY(0); /* Move to original position */
+  }
+  50% {
+    opacity: 1; /* Hold for 3 seconds */
+    transform: translateY(0); /* Stay in place */
+  }
+  80% {
+    opacity: 0.5; /* Fade out */
+    transform: translateY(20px); /* Move slightly downward */
+  }
+  100% {
+    opacity: 0; /* End invisible */
+    transform: translateY(20px);
+  }
+}
+ 
 }
     /*------------------------------------------------------------------------------------------------------------------------------------------*/
   </style>
@@ -636,6 +767,26 @@ input:invalid {
     <li onclick="showSection('contact-us')">Contact Us</li>
   </ul>
 </div>
+
+
+  <div class="slideshow-container">
+  <ul class="slideshow">
+    <li><span style="background-image: url('images/budget.jpg');"></span></li>
+    <li><span style="background-image: url('images/kitchen .jpg');"></span></li>
+    <li><span style="background-image: url('images/planning.jpg');"></span></li>
+    <li><span style="background-image: url('images/interior.jpg');"></span></li>
+    <li><span style="background-image: url('images/mockup.jpg');"></span></li>
+    <li><span style="background-image: url('images/research.jpg');"></span></li>
+    <li><span style="background-image: url('images/mep.jpg');"></span></li>
+  </ul>
+</div>
+
+  <div class="trendy-text">
+  <h1>
+    <span id="dynamic-text"></span>
+  </h1>
+</div>
+
 
 <!-- About Us Section -->
 <div id="about-us" style="display: none; padding: 20px; text-align: justify; color: rgba(0, 0, 0, 1)!important; background-color: rgba(255, 255, 255, 0.2); border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.4); position: absolute; margin-top: 200px; left: 50%; transform: translate(-50%, 0); width: 80%; max-height: 80vh; overflow-y: auto;">
@@ -776,6 +927,37 @@ input:invalid {
 </button>
   
   <script>
+
+    //---------------------------------------------------------------------------------------------
+      // List of dynamic text content
+  const messages = [
+  "TRANSFORMING YOUR KITCHEN IDEAS",
+  "INTO REALITY",
+  "CREATING INNOVATIVE SOLUTIONS",
+  "ELEVATING YOUR CULINARY EXPERIENCE",
+  "DESIGNING SPACES THAT INSPIRE", 
+  "ELEVATING DINING THROUGH INNOVATION",
+  "CRAFTING FUNCTIONAL KITCHEN SOLUTIONS", 
+  "REVOLUTIONIZING RESTAURANT INTERIORS",
+  "INSPIRING EFFICIENT WORKSPACES", 
+  "SEAMLESSLY BLENDING STYLE AND FUNCTIONALITY",
+  "TRANSFORMING VISIONS INTO MODERN DINING ENVIRONMENTS",
+  "ENGINEERING EQUIPMENT FOR PERFECTION",
+  "REDEFINING PROFESSIONAL KITCHEN DESIGN", 
+  "CREATING SPACES THAT DRIVE SUCCESS"
+];
+
+  // Get the span element
+  const dynamicText = document.getElementById("dynamic-text");
+
+  let index = 0;
+
+  // Function to update the text content
+  function updateText() {
+    dynamicText.textContent = messages[index]; // Update the text
+    index = (index + 1) % messages.length; // Cycle through messages
+  }
+
     // Toggle the dropdown menu visibility
     function toggleDropdown(event) {
   event.stopPropagation();

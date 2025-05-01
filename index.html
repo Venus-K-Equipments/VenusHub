@@ -959,14 +959,6 @@ window.addEventListener('load', function () {
         trendyText.style.display = 'block';
         console.log('Trendy text is now visible on page load');
     }
-
-  // Trigger double-click functionality for "Products" on page load
-    const productsMenu = document.querySelector('.menu li.dropdown');
-    if (productsMenu) {
-        console.log('Simulating double-click on "Products"...');
-        productsMenu.dispatchEvent(new MouseEvent('dblclick', { bubbles: true }));
-        console.log('Double-click simulation completed.');
-    }
 });
 
 // Attach event listener to all menu items
@@ -974,6 +966,15 @@ document.querySelectorAll('.menu li').forEach(item => {
     item.addEventListener('click', () => {
         hideSlideshowAndText();
     });
+
+  // Ensure "Products" submenu is hidden on page load
+window.addEventListener('load', function () {
+    const productsSubmenu = document.getElementById('product-dropdown');
+    if (productsSubmenu) {
+        productsSubmenu.style.display = 'none'; // Explicitly hide the submenu
+        console.log('Products submenu hidden on page load');
+    }
+});
 });
     
     //---------------------------------------------------------------------------------------------

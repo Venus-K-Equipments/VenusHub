@@ -769,7 +769,7 @@ input:invalid {
 </div>
 
 
-  <div class="slideshow-container">
+ <div id="slideshow-container" class="slideshow-container">
   <ul class="slideshow">
     <li><span style="background-image: url('images/budget.jpg');"></span></li>
     <li><span style="background-image: url('images/kitchen .jpg');"></span></li>
@@ -781,10 +781,10 @@ input:invalid {
   </ul>
 </div>
 
-  <div class="trendy-text">
-  <h1>
-    <span id="dynamic-text"></span>
-  </h1>
+ <div id="trendy-text" class="trendy-text">
+   <h1>
+       <span id="dynamic-text"></span>
+   </h1>
 </div>
 
 
@@ -927,6 +927,21 @@ input:invalid {
 </button>
   
   <script>
+
+    // Function to hide slideshow and trendy text
+function hideSlideshowAndText() {
+    const slideshow = document.getElementById('slideshow-container');
+    const trendyText = document.getElementById('trendy-text');
+
+    // Hide the elements
+    slideshow.style.display = 'none';
+    trendyText.style.display = 'none';
+}
+
+// Attach event listener to all menu items
+document.querySelectorAll('.menu li').forEach(item => {
+    item.addEventListener('click', hideSlideshowAndText);
+});
 
     //---------------------------------------------------------------------------------------------
       // List of dynamic text content

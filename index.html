@@ -880,7 +880,7 @@ input:invalid {
 
 
 <!-- Contact Us Section -------------------------------------------------------------------------------------------------------->
-<div id="contact-us" style="padding: 20px; text-align: justify; color: rgba(0, 0, 0, 1)!important; background-color: transparent; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.4); position: absolute; margin-top: 180px; left: 50%; transform: translate(-50%, 0); width: 80%; max-height: 80vh; overflow-y: auto;">
+<div id="contact-us" style="display: none; padding: 20px; text-align: justify; color: rgba(0, 0, 0, 1)!important; background-color: transparent; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.4); position: absolute; margin-top: 180px; left: 50%; transform: translate(-50%, 0); width: 80%; max-height: 80vh; overflow-y: auto;">
 
   <!-- Contact Form -->
   <div class="bg-image"></div>
@@ -1348,35 +1348,35 @@ closeButton.onclick = function() {
     //-------------------------------------------------------------------------------------------------------------
 // Updated showSection function to ensure slideshow and trendy text remain visible
 function showSection(sectionId) {
-    const sections = ["about-us", "our-services", "our-customers", "contact-us", "welcome-header"]; // Main sections
-    const container = document.getElementById("thumbnail-container"); // Thumbnail container
-    const footer = document.querySelector("footer"); // Footer element
+  const sections = ["about-us", "our-services", "our-customers", "contact-us", "welcome-header"]; // Main sections
+  const container = document.getElementById("thumbnail-container"); // Thumbnail container
+  const footer = document.querySelector("footer"); // Footer element
 
-    // Show the selected section and hide others
-    sections.forEach((section) => {
-        const sectionElement = document.getElementById(section);
-        if (sectionElement) {
-            sectionElement.style.display = section === sectionId ? "block" : "none";
-        }
-    });
-
-    // Ensure slideshow and trendy text remain visible
-    const slideshow = document.getElementById('slideshow-container');
-    const trendyText = document.getElementById('trendy-text');
-    if (slideshow) slideshow.style.display = "block";
-    if (trendyText) trendyText.style.display = "block";
-
-    // Handle the thumbnail container visibility
-    if (container) {
-        container.style.display = sectionId === "thumbnail-container" ? "block" : "none";
+  // Show the selected section and hide others
+  sections.forEach((section) => {
+    const sectionElement = document.getElementById(section);
+    if (sectionElement) {
+      sectionElement.style.display = section === sectionId ? "block" : "none";
     }
+  });
 
-    // Show the footer only for the "contact-us" section
-    if (footer) {
-        footer.style.display = sectionId === "contact-us" ? "block" : "none";
-    }
+  // Ensure slideshow and trendy text remain visible
+  const slideshow = document.getElementById("slideshow-container");
+  const trendyText = document.getElementById("trendy-text");
+  if (slideshow) slideshow.style.display = "block";
+  if (trendyText) trendyText.style.display = "block";
 
-    console.log("Section being shown:", sectionId);
+  // Handle the thumbnail container visibility
+  if (container) {
+    container.style.display = sectionId === "thumbnail-container" ? "block" : "none";
+  }
+
+  // Show the footer only for the "contact-us" section
+  if (footer) {
+    footer.style.display = sectionId === "contact-us" ? "block" : "none";
+  }
+
+  console.log("Section being shown:", sectionId);
 }
 
 // Attach event listener to all menu items

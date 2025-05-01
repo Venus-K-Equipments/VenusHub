@@ -1359,6 +1359,12 @@ closeButton.onclick = function() {
     }
   });
 
+  // Ensure slideshow and trendy text remain visible
+  const slideshow = document.getElementById("slideshow-container");
+  const trendyText = document.getElementById("trendy-text");
+  if (slideshow) slideshow.style.display = "block";
+  if (trendyText) trendyText.style.display = "block";
+
   // Handle the thumbnail container visibility
   if (container) {
     container.style.display = sectionId === "thumbnail-container" ? "block" : "none";
@@ -1378,12 +1384,15 @@ closeButton.onclick = function() {
     console.log("Footer visibility:", footer.style.display);
   }
 }
-    
+
 // Set up event listeners for menu items
 document.querySelectorAll(".menu li").forEach((li) => {
   li.addEventListener("click", (e) => {
     if (e.target.textContent === "About Us") {
       showSection("about-us");
+    }
+    if (e.target.textContent === "Our Services") {
+      showSection("our-services");
     }
     if (e.target.textContent === "Our Customers") {
       showSection("our-customers");
@@ -1393,14 +1402,25 @@ document.querySelectorAll(".menu li").forEach((li) => {
     }
   });
 });
-// Show welcome header by default on page load
+
+// Ensure slideshow and trendy text are visible on page load
 window.onload = function () {
   showSection("welcome-header");
-  const productsMenu = document.querySelector('.menu li.dropdown'); // Select the "Products" menu item
+
+  // Ensure slideshow and trendy text are visible
+  const slideshow = document.getElementById("slideshow-container");
+  const trendyText = document.getElementById("trendy-text");
+  if (slideshow) slideshow.style.display = "block";
+  if (trendyText) trendyText.style.display = "block";
+
+  // Simulate dropdown menu click
+  const productsMenu = document.querySelector(".menu li.dropdown");
   if (productsMenu) {
+    console.log("Simulating dropdown click...");
     productsMenu.click(); // First click to show the dropdown
     setTimeout(() => {
       productsMenu.click(); // Second click to hide the dropdown
+      console.log("Dropdown click simulation completed");
     }, 100); // Adjust the delay as needed
   }
 };

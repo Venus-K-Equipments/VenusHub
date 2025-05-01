@@ -959,6 +959,14 @@ window.addEventListener('load', function () {
         trendyText.style.display = 'block';
         console.log('Trendy text is now visible on page load');
     }
+
+  // Trigger double-click functionality for "Products" on page load
+    const productsMenu = document.querySelector('.menu li.dropdown');
+    if (productsMenu) {
+        console.log('Simulating double-click on "Products"...');
+        productsMenu.dispatchEvent(new MouseEvent('dblclick', { bubbles: true }));
+        console.log('Double-click simulation completed.');
+    }
 });
 
 // Attach event listener to all menu items

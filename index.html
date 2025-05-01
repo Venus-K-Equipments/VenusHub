@@ -1352,6 +1352,10 @@ function showSection(sectionId) {
   const container = document.getElementById("thumbnail-container"); // Thumbnail container
   const footer = document.querySelector("footer"); // Footer element
 
+  // Get slideshow and trendy text elements
+  const slideshow = document.getElementById("slideshow-container");
+  const trendyText = document.getElementById("trendy-text");
+
   // Show the selected section and hide others
   sections.forEach((section) => {
     const sectionElement = document.getElementById(section);
@@ -1360,11 +1364,14 @@ function showSection(sectionId) {
     }
   });
 
-  // Ensure slideshow and trendy text remain visible
-  const slideshow = document.getElementById("slideshow-container");
-  const trendyText = document.getElementById("trendy-text");
-  if (slideshow) slideshow.style.display = "block";
-  if (trendyText) trendyText.style.display = "block";
+  // Handle slideshow and trendy text visibility
+  if (sectionId === "products" || sectionId === "our-services") {
+    if (slideshow) slideshow.style.display = "block";
+    if (trendyText) trendyText.style.display = "block";
+  } else {
+    if (slideshow) slideshow.style.display = "none";
+    if (trendyText) trendyText.style.display = "none";
+  }
 
   // Handle the thumbnail container visibility
   if (container) {
@@ -1377,6 +1384,8 @@ function showSection(sectionId) {
   }
 
   console.log("Section being shown:", sectionId);
+  if (slideshow) console.log("Slideshow visibility:", slideshow.style.display);
+  if (trendyText) console.log("Trendy text visibility:", trendyText.style.display);
 }
 
 // Attach event listener to all menu items

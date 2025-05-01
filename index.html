@@ -946,6 +946,15 @@ window.onload = function () {
     // Show the elements
     slideshow.style.display = 'block';
     trendyText.style.display = 'block';
+
+const productsMenu = document.querySelector('.menu li.dropdown'); // Select the "Products" menu item
+  if (productsMenu) {
+    productsMenu.click(); // First click to show the dropdown
+    setTimeout(() => {
+      productsMenu.click(); // Second click to hide the dropdown
+    }, 100); // Adjust the delay as needed
+  }
+  
 };
 
 // Attach event listener to all menu items
@@ -994,15 +1003,6 @@ document.querySelectorAll('.menu li').forEach(item => {
   }
 }
 
-    window.onload = function() {
-  const productsMenu = document.querySelector('.menu li.dropdown'); // Select the "Products" menu item
-  if (productsMenu) {
-    productsMenu.click(); // First click to show the dropdown
-    setTimeout(() => {
-      productsMenu.click(); // Second click to hide the dropdown
-    }, 100); // Adjust the delay as needed
-  }
-};
 
     // Thumbnail data for each product category
    const thumbnails = {

@@ -978,34 +978,42 @@ window.addEventListener('load', function () {
 });
     
     //---------------------------------------------------------------------------------------------
-      // List of dynamic text content
-  const messages = [
-  "TRANSFORMING YOUR KITCHEN IDEAS",
-  "INTO REALITY",
-  "CREATING INNOVATIVE SOLUTIONS",
-  "ELEVATING YOUR CULINARY EXPERIENCE",
-  "DESIGNING SPACES THAT INSPIRE", 
-  "ELEVATING DINING THROUGH INNOVATION",
-  "CRAFTING FUNCTIONAL KITCHEN SOLUTIONS", 
-  "REVOLUTIONIZING RESTAURANT INTERIORS",
-  "INSPIRING EFFICIENT WORKSPACES", 
-  "SEAMLESSLY BLENDING STYLE AND FUNCTIONALITY",
-  "TRANSFORMING VISIONS INTO MODERN DINING ENVIRONMENTS",
-  "ENGINEERING EQUIPMENT FOR PERFECTION",
-  "REDEFINING PROFESSIONAL KITCHEN DESIGN", 
-  "CREATING SPACES THAT DRIVE SUCCESS"
-];
+     // Dynamic text content for the trendy text field
+window.addEventListener('load', function () {
+    const messages = [
+        "TRANSFORMING YOUR KITCHEN IDEAS",
+        "INTO REALITY",
+        "CREATING INNOVATIVE SOLUTIONS",
+        "ELEVATING YOUR CULINARY EXPERIENCE",
+        "DESIGNING SPACES THAT INSPIRE", 
+        "ELEVATING DINING THROUGH INNOVATION",
+        "CRAFTING FUNCTIONAL KITCHEN SOLUTIONS", 
+        "REVOLUTIONIZING RESTAURANT INTERIORS",
+        "INSPIRING EFFICIENT WORKSPACES", 
+        "SEAMLESSLY BLENDING STYLE AND FUNCTIONALITY",
+        "TRANSFORMING VISIONS INTO MODERN DINING ENVIRONMENTS",
+        "ENGINEERING EQUIPMENT FOR PERFECTION",
+        "REDEFINING PROFESSIONAL KITCHEN DESIGN", 
+        "CREATING SPACES THAT DRIVE SUCCESS"
+    ];
 
-  // Get the span element
-  const dynamicText = document.getElementById("dynamic-text");
+    const dynamicText = document.getElementById("dynamic-text");
+    let messageIndex = 0;
 
-  let index = 0;
+    if (dynamicText) {
+        // Function to update the text content
+        function updateDynamicText() {
+            dynamicText.textContent = messages[messageIndex];
+            messageIndex = (messageIndex + 1) % messages.length; // Cycle through the messages
+        }
 
-  // Function to update the text content
-  function updateText() {
-    dynamicText.textContent = messages[index]; // Update the text
-    index = (index + 1) % messages.length; // Cycle through messages
-  }
+        // Initialize the text and set an interval for updates
+        updateDynamicText();
+        setInterval(updateDynamicText, 3000); // Update every 3 seconds
+    } else {
+        console.log("Dynamic text element not found.");
+    }
+});
 
     // Toggle the dropdown menu visibility
     function toggleDropdown(event) {

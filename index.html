@@ -929,19 +929,20 @@ input:invalid {
   
   <script>
 
- // Function to hide slideshow and trendy text
-function hideSlideshowAndText() {
+// Function to hide slideshow and trendy text for specific sections
+function updateSlideshowAndTextVisibility(sectionId) {
     const slideshow = document.getElementById('slideshow-container');
     const trendyText = document.getElementById('trendy-text');
 
-    // Hide the elements
-    if (slideshow) {
-        slideshow.style.display = 'none';
-        console.log('Slideshow hidden');
-    }
-    if (trendyText) {
-        trendyText.style.display = 'none';
-        console.log('Trendy text hidden');
+    // Slideshow and trendy text should only be visible for "Products" and "Our Services"
+    if (sectionId === 'products' || sectionId === 'our-services') {
+        if (slideshow) slideshow.style.display = 'block';
+        if (trendyText) trendyText.style.display = 'block';
+        console.log('Slideshow and trendy text are visible for:', sectionId);
+    } else {
+        if (slideshow) slideshow.style.display = 'none';
+        if (trendyText) trendyText.style.display = 'none';
+        console.log('Slideshow and trendy text are hidden for:', sectionId);
     }
 }
 
@@ -950,31 +951,37 @@ window.addEventListener('load', function () {
     const slideshow = document.getElementById('slideshow-container');
     const trendyText = document.getElementById('trendy-text');
 
-    // Show the elements
+    // Explicitly set display to block
     if (slideshow) {
         slideshow.style.display = 'block';
-        console.log('Slideshow is now visible');
+        console.log('Slideshow is now visible on page load');
     }
     if (trendyText) {
         trendyText.style.display = 'block';
-        console.log('Trendy text is now visible');
-    }
-
-    // Simulate dropdown menu click
-    const productsMenu = document.querySelector('.menu li.dropdown');
-    if (productsMenu) {
-        console.log('Simulating dropdown click...');
-        productsMenu.click(); // First click to show the dropdown
-        setTimeout(() => {
-            productsMenu.click(); // Second click to hide the dropdown
-            console.log('Dropdown click simulation completed');
-        }, 100); // Adjust the delay as needed
+        console.log('Trendy text is now visible on page load');
     }
 });
-    
+
+// Simulate dropdown menu click
+const productsMenu = document.querySelector('.menu li.dropdown');
+if (productsMenu) {
+    console.log('Simulating dropdown click...');
+    productsMenu.click(); // First click to show the dropdown
+    setTimeout(() => {
+        productsMenu.click(); // Second click to hide the dropdown
+        console.log('Dropdown click simulation completed');
+    }, 100); // Adjust the delay as needed
+}
+
 // Attach event listener to all menu items
 document.querySelectorAll('.menu li').forEach(item => {
-    item.addEventListener('click', hideSlideshowAndText);
+    item.addEventListener('click', (e) => {
+        const sectionId = e.target.getAttribute('onclick').match(/showSection\('(.*?)'\)/)?.[1];
+
+        if (sectionId) {
+            updateSlideshowAndTextVisibility(sectionId);
+        }
+    });
 });
     
     //---------------------------------------------------------------------------------------------

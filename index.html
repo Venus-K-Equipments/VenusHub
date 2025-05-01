@@ -928,7 +928,7 @@ input:invalid {
   
   <script>
 
-    // Function to hide slideshow and trendy text
+   // Function to hide slideshow and trendy text
 function hideSlideshowAndText() {
     const slideshow = document.getElementById('slideshow-container');
     const trendyText = document.getElementById('trendy-text');
@@ -938,11 +938,21 @@ function hideSlideshowAndText() {
     trendyText.style.display = 'none';
 }
 
+// Ensure slideshow and trendy text are visible on page load
+window.onload = function () {
+    const slideshow = document.getElementById('slideshow-container');
+    const trendyText = document.getElementById('trendy-text');
+
+    // Show the elements
+    slideshow.style.display = 'block';
+    trendyText.style.display = 'block';
+};
+
 // Attach event listener to all menu items
 document.querySelectorAll('.menu li').forEach(item => {
     item.addEventListener('click', hideSlideshowAndText);
 });
-
+    
     //---------------------------------------------------------------------------------------------
       // List of dynamic text content
   const messages = [

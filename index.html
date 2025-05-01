@@ -928,34 +928,34 @@ input:invalid {
   
   <script>
 
-   // Function to hide slideshow and trendy text
+  // Function to hide slideshow and trendy text
 function hideSlideshowAndText() {
     const slideshow = document.getElementById('slideshow-container');
     const trendyText = document.getElementById('trendy-text');
 
     // Hide the elements
-    slideshow.style.display = 'none';
-    trendyText.style.display = 'none';
+    if (slideshow) slideshow.style.display = 'none';
+    if (trendyText) trendyText.style.display = 'none';
 }
 
 // Ensure slideshow and trendy text are visible on page load
-window.onload = function () {
+window.addEventListener('load', function () {
     const slideshow = document.getElementById('slideshow-container');
     const trendyText = document.getElementById('trendy-text');
 
     // Show the elements
-    slideshow.style.display = 'block';
-    trendyText.style.display = 'block';
+    if (slideshow) slideshow.style.display = 'block';
+    if (trendyText) trendyText.style.display = 'block';
 
-const productsMenu = document.querySelector('.menu li.dropdown'); // Select the "Products" menu item
-  if (productsMenu) {
-    productsMenu.click(); // First click to show the dropdown
-    setTimeout(() => {
-      productsMenu.click(); // Second click to hide the dropdown
-    }, 100); // Adjust the delay as needed
-  }
-  
-};
+    // Simulate dropdown menu click (if needed)
+    const productsMenu = document.querySelector('.menu li.dropdown'); // Select the "Products" menu item
+    if (productsMenu) {
+        productsMenu.click(); // First click to show the dropdown
+        setTimeout(() => {
+            productsMenu.click(); // Second click to hide the dropdown
+        }, 100); // Adjust the delay as needed
+    }
+});
 
 // Attach event listener to all menu items
 document.querySelectorAll('.menu li').forEach(item => {

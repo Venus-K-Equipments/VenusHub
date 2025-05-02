@@ -742,6 +742,24 @@ input:invalid {
   </style>
 </head>
 <body>
+
+<div id="home-button-container" style="text-align: right; margin: 10px;">
+  <button id="home-button" style="
+    padding: 10px 20px;
+    background-color: #648c11;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    transition: background 0.3s ease-in-out;
+  ">
+    Home
+  </button>
+</div>
+  
   <div id="header-wrapper">
     <img id="logo" src="models/Venus Logo.png" alt="Logo">
     <div id="header-text">
@@ -928,7 +946,30 @@ input:invalid {
   
   <script>
 
-// Function to hide slideshow and trendy text
+    // Function to show slideshow and trendy text and hide all other sections
+function showHomePage() {
+    const slideshow = document.getElementById('slideshow-container');
+    const trendyText = document.getElementById('trendy-text');
+    const sections = ['about-us', 'our-services', 'our-customers', 'contact-us', 'thumbnail-container'];
+
+    // Show slideshow and trendy text
+    if (slideshow) slideshow.style.display = 'block';
+    if (trendyText) trendyText.style.display = 'block';
+
+    // Hide all other sections
+    sections.forEach(sectionId => {
+        const section = document.getElementById(sectionId);
+        if (section) section.style.display = 'none';
+    });
+
+    console.log('Home button clicked: Slideshow and trendy text shown, other sections hidden.');
+}
+
+// Attach click event listener to the "Home" button
+document.getElementById('home-button').addEventListener('click', showHomePage);
+    
+
+// Function to hide slideshow and trendy text---------------------------------------------------------------------------------------
 function hideSlideshowAndText() {
     const slideshow = document.getElementById('slideshow-container');
     const trendyText = document.getElementById('trendy-text');

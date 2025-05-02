@@ -751,9 +751,9 @@ input:invalid {
   </div>
   <h1 id="welcome-header">Welcome to our AR Catalogue</h1>
 
- <div id="header-row" style="display: flex; align-items: center; justify-content: space-between; margin-top: 20px;">
+ <div id="header-wrapper" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
   <!-- Home Button -->
-  <div id="home-button-container">
+  <div id="home-button-container" style="margin-left: 10px;">
     <button id="home-button" style="
       padding: 10px 20px;
       background-color: #648c11;
@@ -765,6 +765,7 @@ input:invalid {
       font-family: Arial, sans-serif;
       box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
       transition: background 0.3s ease-in-out;
+      margin-left: 10px;
     ">
       Home
     </button>
@@ -772,16 +773,17 @@ input:invalid {
 
   <!-- Banner -->
   <div id="ar-banner" style="
-    background-color: #648c11;
-    color: white;
-    text-align: center;
-    padding: 10px;
-    font-size: 24px;
-    font-family: Arial, sans-serif;
-    font-weight: 500;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-    margin-left: 20px;
-    flex-grow: 1; /* Makes banner take up the remaining space */
+    background-color: #648c11; /* Green background */
+    color: white; /* Text color */
+    text-align: center; /* Center the text */
+    padding: 10px; /* Padding around the text */
+    font-size: 24px; /* Font size for the banner text */
+    font-family: Arial, sans-serif; /* Font style */
+    border-radius: 5px;
+    font-weight: 500; /* Slightly bolder text */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Optional: Add shadow for better visibility */
+    flex-grow: 1; /* Fills remaining space */
+    margin-left: 1px; /* Space between the button and banner */
   ">
     AR CATALOGUE
   </div>

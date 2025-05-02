@@ -964,7 +964,7 @@ input:invalid {
   </div>
 </button>
   
-  <script> 
+  <script>
 
     // Function to show slideshow and trendy text and hide all other sections
 function showHomePage() {
@@ -1171,24 +1171,21 @@ function showThumbnails(category) {
 
       // Double-click handling logic
       let dblClickTimeout = null;
-      div.addEventListener('click', function (event) {
-  if (event.target !== tickBox) {
-    if (dblClickTimeout) {
-      clearTimeout(dblClickTimeout);
-      dblClickTimeout = null;
-
-      // Hide the thumbnail
-      div.style.visibility = 'hidden';
-
-      // Open the expanded model
-      expandModel(thumb.model);
-    } else {
-      dblClickTimeout = setTimeout(function () {
-        dblClickTimeout = null;
-      }, 300);
-    }
+      div.addEventListener('click', function(event) {
+        if (event.target !== tickBox) {
+          if (dblClickTimeout) {
+            clearTimeout(dblClickTimeout);
+            dblClickTimeout = null;
+            expandModel(thumb.model);
+          } else {
+            dblClickTimeout = setTimeout(function() {
+              dblClickTimeout = null;
+            }, 300);
+          }
+        }
+      });
+    });
   }
-});
 
   console.log("Showing thumbnails for category:", category);
 }    

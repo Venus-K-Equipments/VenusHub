@@ -751,39 +751,40 @@ input:invalid {
   </div>
   <h1 id="welcome-header">Welcome to our AR Catalogue</h1>
 
-  <div id="home-button-container" style="text-align: right; margin: 20px 10px;">
-  <button id="home-button" style="
-    padding: 5px 10px; /* Adjust padding for resizing */
-    background-color: #648c11;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 18px; /* Increase font size for larger button */
-    font-family: Arial, sans-serif;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-    transition: background 0.3s ease-in-out;
-    margin-top: 1px; /* Move button downward */
-  ">
-    Home
-  </button>
-</div>
+  <div id="header-wrapper" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+  <!-- Home Button -->
+  <div id="home-button-container" style="margin-left: 10px;">
+    <button id="home-button" style="
+      padding: 10px 20px;
+      background-color: #648c11;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      font-family: Arial, sans-serif;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+      transition: background 0.3s ease-in-out;
+    ">
+      Home
+    </button>
+  </div>
 
-  
+  <!-- Banner -->
   <div id="ar-banner" style="
-  background-color: #648c11; /* Green background */
-  color: white; /* Text color */
-  text-align: center; /* Center the text */
-  padding: 10px; /* Padding around the text */
-  font-size: 24px; /* Font size for the banner text */
-  font-family: Arial, sans-serif; /* Font style */
-  font-weight: 500; /* Make the text bold */
-  margin: 20px 0; /* Add margin above and below the banner */
-  margin-top: 1px; /* Move button downward */
-  rgin-left: 20px; /* Move button downward */
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Optional: Add shadow for better visibility */
-">
-  AR CATALOGUE
+    background-color: #648c11; /* Green background */
+    color: white; /* Text color */
+    text-align: center; /* Center the text */
+    padding: 10px; /* Padding around the text */
+    font-size: 24px; /* Font size for the banner text */
+    font-family: Arial, sans-serif; /* Font style */
+    font-weight: 500; /* Slightly bolder text */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Optional: Add shadow for better visibility */
+    flex-grow: 1; /* Fills remaining space */
+    margin-left: 20px; /* Space between the button and banner */
+  ">
+    AR CATALOGUE
+  </div>
 </div>
   
  <div class="menu">

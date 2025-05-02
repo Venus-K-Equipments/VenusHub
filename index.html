@@ -738,6 +738,28 @@ input:invalid {
 }
  
 }
+
+ /* Adding V-notch styles */
+  #ar-banner::before,
+  #ar-banner::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%); /* Center the notches vertically */
+    width: 20px; /* Width of the V-notch */
+    height: 20px; /* Height of the V-notch */
+    background-color: #C70039; /* Same red color as the banner */
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%); /* Creates the V shape */
+  }
+
+  #ar-banner::before {
+    left: -20px; /* Position the notch on the left side */
+  }
+
+  #ar-banner::after {
+    right: -20px; /* Position the notch on the right side */
+  }
+    
     /*------------------------------------------------------------------------------------------------------------------------------------------*/
   </style>
 </head>
@@ -771,9 +793,10 @@ input:invalid {
     </button>
   </div>
 
- <!-- Banner -->
-  <div id="ar-banner" style="
-    background-color: #C70039; /* Green background */
+<!-- Banner -->
+<div id="ar-banner" style="
+    position: relative; /* Required for pseudo-elements positioning */
+    background-color: #C70039; /* Red background */
     color: white; /* Text color */
     text-align: center; /* Center the text */
     padding: 5px 5px;
@@ -785,7 +808,6 @@ input:invalid {
     margin-left: 1px; /* Space between the button and banner */
   ">
     AR CATALOGUE
-  </div>
 </div>
   
  <div class="menu">

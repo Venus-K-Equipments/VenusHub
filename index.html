@@ -805,19 +805,6 @@ input:invalid {
   </ul>
 </div>
 
-  <div id="model-menu" style="padding: 10px; border: 1px solid #ccc; background: #f9f9f9; margin-bottom: 20px;">
-  <input type="text" id="model-search" placeholder="Search models..." style="width: 100%; padding: 10px; margin-bottom: 10px;" oninput="filterModels(event)" />
-  <ul id="model-list" style="list-style: none; padding: 0; max-height: 200px; overflow-y: auto; border: 1px solid #ddd;">
-    <li style="padding: 10px; cursor: pointer;" onclick="addModelToScene('models/WT.glb')">Work Table</li>
-    <li style="padding: 10px; cursor: pointer;" onclick="addModelToScene('models/Chat.glb')">Chat Counter</li>
-    <li style="padding: 10px; cursor: pointer;" onclick="addModelToScene('models/Sink.glb')">Sink</li>
-    <li style="padding: 10px; cursor: pointer;" onclick="addModelToScene('models/Rack.glb')">Rack</li>
-  </ul>
-</div>
-
-  <div id="ar-container" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; padding: 10px; border: 1px solid #ddd; background: #f0f0f0;">
-  <!-- Models will be dynamically added here -->
-</div>
 
  <div id="slideshow-container" class="slideshow-container">
    <!-- Slideshow content -->
@@ -979,41 +966,7 @@ input:invalid {
   
   <script>
 
-  // Array to keep track of added models-----------------------------------------------------------------
-  let selectedModels = [];
-
-  // Function to filter the model list based on search input
-  function filterModels(event) {
-    const query = event.target.value.toLowerCase();
-    const items = document.querySelectorAll('#model-list li');
-    items.forEach(item => {
-      const text = item.textContent.toLowerCase();
-      item.style.display = text.includes(query) ? 'block' : 'none';
-    });
-  }
-
-  // Function to add a model to the AR scene
-  function addModelToScene(modelPath) {
-    // Create a new model-viewer element
-    const modelViewer = document.createElement('model-viewer');
-    modelViewer.setAttribute('src', modelPath);
-    modelViewer.setAttribute('auto-rotate', '');
-    modelViewer.setAttribute('camera-controls', '');
-    modelViewer.setAttribute('ar', '');
-    modelViewer.setAttribute('ar-modes', 'webxr scene-viewer quick-look');
-    modelViewer.style.width = '300px';
-    modelViewer.style.height = '300px';
-    modelViewer.style.margin = '10px';
-
-    // Add the model-viewer to the AR container
-    const arContainer = document.getElementById('ar-container');
-    arContainer.appendChild(modelViewer);
-
-    // Keep track of added models
-    selectedModels.push(modelViewer);
-  }
-    
-    // Function to show slideshow and trendy text and hide all other sections--------------------------------------------
+    // Function to show slideshow and trendy text and hide all other sections
 function showHomePage() {
     const slideshow = document.getElementById('slideshow-container');
     const trendyText = document.getElementById('trendy-text');

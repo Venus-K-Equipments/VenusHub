@@ -1174,18 +1174,16 @@ function showThumbnails(category) {
 
       // Double-click handling logic
       let dblClickTimeout = null;
-    div.addEventListener('click', function(event) {
+    div.addEventListener('click', function (event) {
   if (event.target !== tickBox) {
     if (dblClickTimeout) {
       clearTimeout(dblClickTimeout);
       dblClickTimeout = null;
-
-      // Pass the clicked thumbnail element to the expandModel function
-      expandModel(thumb.model, div);
+      expandModel(thumb.model, div); // Pass the clicked thumbnail element
     } else {
-      dblClickTimeout = setTimeout(function() {
+      dblClickTimeout = setTimeout(function () {
         dblClickTimeout = null;
-      }, 300); // Timeout for distinguishing single and double clicks
+      }, 300);
     }
   }
 });

@@ -1180,14 +1180,8 @@ function showThumbnails(category) {
       clearTimeout(dblClickTimeout);
       dblClickTimeout = null;
 
-      // Hide the thumbnails container
-      const thumbnailsContainer = document.getElementById('thumbnail-container');
-      if (thumbnailsContainer) {
-        thumbnailsContainer.style.display = 'none';
-      }
-
       // Call expandModel with the thumbnail's model
-      expandModel(thumb.model);
+      expandModel(thumb.model, div); // Pass the clicked thumbnail element (div)
     } else {
       dblClickTimeout = setTimeout(function () {
         dblClickTimeout = null;
@@ -1404,8 +1398,20 @@ closeButton.style.cursor = 'pointer';
 closeButton.style.lineHeight = '15px'; // Adjust this to move the "X" up
 closeButton.style.paddingTop = '2px'; // Optionally fine-tune the padding
 closeButton.onclick = function() {
-  expandedView.remove();
-};
+
+  // Hide the thumbnail when expand view is opened
+  if (thumbnailElement) {
+    thumbnailElement.style.display = 'none';
+  }
+
+  closeButton.onclick = function () {
+    // Show the thumbnail again when expand view is closed
+    if (thumbnailElement) {
+      thumbnailElement.style.display = 'block';
+    }
+    expandedView.remove();
+  };
+
 
   let arButton = document.createElement('button');
   arButton.textContent = 'View in AR';

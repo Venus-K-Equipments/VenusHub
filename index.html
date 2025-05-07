@@ -180,7 +180,7 @@
   transform: scale(1.1); /* Added scale effect on hover */
 }
     .thumbnail::after {
-  content: 'Double click to View in AR';
+  content: 'Double click to View in 3D';
   position: absolute;
   top: 20%;
   left: 65px;
@@ -1094,6 +1094,7 @@ window.addEventListener('load', function () {
     { src: "images/Idly table.jpg", name: "Idly Table", model: "models/WT idly.glb" },
     { src: "images/KNT.JPG", name: "Kneading Table", model: "models/KNT.glb" },
     { src: "images/stool.JPG", name: "Idly Stool", model: "models/stool.glb" },
+    { src: "images/WTOHS.JPG", name: "Over head shelf", model: "models/WTOHS.glb" },
   ],
   Counter: [
     { src: "models/chat.jpg", name: "Chat Counter", model: "models/Chat.glb" },
@@ -1173,19 +1174,27 @@ function showThumbnails(category) {
 
       // Double-click handling logic
       let dblClickTimeout = null;
-      div.addEventListener('click', function(event) {
-        if (event.target !== tickBox) {
-          if (dblClickTimeout) {                    
-            clearTimeout(dblClickTimeout);
-            dblClickTimeout = null;
-            expandModel(thumb.model);
-          } else {
-            dblClickTimeout = setTimeout(function() {
-              dblClickTimeout = null;
-            }, 300);
-          }
-        }
-      });
+     div.addEventListener('click', function (event) {
+  if (event.target !== tickBox) { // Ensures the click is not on the tick box
+    if (dblClickTimeout) {                    
+      clearTimeout(dblClickTimeout);
+      dblClickTimeout = null;
+
+      // Hide the thumbnails container
+      const thumbnailsContainer = document.getElementById('thumbnail-container');
+      if (thumbnailsContainer) {
+        thumbnailsContainer.style.display = 'none';
+      }
+
+      // Call expandModel with the thumbnail's model
+      expandModel(thumb.model);
+    } else {
+      dblClickTimeout = setTimeout(function () {
+        dblClickTimeout = null;
+      }, 300); // Timeout for distinguishing single and double clicks
+    }
+  }
+});
     });
   }
 
